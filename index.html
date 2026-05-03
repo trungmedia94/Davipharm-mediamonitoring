@@ -162,21 +162,39 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 .action-table td{word-break:break-word;min-width:120px;}
 .action-table td{word-break:break-word;min-width:120px;}
         
-        /* UI Polish & Nuclear Fix - v2 */
-        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; text-align: left; }
-        .card { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 24px; display: block !important; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .card-title { font-size: 15px; font-weight: 700; line-height: 1.4; margin: 12px 0; color: #1e293b; display: block; }
-        .card-body { font-size: 13.5px; line-height: 1.6; color: #475569; display: block !important; text-align: left !important; margin-bottom: 16px; }
-        .card-body strong { font-weight: 700; color: #1e293b; display: inline; } /* Đảm bảo không bị nhảy dòng */
-        .sentiment { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 4px; font-size: 11px; margin: 8px 0; font-weight: 600; }
-        .card-impact { background: #f8fafc; border-left: 4px solid var(--primary); padding: 16px; border-radius: 4px; margin-top: 16px; display: block !important; }
-        .card-impact strong { display: block; color: var(--primary); margin-bottom: 6px; font-size: 13px; font-weight: 700; }
-        .card-impact p { margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; }
         
-        .action-table { table-layout: fixed; width: 100%; border-collapse: collapse; }
-        .action-table th, .action-table td { padding: 16px; text-align: left !important; vertical-align: top; border-bottom: 1px solid #f1f5f9; }
-        .action-table th:nth-child(1) { width: 35%; }
-        .action-table th:nth-child(2) { width: 15%; }
+        /* UI Polish & Responsive Fix - v3 */
+        body { overflow-x: hidden; width: 100vw; margin: 0; padding: 0; }
+        .container { max-width: 100%; overflow-x: hidden; padding: 0 15px; }
+        
+        /* Responsive Grids */
+        .card-grid, .product-grid, .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 20px; 
+        }
+        
+        @media(min-width: 901px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+            .product-grid { grid-template-columns: repeat(4, 1fr); }
+            .dashboard-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+        .card { 
+            background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; 
+            padding: 20px; display: block !important; height: auto; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+            word-wrap: break-word; overflow-wrap: break-word;
+        }
+        
+        .card-body { text-align: left !important; display: block !important; line-height: 1.6; margin-bottom: 15px; }
+        .card-body a { word-break: break-all; } /* Tránh URL dài kéo ngang */
+        
+        .action-table { table-layout: fixed; width: 100%; min-width: 600px; }
+        .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .action-table th, .action-table td { padding: 12px; vertical-align: top; word-wrap: break-word; }
+        
+        .flash-bar { width: 100%; overflow: hidden; }
         </style>
 </head>
 <body class="lang-vi">
@@ -716,7 +734,7 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 <div><div class="section-label">Action Items</div><div class="section-title vi-text">Khuyến Nghị Hành Động Tuần Này</div><div class="section-title en-text">Recommended Actions This Week</div></div>
 </div>
 <div style="background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);">
-<table class="action-table">
+<div class="table-container"><table class="action-table">
 <thead>
 <tr>
 <th><span class="vi-text">Hành động</span><span class="en-text">Action</span></th>
@@ -769,7 +787,7 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 <td><span class="urgency urg-low">🟢 <span class="vi-text">30/06</span><span class="en-text">30/06</span></span></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 </div>
 </div>
 </div><!-- /container -->
