@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Davipharm — Market Intelligence Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --primary:#003B71;--primary-light:#0056a4;--primary-dim:rgba(0,59,113,0.06);
+  --teal:#0d9488;--red:#be123c;--amber:#d97706;--green:#15803d;
+  --bg:#f8fafc;--card:#ffffff;--text:#0f172a;--muted:#64748b;
+  --border:rgba(0,59,113,0.12);--shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 12px rgba(0,0,0,0.04);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+body{background:var(--bg);color:var(--text);font-family:'Roboto',sans-serif;font-size:14px;line-height:1.5;padding-bottom:56px;}
+
+/* LANG BAR */
+.lang-bar{background:#fff;border-bottom:1px solid var(--border);padding:7px 48px;display:flex;justify-content:flex-end;align-items:center;gap:10px;}
+.lang-note{font-size:11px;color:var(--muted);font-family:'Roboto Mono',monospace;}
+.lang-toggle{display:flex;background:#f8f9fc;border:1px solid var(--border);border-radius:5px;overflow:hidden;}
+.lang-btn{padding:4px 14px;font-size:11px;letter-spacing:.06em;font-family:'Roboto Mono',monospace;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s;}
+.lang-btn.active{background:var(--primary-dim);color:var(--primary-light);font-weight:700;}
+
+/* HEADER */
+.header{background:#fff;border-bottom:1px solid var(--border);padding:28px 48px 24px;}
+.header-top{display:flex;justify-content:space-between;align-items:center;}
+/* Logo SVG area */
+.brand-logo-area{display:flex;align-items:center;}
+.brand-logo-area img{height:52px;width:auto;object-fit:contain;}
+/* Word btn in header */
+.word-btn{background:var(--primary);color:#fff;border:none;padding:8px 18px;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Roboto',sans-serif;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap;}
+.word-btn:hover{background:var(--primary-light);box-shadow:0 2px 8px rgba(0,59,113,.25);}
+.report-title{margin-top:20px;}
+.report-title h1{font-size:28px;font-weight:700;color:var(--text);line-height:1.2;}
+.report-title h1 span{color:var(--primary);}
+.report-subtitle{font-size:13px;color:var(--muted);margin-top:6px;max-width:560px;font-weight:300;}
+
+/* FLASH TICKER */
+.flash-bar{position:fixed;bottom:0;left:0;width:100%;background:#fef2f2;border-top:2px solid #fca5a5;padding:10px 48px;display:flex;align-items:center;gap:18px;z-index:9999;box-shadow:0 -4px 12px rgba(220,38,38,.08);}
+.flash-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-family:'Roboto Mono',monospace;white-space:nowrap;display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.flash-dot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:blink 1.4s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.flash-ticker{overflow:hidden;flex:1;-webkit-mask-image:linear-gradient(to right,transparent,black 2%,black 98%,transparent);mask-image:linear-gradient(to right,transparent,black 2%,black 98%,transparent);}
+.flash-items{display:inline-flex;font-size:12.5px;color:#991b1b;white-space:nowrap;animation:ticker 35s linear infinite;}
+.flash-items:hover{animation-play-state:paused;}
+.flash-set{display:inline-flex;gap:40px;padding-right:40px;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.flash-item strong{color:#dc2626;margin-right:4px;}
+.flash-num{font-family:'Roboto Mono',monospace;font-weight:700;color:#fca5a5;margin-right:4px;}
+
+/* CONTAINER */
+.container{max-width:1260px;margin:0 auto;padding:36px 48px 80px;}
+.section{margin-bottom:44px;animation:fadeUp .45s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.section:nth-child(1){animation-delay:.04s}.section:nth-child(2){animation-delay:.08s}.section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}.section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}.section:nth-child(7){animation-delay:.28s}
+
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.section-icon{width:34px;height:34px;background:var(--primary-dim);border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.section-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--primary);font-family:'Roboto Mono',monospace;margin-bottom:1px;font-weight:700;}
+.section-title{font-size:19px;font-weight:700;color:var(--text);}
+.section-count{margin-left:auto;background:var(--primary-dim);border:1px solid var(--border);color:var(--primary);font-size:11px;padding:2px 10px;border-radius:20px;font-family:'Roboto Mono',monospace;white-space:nowrap;}
+
+/* DASHBOARD */
+.dashboard-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+.kpi-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;transition:all .2s;box-shadow:var(--shadow);text-decoration:none;display:flex;flex-direction:column;align-items:center;}
+.kpi-card:hover{border-color:var(--primary);transform:translateY(-2px);}
+.kpi-number{font-size:32px;font-weight:700;line-height:1;margin-bottom:5px;}
+.kpi-label{font-size:11px;color:var(--muted);line-height:1.3;}
+.kpi-priority{display:inline-block;margin-top:7px;font-size:10px;padding:2px 8px;border-radius:3px;font-family:'Roboto Mono',monospace;}
+.pri-high{background:#fee2e2;color:#991b1b;}.pri-mid{background:#fef3c7;color:#92400e;}.pri-low{background:#dcfce7;color:#166534;}
+
+/* CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.card-grid.triple{grid-template-columns:repeat(3,1fr);}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;transition:all .2s;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:9px;}
+.card:hover{transform:translateY(-2px);border-color:var(--primary);box-shadow:0 8px 20px rgba(0,0,0,.06);}
+.card-tag{font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-family:'Roboto Mono',monospace;padding:2px 7px;border-radius:3px;align-self:flex-start;}
+.tag-policy{background:#e0e7ff;color:#3730a3;}.tag-competitor{background:#fee2e2;color:#991b1b;}
+.tag-science{background:#dcfce7;color:#166534;}.tag-market{background:#fef3c7;color:#92400e;}
+.tag-global{background:#f3e8ff;color:#6b21a8;}.tag-regulatory{background:#ccfbf1;color:#115e59;}
+.tag-domestic{background:#fef9c3;color:#854d0e;}.tag-channel{background:#fce7f3;color:#9d174d;}
+.card-title{font-size:13px;font-weight:700;color:var(--text);line-height:1.4;}
+/* Source: single line, label + link */
+.card-source-row{display:flex;flex-direction:column;gap:3px;}
+.card-source{font-size:11px;color:var(--muted);font-family:'Roboto Mono',monospace;}
+.card-source-link{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--primary);font-family:'Roboto Mono',monospace;text-decoration:none;padding:2px 6px;background:var(--primary-dim);border-radius:3px;border:1px solid var(--border);transition:all .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
+.card-source-link:hover{background:var(--primary);color:#fff;}
+.src-links-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;}
+.card-body{font-size:12.5px;color:#334155;line-height:1.6;}
+.card-impact{background:#f8fafc;border-left:2px solid var(--primary);padding:8px 12px;font-size:12px;color:#1e3a5f;line-height:1.5;border-radius:0 5px 5px 0;}
+.card-impact strong{color:var(--primary-light);}
+.card-action{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--teal);}
+.card-action::before{content:'→';flex-shrink:0;}
+.sentiment{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:'Roboto Mono',monospace;padding:2px 7px;border-radius:3px;align-self:flex-start;}
+.sent-pos{background:#dcfce7;color:#166534;}.sent-neu{background:#f1f5f9;color:#475569;}.sent-neg{background:#fee2e2;color:#991b1b;}
+.sent-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.product-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;position:relative;overflow:hidden;box-shadow:var(--shadow);}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.pc-blue::before{background:linear-gradient(90deg,#3b82f6,#6366f1);}
+.pc-teal::before{background:linear-gradient(90deg,#0d9488,#14b8a6);}
+.pc-amber::before{background:linear-gradient(90deg,#d97706,#f97316);}
+.product-name{font-family:'Roboto Mono',monospace;font-size:13px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.product-indication{font-size:11px;color:var(--muted);margin-bottom:10px;}
+.product-status{display:flex;flex-direction:column;gap:6px;}
+.status-row{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;padding:3px 0;border-bottom:1px dashed #f1f5f9;}
+.status-key{color:var(--muted);}
+.status-val{font-weight:600;font-size:11px;font-family:'Roboto Mono',monospace;text-align:right;}
+.status-val.highlight{color:var(--primary);}.status-val.warn{color:#b45309;}.status-val.danger{color:#b91c1c;}.status-val.good{color:#15803d;}
+.product-alert{margin-top:10px;padding:7px 10px;border-radius:5px;font-size:11px;line-height:1.4;font-weight:500;}
+.alert-warn{background:#fffbeb;color:#92400e;border:1px solid #fef3c7;}
+.alert-good{background:#f0fdf4;color:#166534;border:1px solid #dcfce7;}
+.alert-info{background:#eff6ff;color:#1e40af;border:1px solid #dbeafe;}
+.alert-danger{background:#fff1f2;color:#9f1239;border:1px solid #fecdd3;}
+
+/* MENTION */
+.mention-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;}
+.mention-zero{display:flex;align-items:center;gap:14px;padding:16px;background:#f8fafc;border-radius:7px;border:1px dashed #cbd5e1;}
+.zero-icon{font-size:24px;opacity:.4;}
+.zero-text{font-size:13px;color:var(--muted);}
+.zero-text strong{color:var(--text);display:block;margin-bottom:2px;}
+
+/* ACTION TABLE */
+.action-table{width:100%;border-collapse:collapse;font-size:13px;}
+.action-table thead tr{background:#f8fafc;border-bottom:1px solid var(--border);}
+.action-table th{padding:11px 14px;text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);font-family:'Roboto Mono',monospace;font-weight:700;}
+.action-table tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
+.action-table tbody tr:hover{background:#f8fafc;}
+.action-table td{padding:11px 14px;color:#475569;vertical-align:middle;}
+.action-table td:first-child{color:var(--text);font-weight:500;}
+.src-table-link{font-size:11px;color:var(--primary);text-decoration:none;font-family:'Roboto Mono',monospace;padding:2px 6px;background:var(--primary-dim);border-radius:3px;border:1px solid var(--border);white-space:nowrap;display:inline-block;}
+.src-table-link:hover{background:var(--primary);color:#fff;}
+.team-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:3px;font-family:'Roboto Mono',monospace;}
+.team-reg{background:#e0e7ff;color:#3730a3;}.team-med{background:#dcfce7;color:#166534;}
+.team-mkt{background:#ccfbf1;color:#115e59;}.team-sales{background:#fef3c7;color:#92400e;}
+.urgency{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-family:'Roboto Mono',monospace;}
+.urg-high{color:#b91c1c;}.urg-mid{color:#b45309;}.urg-low{color:#15803d;}
+
+/* FOOTER */
+.footer{background:#fff;border-top:1px solid var(--border);padding:20px 48px;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:52px;}
+.footer-right{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--muted);text-align:right;white-space:nowrap;}
+.disclaimer{font-size:11px;color:var(--muted);max-width:680px;line-height:1.6;background:#fffbeb;border:1px solid #fef3c7;border-radius:5px;padding:10px 13px;margin-top:5px;}
+.disclaimer strong{color:#b45309;}
+
+/* LANG */
+.vi-text,.en-text{display:none;}
+body.lang-vi .vi-text{display:inherit;}body.lang-en .en-text{display:inherit;}
+body.lang-vi .vi-block{display:block;}body.lang-en .vi-block{display:none;}
+body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .lang-bar,.header,.flash-bar,.container,.footer{padding-left:20px;padding-right:20px;}
+  .card-grid,.card-grid.triple,.product-grid,.dashboard-grid{grid-template-columns:1fr!important;}
+}
+@media print{.lang-bar,.flash-bar,.word-btn{display:none!important;}body{padding-bottom:0;}}
+</style>
+</head>
+<body class="lang-vi">
+<!-- LANG BAR -->
+<div class="lang-bar">
+<span class="lang-note"><span class="vi-text">Ngôn ngữ:</span><span class="en-text">Language:</span></span>
+<div class="lang-toggle">
+<button class="lang-btn active" onclick="setLang('vi')">🇻🇳 Tiếng Việt</button>
+<button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
+</div>
+</div>
+<!-- HEADER -->
+<div class="header">
+<div class="header-top">
+<div class="brand-logo-area">
+<img alt="Davipharm Logo" id="davi-logo" src="logo.png" style="height:56px;width:auto;object-fit:contain;"/>
+</div>
+<button class="word-btn" onclick="downloadWord()">
+<span class="vi-text">⬇ Tải về Word</span><span class="en-text">⬇ Download Word</span>
+</button>
+</div>
+<div class="report-title">
+<h1 class="vi-text">Báo Cáo <span>Thị Trường</span> — Tuần 18/2026</h1>
+<h1 class="en-text">Market <span>Intelligence</span> Report — Week 18/2026</h1>
+<div class="report-subtitle vi-text">Tổng hợp 7 ngày (25/04–02/05): chính sách pháp lý, tin ngành dược trong nước &amp; quốc tế, hoạt động đối thủ và theo dõi danh mục sản phẩm Davipharm.</div>
+<div class="report-subtitle en-text">7-day consolidation (25/04–02/05): regulatory updates, domestic &amp; global pharma news, competitor activities and Davipharm portfolio tracking.</div>
+</div>
+</div>
+<!-- FLASH TICKER -->
+<div class="flash-bar">
+<div class="flash-label"><span class="flash-dot"></span><span class="vi-text">Khẩn</span><span class="en-text">Alerts</span></div>
+<div class="flash-ticker">
+<div class="flash-items">
+<div class="flash-set">
+<span class="flash-item"><span class="flash-num">01.</span><strong>QĐ 257/QĐ-QLD</strong><span class="vi-text"> — Danh mục đấu thầu Đợt 1/2026 · 24/04</span><span class="en-text"> — Tender list Batch 1/2026 · 24/04</span></span>
+<span class="flash-item"><span class="flash-num">02.</span><strong>Imexpharm+Livzon</strong><span class="vi-text"> — Tập đoàn TQ kiểm soát 65% IMP · thị trường tim mạch/ĐTĐ bị ảnh hưởng</span><span class="en-text"> — Chinese group controls 65% IMP · cardio/diabetes market impacted</span></span>
+<span class="flash-item"><span class="flash-num">03.</span><strong>Long Châu</strong><span class="vi-text"> — 2.517 nhà thuốc · mở thêm 450 điểm · 30+ thuốc mới 2026</span><span class="en-text"> — 2,517 pharmacies · +450 new points · 30+ new drugs 2026</span></span>
+<span class="flash-item"><span class="flash-num">04.</span><strong>BI Jardiance</strong><span class="vi-text"> — Đang push chỉ định suy tim tại SEA · Davipharm cần phản ứng ngay</span><span class="en-text"> — Pushing HF indication in SEA · Davipharm must act now</span></span>
+</div>
+<div aria-hidden="true" class="flash-set">
+<span class="flash-item"><span class="flash-num">01.</span><strong>QĐ 257/QĐ-QLD</strong><span class="vi-text"> — Danh mục đấu thầu Đợt 1/2026 · 24/04</span><span class="en-text"> — Tender list Batch 1/2026 · 24/04</span></span>
+<span class="flash-item"><span class="flash-num">02.</span><strong>Imexpharm+Livzon</strong><span class="vi-text"> — Tập đoàn TQ kiểm soát 65% IMP · thị trường tim mạch/ĐTĐ bị ảnh hưởng</span><span class="en-text"> — Chinese group controls 65% IMP · cardio/diabetes market impacted</span></span>
+<span class="flash-item"><span class="flash-num">03.</span><strong>Long Châu</strong><span class="vi-text"> — 2.517 nhà thuốc · mở thêm 450 điểm · 30+ thuốc mới 2026</span><span class="en-text"> — 2,517 pharmacies · +450 new points · 30+ new drugs 2026</span></span>
+<span class="flash-item"><span class="flash-num">04.</span><strong>BI Jardiance</strong><span class="vi-text"> — Đang push chỉ định suy tim tại SEA · Davipharm cần phản ứng ngay</span><span class="en-text"> — Pushing HF indication in SEA · Davipharm must act now</span></span>
+</div>
+</div>
+</div>
+</div>
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div class="container">
+<!-- I. DASHBOARD -->
+<div class="section" id="overview">
+<div class="section-header">
+<div class="section-icon">📊</div>
+<div>
+<div class="section-label vi-text">Tổng quan tuần</div><div class="section-label en-text">Weekly overview</div>
+<div class="section-title vi-text">Dashboard — Tuần 18/2026</div><div class="section-title en-text">Weekly Summary Dashboard</div>
+</div>
+</div>
+<div class="dashboard-grid">
+<a class="kpi-card" href="#reg-policy"><div class="kpi-number" style="color:#0d9488">04</div><div class="kpi-label vi-text">Chính sách &amp; Pháp lý VN</div><div class="kpi-label en-text">Regulatory &amp; Policy VN</div><div class="kpi-priority pri-high">Critical</div></a>
+<a class="kpi-card" href="#market-intel"><div class="kpi-number" style="color:#d97706">08</div><div class="kpi-label vi-text">Tin ngành · trong &amp; ngoài nước</div><div class="kpi-label en-text">Domestic + Global News</div><div class="kpi-priority pri-mid">Monitor</div></a>
+<a class="kpi-card" href="#competitors"><div class="kpi-number" style="color:#be123c">05</div><div class="kpi-label vi-text">Tín hiệu đối thủ</div><div class="kpi-label en-text">Competitor Signals</div><div class="kpi-priority pri-high">🔴 Alert</div></a>
+<a class="kpi-card" href="#dav-portfolio"><div class="kpi-number" style="color:#003B71">04</div><div class="kpi-label vi-text">Sản phẩm theo dõi</div><div class="kpi-label en-text">Portfolio Tracking</div><div class="kpi-priority pri-low">On Track</div></a>
+<a class="kpi-card" href="#action-items"><div class="kpi-number" style="color:#0f172a">07</div><div class="kpi-label vi-text">Khuyến nghị hành động</div><div class="kpi-label en-text">Strategic Actions</div><div class="kpi-priority pri-high">Pending</div></a>
+</div>
+</div>
+<!-- II. BRAND MENTIONS -->
+<div class="section" id="brand-mentions">
+<div class="section-header">
+<div class="section-icon">🔍</div>
+<div><div class="section-label">Brand Monitor</div><div class="section-title vi-text">Nhắc Đến Thương Hiệu (7 ngày)</div><div class="section-title en-text">Brand Mentions (7 days)</div></div>
+<span class="section-count">0 mentions</span>
+</div>
+<div class="mention-box">
+<div class="mention-zero">
+<div class="zero-icon">○</div>
+<div class="zero-text">
+<strong class="vi-text">Không phát hiện nhắc đến Davipharm hoặc Adamed trong 7 ngày qua</strong>
+<strong class="en-text">No mentions of Davipharm or Adamed detected in the past 7 days</strong>
+<span class="vi-text">Không có bài báo, mạng xã hội hoặc tài liệu công khai đề cập đến Davipharm, Adamed hoặc sản phẩm branded từ 25/04 đến 02/05/2026. Trạng thái bình thường — không có khủng hoảng truyền thông.</span>
+<span class="en-text">No articles, social media posts, or public documents mentioning Davipharm, Adamed or branded products found 25/04–02/05/2026. Normal status — no media crisis.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- III. POLICY VN -->
+<div class="section" id="reg-policy">
+<div class="section-header">
+<div class="section-icon">📋</div>
+<div><div class="section-label">Regulatory · Vietnam</div><div class="section-title vi-text">Chính Sách &amp; Pháp Lý Việt Nam</div><div class="section-title en-text">Vietnam Regulatory &amp; Policy</div></div>
+<span class="section-count">4 updates</span>
+</div>
+<div class="card-grid"><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Cạnh tranh</span>
+<span class="card-tag tag-policy en-text">Competition</span>
+<div class="card-title vi-text">Chuỗi nhà thuốc Long Châu đạt doanh thu hơn 10.000 tỷ đồng trong Q1/2025</div>
+<div class="card-title en-text">Long Châu Pharmacy Chain Surpasses 10,000 Billion VND Revenue in Q1/2025</div>
+</div>
+<div class="card-body vi-text">Chuỗi nhà thuốc Long Châu (FPT Retail) ghi nhận doanh thu vượt 10.000 tỷ đồng chỉ trong 3 tháng đầu năm 2025, tiếp tục khẳng định vị thế dẫn đầu thị trường bán lẻ dược phẩm tại Việt Nam. Đây là minh chứng cho sự tăng trưởng mạnh mẽ của kênh nhà thuốc chuỗi (ETC/OTC) trong bối cảnh người tiêu dùng ngày càng ưu tiên các điểm mua thuốc uy tín, có hệ thống. <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxPdFVhRlc2TWp4SG1lVXB4VUducDBNdFNFbFViVG1rOGwwbDR6dmV1VVpIUlZXS09WeVFQYThYNWFNOU0yVEtQU2VDNDNPVWp2dXVMZHQ3OUhJUjlzaXBCcWg2WUIwYWNIbmQxSmo5eDlWVXYtcU9UTDNmWnYzZjZvV29zendGN0VrSElLNGpXWHhIWmVsdFZjUDVkYXpQZlFYcnRuRktheTBhRVZ4dkJQcVVsUmFqY2JEalE?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">Long Châu pharmacy chain (FPT Retail) recorded over 10,000 billion VND in revenue in Q1/2025, reinforcing its leading position in Vietnam's retail pharmaceutical market. This reflects the rapid growth of chain pharmacy channels as consumers increasingly prefer organized, reputable drug retail outlets. <a href="https://news.google.com/rss/articles/CBMiugFBVV95cUxPdFVhRlc2TWp4SG1lVXB4VUducDBNdFNFbFViVG1rOGwwbDR6dmV1VVpIUlZXS09WeVFQYThYNWFNOU0yVEtQU2VDNDNPVWp2dXVMZHQ3OUhJUjlzaXBCcWg2WUIwYWNIbmQxSmo5eDlWVXYtcU9UTDNmWnYzZjZvV29zendGN0VrSElLNGpXWHhIWmVsdFZjUDVkYXpQZlFYcnRuRktheTBhRVZ4dkJQcVVsUmFqY2JEalE?oc=5" target="_blank">[Source]</a></div>
+    &lt;div class="sentiment</div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chuỗi nhà thuốc</span>
+<span class="card-tag tag-policy en-text">Pharmacy Chain</span>
+<div class="card-title vi-text">Long Châu tiếp tục tăng trưởng mạnh, là động lực lợi nhuận chính của FPT Retail</div>
+<div class="card-title en-text">Long Châu Continues Strong Growth as FPT Retail's Key Profit Driver</div>
+</div>
+<div class="card-body vi-text">Chuỗi nhà thuốc Long Châu tiếp tục ghi nhận tăng trưởng doanh thu và lợi nhuận ấn tượng, trở thành "gà đẻ trứng vàng" cho công ty mẹ FPT Retail. Sự mở rộng quy mô và độ phủ của Long Châu ngày càng củng cố vị thế dẫn đầu trong phân khúc bán lẻ dược phẩm tại Việt Nam. <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxNMFMxYWNyNmQwMjFVS3NseWVydnRoeW5JU1FBOHRxM2xQaDFDZWpxMjNzNUFoX2Y2OHAzM3QxUTBaWUlTdURJQzI3MXV4NXozTmY4REM4aFVWMzhad21XaDdvajNtMGZyemNsNmw0bGt3Mm1Qd2pmM0dzWXVzaTFGY0d5ZUhuaTNDd2xWUzlNdTVmMVU2cWpwd2NYR2pqdnhF?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">Long Châu pharmacy chain continues to record impressive revenue and profit growth, becoming the key profit engine for its parent company FPT Retail. Its rapid expansion reinforces its leading position in Vietnam's retail pharmaceutical segment. <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxNMFMxYWNyNmQwMjFVS3NseWVydnRoeW5JU1FBOHRxM2xQaDFDZWpxMjNzNUFoX2Y2OHAzM3QxUTBaWUlTdURJQzI3MXV4NXozTmY4REM4aFVWMzhad21XaDdvajNtMGZyemNsNmw0bGt3Mm1Qd2pmM0dzWXVzaTFGY0d5ZUhuaTNDd2xWUzlNdTVmMVU2cWpwd2NYR2pqdnhF?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-negative vi-text"><span class="sent-dot"></span>Tiêu cực</div>
+<div class="sentiment sent-negative en-text"><span class="sent-dot"></span>Negative</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Sự tăng trưởng liên tục của Long Châu đồng nghĩa với việc chuỗi này ngày càng có sức mặc cả lớn hơn với các nhà cung cấp dược phẩ</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách &amp; Pháp lý</span>
+<span class="card-tag tag-policy en-text">Policy &amp; Regulatory</span>
+<div class="card-title vi-text">Bộ Y tế thu hồi giấy đăng ký lưu hành 3 loại thuốc, trong đó có Tadalafil</div>
+<div class="card-title en-text">Ministry of Health Revokes Marketing Authorization for 3 Drugs, Including Tadalafil</div>
+</div>
+<div class="card-body vi-text">Bộ Y tế ban hành quyết định thu hồi giấy đăng ký lưu hành đối với 3 loại thuốc gồm thuốc giảm đau, thuốc trị rối loạn cương dương (Tadalafil) và thuốc điều trị béo phì. Việc thu hồi có thể xuất phát từ các lý do liên quan đến chất lượng, hồ sơ đăng ký hoặc vi phạm quy định lưu hành. Các sản phẩm này sẽ không còn được phép lưu hành trên thị trường Việt Nam. <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcF9yUlYzOHdlT1R6TlJaLVdZLXlpUDYzNzJOTk1wZXlxQXoycWNtODN3NFZQV2NfQWJDbGRXZVdQeVVNWTNKTndHY1ZVcDk0TFBzZ3dKMlREclBGR0xuZklWNElnVVRzcm5IRmZSZzdSdFE2LWQ1S1cwdmRSLVhpcUlwNDZvR09wUnNWZnBZRHI3X2NvSDd2OTlGS20yQThDYmdRd0VKdTdFY1hNdTZhR2VJVjdMVDN6UGtQZE56cHg0aHc?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Ministry of Health issued a decision to revoke the marketing authorization for 3 drugs, including a painkiller, a drug for erectile dysfunction (Tadalafil), and an anti-obesity drug. The revocation may be due to quality issues, registration dossier violations, or non-compliance with circulation regulations. These products will no longer be permitted on the Vietnamese market. &lt;a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcF9yUlYzOHdlT1R6TlJaLVdZLXlpUDYzNzJOTk1wZXlxQXoycWNtODN3NFZQV2NfQWJDbGRXZVdQeVVNWTNKTndHY1ZVcDk0TFBzZ3dKMlREclBGR0xuZklWNElnVVRzcm5IRmZSZzdSdFE2LWQ1S1cwdmRSLVhpcUlwNDZvR09wUnNWZnBZRHI3X2NvSDd2OTlGS20yQThDYmdRd0VKdTdFY1hNdTZhR2VJVjdMVDN6UGtQZE56cHg0a</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách &amp; Đấu thầu</span>
+<span class="card-tag tag-policy en-text">Policy &amp; Tendering</span>
+<div class="card-title vi-text">Giải pháp khắc phục thiếu thuốc và lạm dụng thuốc tại Việt Nam</div>
+<div class="card-title en-text">Solutions to Address Drug Shortages and Drug Misuse in Vietnam</div>
+</div>
+<div class="card-body vi-text">Bài báo trên Dân trí đề cập đến thực trạng thiếu thuốc tại các cơ sở y tế công lập và tình trạng lạm dụng thuốc trong kê đơn, đồng thời đề xuất các giải pháp cải thiện cơ chế đấu thầu thuốc, tăng cường quản lý chuỗi cung ứng và siết chặt kiểm soát kê đơn. Các cơ quan quản lý được kêu gọi đẩy nhanh quy trình phê duyệt và đơn giản hóa thủ tục đấu thầu nhằm đảm bảo nguồn cung thuốc liên tục cho bệnh nhân. Đây là vấn đề mang tính hệ thống, ảnh hưởng trực tiếp đến khả năng tiếp cận thuốc của người dân và hoạt động cung ứng của các doanh nghiệp dược nội địa. <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNaXhjXzVhdm9VVG5Id3hocjRoancxVU5tR3ZKdmxWT19PLXR6RFI3RW85bi04R205ZDJsbGdpeWhRcmlxcU5GdFBIc1BGNFlKM29ieVdBMEhYYm1HR3E0V2NSb1I3SHNZLW1Bc1ZnVkQ2cUF5VEx6QzVvVEdWOHU0eXVuaXpJWTVGdXFSb3Y1ZFN6d09SaUUyRWZoZC1GcFR4NjJMMDhsbHZRY242UmZQdktLVQ?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">An article on Dân trí highlights the persistent drug shortage at public healthcare facilities and the misuse of prescription drugs, proposing improvements to the tendering mechanism, supply chain management, and prescription controls. Regulatory bodies are urged to accelerate approval processes and simplify procurement procedures to ensure continuous drug supply for patients. This systemic issue directly impacts public access to medicines and the supply operations of domestic pharmaceutical companies. &lt;a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNaXhjXzVhdm9VVG5Id3hocjRoancxVU5tR3ZKdmxWT19PLXR6RFI3RW85bi04R205ZDJsbGdpeWhRcmlxcU5GdFBIc1BGNFlKM29ieVdBMEhYYm1HR3E0V2NSb1I3SHNZLW1Bc1ZnVkQ2cUF5VEx6QzVvVEdWOHU0eXVuaXpJWTVGdXFSb3Y1ZFN6d09S</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Cảnh báo / Pháp lý</span>
+<span class="card-tag tag-policy en-text">Alert / Regulatory</span>
+<div class="card-title vi-text">Thu hồi sản phẩm chocolate tăng cường sinh lý nam chứa Tadalafil – chất cấm trong thực phẩm</div>
+<div class="card-title en-text">Recall of Male Enhancement Chocolate Containing Tadalafil – Banned Substance in Food Products</div>
+</div>
+<div class="card-body vi-text">Cơ quan chức năng Việt Nam đã ra quyết định thu hồi sản phẩm chocolate được quảng cáo có tác dụng tăng cường sinh lý nam giới do phát hiện chứa Tadalafil – một hoạt chất thuộc nhóm ức chế PDE5, chỉ được phép lưu hành dưới dạng thuốc kê đơn. Việc đưa Tadalafil vào thực phẩm chức năng/thực phẩm thông thường là vi phạm nghiêm trọng quy định an toàn thực phẩm và dược phẩm. Đây là một trong những vụ việc điển hình phản ánh tình trạng lạm dụng hoạt chất dược lý trong sản phẩm không được kiểm soát chặt chẽ. <a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxPVHBJV3dCUzFlVkVpMGw3VE9RUXBLV1owRWc2bndyaWFidmwweHVRU0lMTW01WkdLbXVzdmxfYWhvXzRDUmR5Q29fZmFSRHZhem5TZzFDTVVsd3ctcElYOG4wakdVckNfNWVtaEgzZFlmM0hMTHRzQkVhRHR6REl1OXhrcHlOYjZzRHI0TndaLW52TkE?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">Vietnamese authorities have ordered the recall of a chocolate product marketed for male sexual enhancement after it was found to contain Tadalafil – a PDE5 inhibitor active ingredient that is only permitted as a prescription drug. Incorporating Tadalafil into food or functional food products constitutes a serious violation of food safety and pharmaceutical regulations. This case highlights the ongoing issue of undisclosed pharmaceutical substances being added to unregulated consumer products. <a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxPVHBJV3dCUzFlVkVpMGw3VE9RUXBLV1owRWc2bndyaWFidmwweHVRU0lMTW01WkdLbXVzdmxfYWhvXzRDUmR5Q29fZmFSRHZhem5TZzFDTVVsd3ctcElYOG4wakdVckNfNWVtaEgzZFlmM0hMTHRzQkVhRHR6REl1OXhrcHlOYjZzRHI0TndaLW52TkE?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-positive vi-text"><span class="sent-dot"></span>Tích cực</div>
+    &lt;div class="sentiment sent-</div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Sản phẩm &amp; Lâm sàng</span>
+<span class="card-tag tag-policy en-text">Product &amp; Clinical</span>
+<div class="card-title vi-text">Hành trình 10 năm Empagliflozin: Từ kiểm soát đường huyết đến bảo vệ tim &amp; thận</div>
+<div class="card-title en-text">10 Years of Empagliflozin: From Glycemic Control to Cardio-Renal Protection</div>
+</div>
+<div class="card-body vi-text">Bài viết trên VnExpress nhìn lại hành trình 10 năm của Empagliflozin (nhóm SGLT-2 inhibitor) — từ chỉ định ban đầu là kiểm soát đường huyết type 2 đến các bằng chứng lâm sàng mạnh mẽ về bảo vệ tim mạch và thận (thử nghiệm EMPA-REG OUTCOME, EMPEROR-Reduced/Preserved). Phân tử này ngày càng được khuyến cáo rộng rãi trong các hướng dẫn điều trị đái tháo đường, suy tim và bệnh thận mạn. <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxOQ1R2dmhGOC1YLXhXTXRFWHdKWUd5NjRob3BpTlV3SlBYSS02c0lNdDZ1TDJTTURBZGo5TlJHU3ByellZUWtwWjllRDl0ZkgwTXNkNjFCX3NEdUtoVVo2TlRMNVBMckwyMHVyTmtvUHNjaF9RLUJvZ0xrYlNjQzFGbWhiY0dLd1hrVUFjUW5sbzd0d2pWdHdicDZkeGd4QWZPTjhNekFLSEx0Rm5DVkpkSA?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">A VnExpress article reviews the 10-year journey of Empagliflozin (SGLT-2 inhibitor) — from its initial indication in type 2 diabetes glycemic control to robust clinical evidence for cardiovascular and renal protection (EMPA-REG OUTCOME, EMPEROR-Reduced/Preserved trials). The molecule is now broadly recommended across diabetes, heart failure, and chronic kidney disease treatment guidelines. <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxOQ1R2dmhGOC1YLXhXTXRFWHdKWUd5NjRob3BpTlV3SlBYSS02c0lNdDZ1TDJTTURBZGo5TlJHU3ByellZUWtwWjllRDl0ZkgwTXNkNjFCX3NEdUtoVVo2TlRMNVBMckwyMHVyTmtvUHNjaF9RLUJvZ0xrYlNjQzFGbWhiY0dLd1hrVUFjUW5sbzd0d2pWdHdicDZkeGd4QWZPTjhNekFLSEx0Rm5DVkpkSA?oc=5" target="_blank">[Source]</a></div>
+    &lt;div class="sentiment</div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Lâm sàng &amp; Sản phẩm</span>
+<span class="card-tag tag-policy en-text">Clinical &amp; Product</span>
+<div class="card-title vi-text">Hướng dẫn sử dụng Empagliflozin trong điều trị suy tim</div>
+<div class="card-title en-text">Empagliflozin Usage Guidelines in Heart Failure Treatment</div>
+</div>
+<div class="card-body vi-text">Bệnh viện Đa khoa Quốc tế Thu Cúc công bố hướng dẫn lâm sàng về việc sử dụng Empagliflozin trong điều trị suy tim, bao gồm liều dùng, chỉ định và các lưu ý an toàn cho bệnh nhân. Đây là thông tin y khoa nhằm nâng cao nhận thức của bác sĩ và bệnh nhân về nhóm thuốc SGLT-2 inhibitor trong quản lý suy tim. <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxQYkdBNkxYUjFmQ3lOeGtuNWh2d05vTXlIXzBTU05aZGVlT2xVVHNCYUFTZDh2bVJqMHFEQUxLU1FPbjJnSjFEYjVqTVZoeUgzTlBuT2stY1U4M2JKd3hsbWI2N3ZmcXVqOVdxeUZQNW9IWE43akc5cjNzSDlJMXhKalpEZ3hUckVSeTlEeUtKUE9rbUV4OU5FOEk2ZkQ?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">Thu Cuc International General Hospital published clinical guidelines on the use of Empagliflozin in heart failure treatment, covering dosage, indications, and safety considerations for patients. This medical information aims to raise awareness among physicians and patients about the SGLT-2 inhibitor class in heart failure management. <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxQYkdBNkxYUjFmQ3lOeGtuNWh2d05vTXlIXzBTU05aZGVlT2xVVHNCYUFTZDh2bVJqMHFEQUxLU1FPbjJnSjFEYjVqTVZoeUgzTlBuT2stY1U4M2JKd3hsbWI2N3ZmcXVqOVdxeUZQNW9IWE43akc1cjNzSDlJMXhKalpEZ3hUckVSeTlEeUtKUE9rbUV4OU5FOEk2ZkQ?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-positive vi-text"><span class="sent-dot"></span>Tích cực</div>
+<div class="sentiment sent-positive en-text"><span class="sent-dot"></span>Positive</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Việc các bệnh viện lớn như Thu Cúc phổ biến hướng dẫn lâm sàng về Empagliflozin giúp gia tăng nhận thức và nhu</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách &amp; Đấu thầu</span>
+<span class="card-tag tag-policy en-text">Policy &amp; Tender</span>
+<div class="card-title vi-text">Thông tư 40/2025/TT-BYT: Quy định mới về đấu thầu thuốc tại cơ sở y tế công lập</div>
+<div class="card-title en-text">Circular 40/2025/TT-BYT: New Regulations on Drug Procurement at Public Health Facilities</div>
+</div>
+<div class="card-body vi-text">Bộ Y tế ban hành Thông tư 40/2025/TT-BYT quy định chi tiết về hoạt động đấu thầu thuốc tại các cơ sở y tế công lập, nhằm nâng cao hiệu quả, minh bạch và tiết kiệm chi phí trong mua sắm dược phẩm. Thông tư đặt ra các tiêu chí kỹ thuật, quy trình lựa chọn nhà thầu và cơ chế giám sát chặt chẽ hơn so với quy định cũ. Đây là văn bản pháp lý quan trọng định hình lại toàn bộ cơ chế đấu thầu thuốc trong hệ thống y tế công. <a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxOTjBVUi1CWWxObUhJYmxJV2FXSkJZZEQ3ZGF2bVpqTnFSS1hQZVJIU2VSczlwT0o1Q1g5b0JCb1RvN0JGWGlZU1dOeW5NMFpfU1pNMF9vMGJRTjM5WmJwcUJNRGxiTkxHWHdQRENOeG5DX2Vqc0Z3ZEJvaTNaOWNKbkxINGtjSElZZHRpMF9vUzREaFRZWVNnRmxULVB3T1J1aWlCY3dfaWIyTlg0aVdPRm5aUWJZZkJRYXdaX0tjM3dDSjNIbWc?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Ministry of Health issued Circular 40/2025/TT-BYT, providing detailed regulations on drug procurement at public health facilities to enhance efficiency, transparency, and cost savings. The circular sets out technical criteria, contractor selection procedures, and stricter oversight mechanisms compared to previous regulations. This is a key legal document reshaping the entire drug tendering framework within the public healthcare system. &lt;a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxOTjBVUi1CWWxObUhJYmxJV2FXSkJZZEQ3ZGF2bVpqTnFSS1hQZVJIU2VSczlwT0o1Q1g5b0JCb1RvN0JGWGlZU1dOeW5NMFpfU1pNMF9vMGJRTjM5WmJwcUJNRGxiTkxHWHdQRENOeG5DX2Vqc0Z3ZEJvaTNaOWNKbkxINGtjSEl</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Cạnh tranh</span>
+<span class="card-tag tag-policy en-text">Competition</span>
+<div class="card-title vi-text">Tập đoàn dược Trung Quốc chi ~6.000 tỷ đồng thâu tóm quyền kiểm soát Imexpharm</div>
+<div class="card-title en-text">Chinese Pharma Giant Spends ~$240M to Acquire Controlling Stake in Imexpharm</div>
+</div>
+<div class="card-body vi-text">Một tập đoàn dược phẩm lớn của Trung Quốc đã chi khoảng 6.000 tỷ đồng để nắm giữ quyền chi phối tại Imexpharm – một trong những công ty dược nội địa hàng đầu Việt Nam. Thương vụ này đánh dấu làn sóng M&amp;A ngoại vào ngành dược Việt Nam ngày càng mạnh mẽ. Động thái này có thể tái định hình cục diện cạnh tranh trên thị trường dược phẩm nội địa, đặc biệt trong phân khúc đấu thầu bệnh viện. <a href="https://news.google.com/rss/articles/CBMi8wFBVV95cUxNQnMydWVOTzZ5UUczMUZOY2piNWl3NzlqOGxfbkVHQXJoWjRBRkRjNnQ0NnNDcm51d2QydjBqb0hMX00yWlpHV3FLcldwaVRORTRaNjJHaWxCelo4Qk94aWdMM29kVkJFNjNZN2g0WkRJYjVQdVlKX1ZBRlZrd0FDel9yZ2RVOUV4NVFPUTRJY2RvSlhjeUhkbV9KcVVjUE1jSFpYZ2F3RTBfVndnMmI4WWdTRU5PZDNpd24tSHZPWjh3NTN3cVlJNHF6UHp0ZkQ3Nk81T0E2TWdmMzBxMHIxN1k3SlI2OGx0V2VqZUNndG9Id0E?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">A major Chinese pharmaceutical conglomerate has invested approximately VND 6,000 billion (~USD 240M) to acquire a controlling stake in Imexpharm, one of Vietnam's leading domestic pharma companies. This deal signals an accelerating wave of foreign M&amp;A activity in Vietnam's pharmaceutical sector. The move could significantly reshape competitive dynamics, especially in the hospital tender segment. &lt;a href="https://news.google.com/rss/articles/CBMi8wFBVV95cUxNQnMydWVOTzZ5UUczMUZOY2piNWl3NzlqOGxfbkVHQXJoWjRBRkRjNnQ0NnNDcm51d2QydjBqb0hMX00yWlpHV3FLcldwaVRORTRaNjJHaWxCelo4Qk94aWdMM29kVkJFNjNZN2g0WkRJYjVQdVlKX1ZBRlZrd0FDel9yZ2RVOUV</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách Đấu thầu</span>
+<span class="card-tag tag-policy en-text">Tender Policy</span>
+<div class="card-title vi-text">Bộ Y tế bỏ quy định "giá trần" trong đấu thầu thuốc</div>
+<div class="card-title en-text">Ministry of Health Removes Price Ceiling in Drug Procurement</div>
+</div>
+<div class="card-body vi-text">Bộ Y tế đề xuất bãi bỏ quy định về "giá trần" trong đấu thầu thuốc tại các cơ sở y tế công lập, nhằm tháo gỡ vướng mắc và tăng tính linh hoạt cho quá trình mua sắm dược phẩm. Thay đổi này được kỳ vọng sẽ giúp các bệnh viện chủ động hơn trong việc lựa chọn thuốc có chất lượng phù hợp với ngân sách thực tế. Đây là một bước điều chỉnh chính sách quan trọng trong bối cảnh cải cách hệ thống đấu thầu thuốc quốc gia. <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE9xNDBJNmt1cE9wMWNNNEExcnVESWE3M1J5YWJOUlhaUGFmdXlRT2tuWnI4eUpsUF9MR1ZkMTM1am9uR21KRmlFTUZnWDV2aEJFT25zcFR0MmtBUHZ3RU9ITGFBNjBvdF9xTDA1dkg0RlZ6VHY0UXVoaGc2ank?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Ministry of Health has proposed removing the "price ceiling" regulation in drug procurement at public medical facilities, aiming to increase flexibility and resolve bottlenecks in pharmaceutical purchasing. This change is expected to allow hospitals greater autonomy in selecting quality medicines aligned with actual budgets. It represents a significant policy adjustment amid ongoing national drug procurement reforms. <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE9xNDBJNmt1cE9wMWNNNEExcnVESWE3M1J5YWJOUlhaUGFmdXlRT2tuWnI4eUpsUF9MR1ZkMTM1am9uR21KRmlFTUZnWDV2aEJFT25zcFR0MmtBUHZ3RU9ITGFBNjBvdF9xTDA1dkg0RlZ6VHY0UXVoaGc2ank?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-positive vi-text"><span class="sent-dot"></span>Tích cực</div>
+<div class="sentiment sent-positive en-text"><span class="sent-dot"></span>Positive</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Việc bỏ giá trần mở ra cơ hội cho Davipharm cạnh tranh dựa trên chất lượng và giá trị thực của sản phẩm thay vì bị giới hạn bởi mức trần cứng nhắc. Các s</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Cạnh tranh</span>
+<span class="card-tag tag-policy en-text">Competition</span>
+<div class="card-title vi-text">Tập đoàn dược phẩm Trung Quốc chi ~6.000 tỷ đồng thâu tóm Imexpharm</div>
+<div class="card-title en-text">Chinese Pharma Giant Acquires Imexpharm for ~$240M USD</div>
+</div>
+<div class="card-body vi-text">Một tập đoàn dược phẩm lớn của Trung Quốc đã chi khoảng 6.000 tỷ đồng để thâu tóm Imexpharm – một trong những công ty dược phẩm nội địa hàng đầu Việt Nam. Thương vụ M&amp;A này đánh dấu sự thâm nhập mạnh mẽ của vốn ngoại vào thị trường dược phẩm Việt Nam. Đây là tín hiệu cho thấy cuộc cạnh tranh trên thị trường dược nội địa, đặc biệt trong phân khúc đấu thầu bệnh viện, sẽ ngày càng khốc liệt hơn. <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxOQktWWDZsRlBuTzdLM2V2NlJBWlI0UjdNQV9zQ2NlcU84NUJXMmE2TFNOdUJQeGYtZk1ENkxqdHlkc0hnaXBFTVBRTDBwcGdMbkh2akkwUnFBcXRqWWh6WGdLSXhPOEFEbGQyeWNGOE43RWhTaERzRWRkUTIzdEY4dHJqampuSHF6b2xFRGQyVC02NUVIMmhXdzFuM1JLcURyTS1UMURDUQ?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">A major Chinese pharmaceutical conglomerate has acquired Imexpharm – one of Vietnam's leading domestic pharma companies – for approximately VND 6,000 billion (~$240M USD). This significant M&amp;A deal marks a strong entry of foreign capital into the Vietnamese pharmaceutical market. It signals intensifying competition in the domestic pharma sector, particularly in the hospital tender segment. <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxOQktWWDZsRlBuTzdLM2V2NlJBWlI0UjdNQV9zQ2NlcU84NUJXMmE2TFNOdUJQeGYtZk1ENkxqdHlkc0hnaXBFTVBRTDBwcGdMbkh2akkwUnFBcXRqWWh6WGdLSXhPOEFEbGQyeWNGOE43RWhTaERzRWRkUTIzdEY4dHJqampuSHF6b2xFRGQyVC02NUVIMmhXdzFuM1JLcURyTS1UMURDUQ?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-negative vi-text"><span class="sent-dot"></span>Tiêu cực</div>
+    &lt;div class="sentiment sent-negative</div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Cạnh tranh</span>
+<span class="card-tag tag-policy en-text">Competition</span>
+<div class="card-title vi-text">Doanh nghiệp Trung Quốc chi 6.000 tỷ đồng thâu tóm Imexpharm</div>
+<div class="card-title en-text">Chinese Company Acquires Imexpharm for ~240M USD</div>
+</div>
+<div class="card-body vi-text">Một doanh nghiệp Trung Quốc đã chi khoảng 6.000 tỷ đồng để thâu tóm Dược phẩm Imexpharm – một trong những công ty dược nội địa hàng đầu Việt Nam. Thương vụ M&amp;A này đánh dấu sự thâm nhập mạnh mẽ của vốn Trung Quốc vào ngành dược phẩm Việt Nam. Đây là diễn biến đáng chú ý trong bối cảnh cạnh tranh đấu thầu thuốc ngày càng gay gắt. <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxNWS1jNWpKU0xaU3lUeXhEV3RkQlRPTjM1blJ5ZFNQT0QyTlBVMWNQNHRJcDliS1FNaEw1UzRmZ2puTW56YmQ5YjhweG9FcExWU2x1YjNLam1xSjllOUJydnFISmxBY0ZvTGZEdE5QWDlaTm9CVDJYOUdRMGxlcDJheFlEbjZyUHVRakMwQkMxVDdjSlcyY1NQaEhqdkFGMk42dTU2LXNKUmF3WGNlWFJ1Ul9vMUc3NHNBenpibWNaUTg0dw?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">A Chinese company has spent approximately VND 6,000 billion (~USD 240M) to acquire Imexpharm, one of Vietnam's leading domestic pharmaceutical companies. This M&amp;A deal marks a significant entry of Chinese capital into Vietnam's pharmaceutical sector. The move raises competitive concerns particularly in the public drug tender segment. <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxNWS1jNWpKU0xaU3lUeXhEV3RkQlRPTjM1blJ5ZFNQT0QyTlBVMWNQNHRJcDliS1FNaEw1UzRmZ2puTW56YmQ5YjhweG9FcExWU2x1YjNLam1xSjllOUJydnFISmxBY0ZvTGZEdE5QWDlaTm9CVDJYOUdRMGxlcDJheFlEbjZyUHVRakMwQkMxVDdjSlcyY1NQaEhqdkFGMk42dTU2LXNKUmF3WGNlWFJ1Ul9vMUc3NHNBenpibWNaUTg0dw?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-negative vi-text"><span class="sent-dot"></span></div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Đổi mới &amp; Phát triển</span>
+<span class="card-tag tag-policy en-text">Innovation &amp; Development</span>
+<div class="card-title vi-text">Davipharm thúc đẩy đổi mới trong phát triển thuốc</div>
+<div class="card-title en-text">Davipharm Drives Innovation in Drug Development</div>
+</div>
+<div class="card-body vi-text">Báo Thanh Niên đưa tin về các nỗ lực đổi mới của Davipharm trong lĩnh vực nghiên cứu và phát triển thuốc, khẳng định định hướng nâng cao năng lực sản xuất và chất lượng sản phẩm theo tiêu chuẩn quốc tế. Đây là tín hiệu tích cực cho thấy Davipharm đang chủ động đầu tư vào R&amp;D để mở rộng danh mục sản phẩm và tăng sức cạnh tranh trên thị trường dược phẩm nội địa. Chiến lược này phù hợp với xu hướng phát triển bền vững của ngành dược Việt Nam. <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxQZk02R1F4cnA4c1BoeHdvekh4VFE1cnBKWERRVEJYYl91REd6TDcyczY5QWt0dmd2dEd3am9neENqOHVWVS00V0p4V3dET1M2Q2V3VHI1eHNDQkRRc1NoQkpkTU5SYXZwVWhNdWZZRi1wLTF1SjNIRk8yYk1zSzlKeURoc3hmdEJvXzhWcE9GZ0lBN1FoaDJoTw?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">Thanh Nien newspaper reports on Davipharm's innovation efforts in drug research and development, highlighting the company's commitment to enhancing manufacturing capabilities and product quality to international standards. This signals a proactive investment in R&amp;D to expand the product portfolio and strengthen competitiveness in the domestic pharmaceutical market. The strategy aligns with sustainable development trends in Vietnam's pharmaceutical industry. <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxQZk02R1F4cnA4c1BoeHdvekh4VFE1cnBKWERRVEJYYl91REd6TDcyczY5QWt0dmd2dEd3am9neENqOHVWVS00V0p4V3dET1M2Q2V3VHI1eHNDQkRRc1NoQkpkTU5SYXZwVWhNdWZZRi1wLTF1SjNIRk8yYk1zSzlKeURoc3hmdEJvXzhWcE9GZ0lBN1FoaDJoTw?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-positive vi-text"><span class="sent-dot"></span>Tích cực</div>
+<div class="sentiment sent-positive en-text"><span class="sent-dot"></span>Positive</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Việc truyền thông tích cực về đổ</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chiến lược &amp; Thương hiệu</span>
+<span class="card-tag tag-policy en-text">Strategy &amp; Branding</span>
+<div class="card-title vi-text">Davipharm tự tin định vị trong bước chuyển mình của ngành dược Việt 2026</div>
+<div class="card-title en-text">Davipharm Confident in Vietnam Pharma Industry's 2026 Transformation</div>
+</div>
+<div class="card-body vi-text">Davipharm (thành viên tập đoàn Adamed) thể hiện sự tự tin vào năng lực cạnh tranh và định hướng phát triển trong bối cảnh ngành dược Việt Nam bước vào giai đoạn chuyển đổi mạnh mẽ năm 2026, với các thay đổi về chính sách đấu thầu, nâng chuẩn sản xuất và xu hướng thuốc generic chất lượng cao. Bài viết được đăng tải trên kênh truyền thông quốc gia VTV, phản ánh mức độ nhận diện thương hiệu Davipharm ngày càng được nâng cao. <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNNmFob3lHNzBSSlBZRVN5QlNQU1BCWkZMdXk1WkNaenZDemg0cXFmOG1zUUZJOFpoTFV5aUdDVFVlRHE4ZkczTlIxNGk0eTlOTE4tSXEyVUF2eWgxeVUyNFAySmtzZUdKa2x6TzdxeWJ3R0RzUW1BS3Rzbmt4X3J4QlpJVnZYWUk3QUhFNC1Ya0pGZXFvcEIwSlQ1SjdWUUZoQ1NwTQ?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">Davipharm (a member of the Adamed Group) expresses confidence in its competitive capabilities and development strategy as Vietnam's pharmaceutical industry enters a major transformation phase in 2026, driven by changes in tendering policies, upgraded manufacturing standards, and the rising demand for high-quality generics. The article was published on national broadcaster VTV, reflecting Davipharm's growing brand recognition. <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNNmFob3lHNzBSSlBZRVN5QlNQU1BCWkZMdXk1WkNaenZDemg0cXFmOG1zUUZJOFpoTFV5aUdDVFVlRHE4ZkczTlIxNGk0eTlOTE4tSXEyVUF2eWgxeVUyNFAySmtzZUdKa2x6TzdxeWJ3R0RzUW1BS3Rzbmt4X3J4QlpJVnZYWUk3QUhFNC1Ya0pGZXFvcEIwSlQ1SjdWUUZoQ1NwTQ?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-positive vi-text"><span class="sent-dot"></span>Tích cực</div>
+<div class="sentiment sent-positive en-text"><span class="sent-dot">&lt;/span</span></div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách Đấu thầu</span>
+<span class="card-tag tag-policy en-text">Procurement Policy</span>
+<div class="card-title vi-text">Thông tư 40/2025/TT-BYT: Quy định đấu thầu thuốc tại cơ sở y tế công lập</div>
+<div class="card-title en-text">Circular 40/2025/TT-BYT: Drug Procurement Regulations at Public Healthcare Facilities</div>
+</div>
+<div class="card-body vi-text">Bộ Y tế ban hành Thông tư 40/2025/TT-BYT có hiệu lực từ 25/10/2025, quy định chi tiết về đấu thầu thuốc hóa dược, vắc xin, sinh phẩm, thuốc dược liệu và các loại khí tại các cơ sở y tế công lập. Thông tư bao gồm quy định về phân chia gói thầu, nhóm thu và các yêu cầu kỹ thuật cho các nhà cung cấp thuốc. <a href="https://luatvietnam.vn/dau-thau/thong-tu-40-2025-tt-byt-quy-dinh-dau-thau-thuoc-tai-co-so-y-te-cong-lap-hieu-qua-416437-d1.html" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Ministry of Health issued Circular 40/2025/TT-BYT effective from 25/10/2025, specifying detailed regulations on drug procurement at public healthcare facilities, including pharmaceutical chemicals, vaccines, biologics, herbal medicines and gases. The circular covers provisions on lot division, therapeutic groups and technical requirements for drug suppliers. <a href="https://luatvietnam.vn/dau-thau/thong-tu-40-2025-tt-byt-quy-dinh-dau-thau-thuoc-tai-co-so-y-te-cong-lap-hieu-qua-416437-d1.html" target="_blank">[Source]</a></div>
+<div class="sentiment sent-neutral vi-text"><span class="sent-dot"></span>Theo dõi</div>
+<div class="sentiment sent-neutral en-text"><span class="sent-dot"></span>Monitor</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Thông tư mới tạo ra khung pháp lý rõ ràng cho đấu thầu thuốc tại các cơ sở y tế công lập. Davipharm cần theo dõi sát sao các quy định về phân chia gói thầu và nhóm thu để tối ưu hóa chiến lược đấu thầu cho các sản phẩm chính như Empagliflozin và Tadalafil. Cần đánh giá lại vị thế cạnh tranh so với các đối thủ như Imexpharm và DHG Pharma trong bối cảnh quy định mới này.</div>
+<div class="card-impact en-text"><strong>Davipharm Impact:</strong> The new circular establishes clear legal framework for drug procurement at public healthcare facilities. Davipharm should closely monitor provisions on lot division and therapeutic grouping to optimize bidding strategy for key products such as Empagliflozin and Tadalafil. Competitive positioning against rivals like Imexpharm and DHG Pharma needs reassessment under the new regulatory environment.</div>
+</div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách Đấu thầu</span>
+<span class="card-tag tag-policy en-text">Procurement Policy</span>
+<div class="card-title vi-text">Thông tư 40/2025/TT-BYT: Những điểm mới trong đấu thầu thuốc</div>
+<div class="card-title en-text">Circular 40/2025/TT-BYT: New Updates on Drug Procurement</div>
+</div>
+<div class="card-body vi-text">Bộ Y tế ban hành Thông tư 40/2025/TT-BYT thay thế hoàn toàn Thông tư 07/2024/TT-BYT, quy định về đấu thầu thuốc hóa dược, vắc xin, sinh phẩm và các loại thuốc khác. Thông tư này tập trung nâng cao chất lượng thuốc, hiệu quả đấu thầu và tăng tính minh bạch trong sử dụng ngân sách nhà nước, bao gồm quy định về phân chia gói thầu, quy trình lựa chọn nhà thầu và mua sắm tập trung. <a href="https://xaydungchinhsach.chinhphu.vn/nhung-diem-moi-trong-thong-tu-40-2025-tt-byt-ve-dau-thau-thuoc-119251105153744446.htm" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Ministry of Health issued Circular 40/2025/TT-BYT replacing Circular 07/2024/TT-BYT, regulating procurement of pharmaceutical drugs, vaccines, biologics and other medicines. The circular focuses on improving drug quality, procurement efficiency and transparency in state budget utilization, including provisions on bid package division, contractor selection procedures and centralized procurement. <a href="https://xaydungchinhsach.chinhphu.vn/nhung-diem-moi-trong-thong-tu-40-2025-tt-byt-ve-dau-thau-thuoc-119251105153744446.htm" target="_blank">[Source]</a></div>
+<div class="sentiment sent-neutral vi-text"><span class="sent-dot"></span>Theo dõi</div>
+<div class="sentiment sent-neutral en-text"><span class="sent-dot"></span>Monitor</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Thông tư mới tạo ra môi trường đấu thầu cạnh tranh hơn với các yêu cầu minh bạch và chất lượng cao hơn. Davipharm cần theo dõi sát sao các quy định mới về phân chia gói thầu và tiêu chí lựa chọn nhà thầu để điều chỉnh chiến lược cung cấp các sản phẩm như Empagliflozin và Tadalafil. Các đối thủ như Imexpharm và DHG cũng sẽ phải thích ứng, tạo cơ hội cho những công ty có năng lực tuân thủ quy định tốt.</div>
+<div class="card-impact en-text"><strong>Davipharm Impact:</strong> The new circular creates a more competitive procurement environment with higher transparency and quality requirements. Davipharm must closely monitor new regulations on bid package division and contractor selection criteria to adjust supply strategies for products like Empagliflozin and Tadalafil.</div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-policy vi-text">Chính sách Đấu thầu</span>
+<span class="card-tag tag-policy en-text">Procurement Policy</span>
+<div class="card-title vi-text">QĐ 257/QĐ-QLD - Danh mục thuốc đấu thầu CSYTCL Đợt 1/2026</div>
+<div class="card-title en-text">Decision 257/QĐ-QLD - Drug List for Public Healthcare Facility Procurement Round 1/2026</div>
+</div>
+<div class="card-body vi-text">Cục Quản lý Dược công bố Danh mục thuốc đáp ứng quy định đấu thầu tại cơ sở y tế công lập theo Thông tư 40/2025/TT-BYT (ngày 25/10/2025). Quyết định này được ban hành ngày 24/4/2026 và xác định các thuốc đủ điều kiện tham gia đấu thầu Đợt 1 năm 2026 tại các bệnh viện công lập. <a href="https://dav.gov.vn/quyet-dinh-so-257qd-qld-ve-viec-cong-bo-danh-muc-thuoc-dap-ung-quy-dinh-tai-diem-c-khoan-1-dieu-4-thong-tu-so-402025tt-byt-ngay-25102025-cua-bo-truong-bo-y-te-quy-dinh-ve-dau-thau-thuoc-tai-co-so-y-te-cong-lap-dot-1---nam-2026-n5310.html" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Drug Administration announces the list of drugs meeting procurement regulations at public healthcare facilities according to Circular 40/2025/TT-BYT (dated 25/10/2025). This decision issued on 24/4/2026 determines eligible drugs for Round 1/2026 procurement at public hospitals. <a href="https://dav.gov.vn/quyet-dinh-so-257qd-qld-ve-viec-cong-bo-danh-muc-thuoc-dap-ung-quy-dinh-tai-diem-c-khoan-1-dieu-4-thong-tu-so-402025tt-byt-ngay-25102025-cua-bo-truong-bo-y-te-quy-dinh-ve-dau-thau-thuoc-tai-co-so-y-te-cong-lap-dot-1---nam-2026-n5310.html" target="_blank">[Source]</a></div>
+<div class="sentiment sent-neutral vi-text"><span class="sent-dot"></span>Theo dõi</div>
+<div class="sentiment sent-neutral en-text"><span class="sent-dot"></span>Monitor</div>
+<div class="card-impact vi-text"><strong>Tác động Davipharm:</strong> Danh mục này là cơ sở để các nhà sản xuất (bao gồm Davipharm) chuẩn bị hồ sơ tham gia đấu thầu. Cần theo dõi danh sách chi tiết để xác định các sản phẩm của Davipharm (đặc biệt các thuốc tim mạch, tiểu đường như Empagliflozin, Tadalafil nếu có) có nằm trong danh mục hay không. Đây là cơ hội cạ</div></div>
+<div class="card">
+<span class="card-tag tag-policy vi-text">Đấu thầu</span><span class="card-tag tag-policy en-text">Tender</span>
+<div class="card-title vi-text">QĐ 257/QĐ-QLD — Danh mục thuốc đấu thầu CSYTCL Đợt 1/2026</div>
+<div class="card-title en-text">Decision 257 — Drug Tender List Batch 1/2026</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Cục Quản lý Dược · 24/04/2026</span><span class="card-source en-text">Drug Admin of Vietnam · 24/04/2026</span>
+<div class="src-links-row"><a class="card-source-link" href="https://dav.gov.vn/quyet-dinh-so-257qd-qld-ve-viec-cong-bo-danh-muc-thuoc-dap-ung-quy-dinh-tai-diem-c-khoan-1-dieu-4-thong-tu-so-402025tt-byt-ngay-25102025-cua-bo-truong-bo-y-te-quy-dinh-ve-dau-thau-thuoc-tai-co-so-y-te-cong-lap-dot-1---nam-2026-n5310.html" target="_blank">📎 QĐ 257 — dav.gov.vn ↗</a></div>
+</div>
+<span class="sentiment sent-neu"><span class="sent-dot" style="background:#94a3b8"></span><span class="vi-text">Trung lập</span><span class="en-text">Neutral</span></span>
+<div class="card-body vi-text">Công bố danh mục thuốc đủ điều kiện đấu thầu bệnh viện công lập Đợt 1/2026 theo TT 40/2025/TT-BYT. Xác định thuốc nào được phép tham gia các gói thầu quốc gia.</div>
+<div class="card-body en-text">Approved drug list for public hospital tenders Batch 1/2026 per Circular 40/2025/TT-BYT. Determines which drugs can participate in national tenders.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Rà soát ngay empagliflozin, tadalafil, dapoxetine. Thiếu → nộp bổ sung trước khi đấu thầu Q2 mở.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Immediately verify empagliflozin, tadalafil, dapoxetine. Missing → file supplement before Q2 tenders open.</div>
+<div class="card-action vi-text">Regulatory: Kiểm tra &amp; nộp bổ sung nếu cần · deadline 07/05</div>
+<div class="card-action en-text">Regulatory: Check &amp; file supplement if needed · deadline 07/05</div>
+</div>
+<div class="card">
+<span class="card-tag tag-policy vi-text">GMP / Nhóm thầu</span><span class="card-tag tag-policy en-text">GMP / Tender Group</span>
+<div class="card-title vi-text">TT 40/2025/TT-BYT — 5 nhóm GMP cho đấu thầu thuốc generic</div>
+<div class="card-title en-text">Circular 40/2025 — 5 GMP Groups for Generic Tenders</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Bộ Y tế · Hiệu lực 25/10/2025</span><span class="card-source en-text">MOH · Effective 25/10/2025</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://xaydungchinhsach.chinhphu.vn/nhung-diem-moi-trong-thong-tu-40-2025-tt-byt-ve-dau-thau-thuoc-119251105153744446.htm" target="_blank">📎 Điểm mới TT40 — chinhphu.vn ↗</a>
+<a class="card-source-link" href="https://luatvietnam.vn/dau-thau/thong-tu-40-2025-tt-byt-quy-dinh-dau-thau-thuoc-tai-co-so-y-te-cong-lap-hieu-qua-416437-d1.html" target="_blank">📎 Toàn văn — luatvietnam.vn ↗</a>
+</div>
+</div>
+<span class="sentiment sent-pos"><span class="sent-dot" style="background:#86efac"></span><span class="vi-text">Tích cực</span><span class="en-text">Positive</span></span>
+<div class="card-body vi-text">Nhóm 1 (EU-GMP) → Nhóm 5 (khác). Nhóm cao hơn được phép chào giá cao hơn. Gói thầu tối đa 36 tháng, phân kỳ quý/năm.</div>
+<div class="card-body en-text">Group 1 (EU-GMP) to Group 5 (other). Higher groups permitted higher ceiling prices. Max 36-month contracts, split by quarter/year.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Adamed (Ba Lan) → khả năng vào Nhóm 1 hoặc 2. Xác nhận chứng nhận để tối ưu giá trần.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Adamed (Poland) → likely Group 1 or 2. Confirm GMP certs to optimize price ceiling.</div>
+<div class="card-action vi-text">Regulatory: Map GMP certificate vào 5 nhóm TT40 · deadline 14/05</div>
+<div class="card-action en-text">Regulatory: Map GMP cert to 5 groups · deadline 14/05</div>
+</div>
+<div class="card">
+<span class="card-tag tag-policy vi-text">Kê đơn điện tử</span><span class="card-tag tag-policy en-text">e-Prescription</span>
+<div class="card-title vi-text">TT 26/2025/TT-BYT — Kê đơn điện tử bắt buộc + kê đơn ngoại trú trên 30 ngày</div>
+<div class="card-title en-text">Circular 26/2025 — Mandatory e-Prescription + 30-day outpatient prescriptions</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Bộ Y tế · Hiệu lực 01/01/2026</span><span class="card-source en-text">MOH · Effective 01/01/2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://luatvietnam.vn/y-te/thong-tu-26-2025-tt-byt-quy-dinh-ke-don-thuoc-hoa-duoc-sinh-pham-tai-co-so-kham-chua-benh-404246-d1.html" target="_blank">📎 Toàn văn TT26 — luatvietnam.vn ↗</a>
+<a class="card-source-link" href="https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/7/26-byt.pdf" target="_blank">📎 PDF gốc — chinhphu.vn ↗</a>
+</div>
+</div>
+<span class="sentiment sent-pos"><span class="sent-dot" style="background:#86efac"></span><span class="vi-text">Tích cực</span><span class="en-text">Positive</span></span>
+<div class="card-body vi-text">Toàn hệ thống y tế kê đơn điện tử từ 01/01/2026. Bệnh mãn tính (tiểu đường, tim mạch) được kê ngoại trú trên 30 ngày thay vì 2 tuần.</div>
+<div class="card-body en-text">Nationwide e-prescribing from 01/01/2026. Chronic diseases (diabetes, cardiovascular) can receive 30-day outpatient prescriptions instead of bi-weekly.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Lợi trực tiếp cho empagliflozin — kê 30 ngày/lần → tăng adherence, giảm chi phí bệnh nhân.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Direct benefit for empagliflozin — 30-day prescriptions → improves adherence, reduces patient costs.</div>
+<div class="card-action vi-text">Medical Marketing: Cập nhật tài liệu Sales về lợi ích kê đơn dài ngày</div>
+<div class="card-action en-text">Medical Marketing: Update Sales materials on long-prescription benefit</div>
+</div>
+<div class="card">
+<span class="card-tag tag-policy vi-text">BHYT mở rộng</span><span class="card-tag tag-policy en-text">Insurance Reform</span>
+<div class="card-title vi-text">TT 37/2024 — Bỏ phân hạng BV trong danh mục BHYT, mở rộng xuống tuyến huyện</div>
+<div class="card-title en-text">Circular 37/2024 — BHYT removes hospital tier restrictions, expands to district level</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Bộ Y tế · Hiệu lực 2025</span><span class="card-source en-text">MOH · Effective 2025</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://lsvn.vn/tu-nam-2025-bo-quy-dinh-phan-chia-danh-muc-thuoc-bhyt-theo-hang-benh-vien-a150109.html" target="_blank">📎 Phân tích — lsvn.vn ↗</a>
+<a class="card-source-link" href="https://baohiemxahoi.gov.vn/tintuc/Pages/linh-vuc-bao-hiem-y-te.aspx?ItemID=25723&amp;CateID=169" target="_blank">📎 BHXH chính thức ↗</a>
+</div>
+</div>
+<span class="sentiment sent-pos"><span class="sent-dot" style="background:#86efac"></span><span class="vi-text">Tích cực</span><span class="en-text">Positive</span></span>
+<div class="card-body vi-text">Toàn bộ thuốc BHYT dùng được ở mọi cơ sở y tế phù hợp chuyên môn — không phân biệt hạng bệnh viện. BV huyện có cùng danh mục thuốc như BV tỉnh.</div>
+<div class="card-body en-text">All BHYT drugs can be used at any eligible facility regardless of hospital tier. District hospitals have same drug access as provincial hospitals.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Thị trường empagliflozin mở rộng từ ~300 BV tỉnh sang 700+ cơ sở tuyến huyện.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Empagliflozin market expands from ~300 provincial hospitals to 700+ district-level facilities.</div>
+<div class="card-action vi-text">Sales: Lập danh sách BV huyện tiềm năng · ưu tiên tỉnh có tỷ lệ ĐTĐ cao</div>
+<div class="card-action en-text">Sales: Build target district hospital list · prioritize high T2DM provinces</div>
+</div>
+</div>
+</div>
+<!-- IV. INDUSTRY NEWS — DOMESTIC + GLOBAL -->
+<div class="section" id="market-intel">
+<div class="section-header">
+<div class="section-icon">🌐</div>
+<div>
+<div class="section-label vi-text">Tin ngành Dược · Trong nước &amp; Quốc tế</div><div class="section-label en-text">Pharma News · Domestic &amp; Global</div>
+<div class="section-title vi-text">Tin Ngành Dược Nổi Bật — 7 Ngày</div><div class="section-title en-text">Key Industry News — Past 7 Days</div>
+</div>
+<span class="section-count">8 items</span>
+</div>
+<div class="card-grid triple">
+<!-- DOMESTIC 1: Imexpharm + Livzon -->
+<div class="card">
+<span class="card-tag tag-domestic vi-text">🇻🇳 Trong nước · M&amp;A</span><span class="card-tag tag-domestic en-text">🇻🇳 Domestic · M&amp;A</span>
+<div class="card-title vi-text">Livzon (Trung Quốc) kiểm soát 65% Imexpharm — Tập đoàn dược TQ vào thị trường tim mạch/ĐTĐ VN</div>
+<div class="card-title en-text">Livzon (China) acquires 65% of Imexpharm — Chinese pharma enters VN cardio/diabetes market</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Trungtamthuoc.com · 2025–2026</span><span class="card-source en-text">Trungtamthuoc.com · 2025–2026</span>
+<div class="src-links-row"><a class="card-source-link" href="https://trungtamthuoc.com/thuong-hieu/imexpharm" target="_blank">📎 Phân tích — trungtamthuoc.com ↗</a></div>
+</div>
+<span class="sentiment sent-neg"><span class="sent-dot" style="background:#fca5a5"></span><span class="vi-text">Cần theo dõi chặt</span><span class="en-text">Watch closely</span></span>
+<div class="card-body vi-text">Livzon Pharmaceutical Group (Trung Quốc, niêm yết Thâm Quyến &amp; HK) mua ~65% Imexpharm trị giá 5.730 tỷ đồng, trở thành công ty mẹ. Imexpharm đang mở rộng mạnh vào nhóm thuốc tim mạch và tiểu đường với nhà máy IMP5 mới tại Cát Khánh, Đồng Tháp (dự kiến vận hành 2026–2027). Imexpharm đã hợp tác Genuone Sciences (Hàn Quốc) chuyển giao công nghệ thuốc tiểu đường, tim mạch.</div>
+<div class="card-body en-text">Livzon Pharmaceutical (China, listed Shenzhen &amp; HK) acquired ~65% of Imexpharm for 5,730 billion VND, becoming parent company. Imexpharm is aggressively expanding into cardiovascular and diabetes drugs with new IMP5 factory in Dong Thap (2026–2027). Also partnered with Genuone Sciences (Korea) for diabetes/cardio tech transfer.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Imexpharm giờ có backing Trung Quốc + công nghệ Hàn Quốc → trực tiếp cạnh tranh empagliflozin &amp; tadalafil ở kênh ETC. Davipharm cần đẩy mạnh lợi thế EU-GMP (Nhóm 1/2) trong đấu thầu để tạo khoảng cách rõ ràng.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Imexpharm now backed by Chinese capital + Korean tech → direct competition on empagliflozin &amp; tadalafil in ETC channel. Davipharm must leverage EU-GMP advantage (Group 1/2) in tenders to maintain differentiation.</div>
+<div class="card-action vi-text">Sales + Regulatory: Ưu tiên hóa chứng nhận EU-GMP trong tài liệu đấu thầu như USP</div>
+<div class="card-action en-text">Sales + Regulatory: Prioritize EU-GMP certs as USP in tender documents</div>
+</div>
+<!-- DOMESTIC 2: DHG + Taisho -->
+<div class="card">
+<span class="card-tag tag-domestic vi-text">🇻🇳 Trong nước · Chiến lược</span><span class="card-tag tag-domestic en-text">🇻🇳 Domestic · Strategy</span>
+<div class="card-title vi-text">DHG Pharma 2026: 5.530 tỷ doanh thu · Japan-GMP + EU-GMP · Taisho (Nhật) kiểm soát 51%</div>
+<div class="card-title en-text">DHG Pharma 2026: 5,530B revenue · Japan-GMP + EU-GMP · Taisho (Japan) controls 51%</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Thời Báo Ngân Hàng · Tháng 4/2026</span><span class="card-source en-text">Thời Báo Ngân Hàng · April 2026</span>
+<div class="src-links-row"><a class="card-source-link" href="https://thoibaonganhang.vn/nganh-duoc-nam-2026-khi-cuoc-dua-doanh-so-nhuong-cho-cho-gia-tri-ben-vung-180535.html" target="_blank">📎 Phân tích 2026 — thoibaonganhang.vn ↗</a></div>
+</div>
+<span class="sentiment sent-neu"><span class="sent-dot" style="background:#94a3b8"></span><span class="vi-text">Theo dõi</span><span class="en-text">Monitor</span></span>
+<div class="card-body vi-text">DHG Pharma (Taisho Nhật 51%) đặt mục tiêu 5.530 tỷ (+5%) với chiến lược duy trì song song Japan-GMP + EU-GMP — hai tiêu chuẩn cao nhất trong đấu thầu bệnh viện. Chuyển trọng tâm sang quản trị rủi ro và chuyển đổi số.</div>
+<div class="card-body en-text">DHG Pharma (Taisho Japan 51%) targets 5,530B (+5%) with dual Japan-GMP + EU-GMP strategy — highest hospital tender standards. Shifting focus to risk management and digital transformation.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> DHG với 2 chuẩn GMP cao nhất + 34 chi nhánh phân phối và &gt;500 trình dược viên là áp lực cạnh tranh thực sự ở kênh ETC bệnh viện.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> DHG with dual top-tier GMP + 34 distribution branches and &gt;500 sales reps is real competitive pressure in hospital ETC channel.</div>
+<div class="card-action vi-text">Sales: Rà soát danh mục BV nơi DHG đang chiếm ưu thế · xây dựng chiến lược phân biệt hóa</div>
+<div class="card-action en-text">Sales: Review hospitals where DHG dominates · build differentiation strategy</div>
+</div>
+<!-- DOMESTIC 3: Long Châu -->
+<div class="card">
+<span class="card-tag tag-channel vi-text">🏪 Kênh phân phối · OTC</span><span class="card-tag tag-channel en-text">🏪 Distribution · OTC</span>
+<div class="card-title vi-text">Long Châu 2026: 2.517 nhà thuốc · +450 điểm mới · 30+ thuốc bệnh mãn tính · Tiêm chủng mở rộng</div>
+<div class="card-title en-text">Long Châu 2026: 2,517 pharmacies · +450 new points · 30+ chronic disease drugs · Expanded vaccines</div>
+<div class="card-source-row">
+<span class="card-source vi-text">CafeF · Thanh Niên · Q1/2026</span><span class="card-source en-text">CafeF · Thanh Niên · Q1/2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://cafef.vn/long-chau-va-fpt-shop-cung-tang-truong-fpt-retail-hoan-thanh-25-ke-hoach-doanh-thu-nam-sau-quy-dau-tien-18826042816270087.chn" target="_blank">📎 Q1/2026 results — cafef.vn ↗</a>
+<a class="card-source-link" href="https://cafef.vn/dhcd-fpt-retail-long-chau-se-mang-hon-30-loai-thuoc-giai-phap-tien-tien-the-gioi-dieu-tri-benh-hiem-benh-man-tinh-ve-viet-nam-trong-nam-2026-188260417160421666.chn" target="_blank">📎 30+ new drugs — cafef.vn ↗</a>
+</div>
+</div>
+<span class="sentiment sent-neg"><span class="sent-dot" style="background:#fca5a5"></span><span class="vi-text">Áp lực OTC cao</span><span class="en-text">High OTC pressure</span></span>
+<div class="card-body vi-text">Q1/2026: doanh thu 10.343 tỷ (+28%). Mở thêm 450 điểm năm 2026, tập trung tỉnh/thị trường cấp 2. Đang đưa 30+ thuốc mới về VN (bệnh mãn tính nặng, bệnh hiếm) hợp tác AstraZeneca. Ký kết với Viện Pasteur TP.HCM · Hợp tác BV FV về sức khỏe tim mạch, tầm soát đột quỵ.</div>
+<div class="card-body en-text">Q1/2026: Revenue 10,343B (+28%). Adding 450 more points in 2026, focusing on provinces/Tier 2 markets. Bringing 30+ new drugs to VN (chronic/rare diseases) with AstraZeneca. MOU with Pasteur Institute HCMC · FV Hospital for cardiovascular health screening.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Long Châu trở thành kênh OTC quan trọng nhất VN với 33 triệu người dùng. Phải đảm bảo empagliflozin, tadalafil, dapoxetine có mặt đầy đủ trên hệ thống Long Châu.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Long Châu is Vietnam's most important OTC channel with 33M users. Must ensure empagliflozin, tadalafil, dapoxetine are fully listed on Long Châu platform.</div>
+<div class="card-action vi-text">Sales: Kiểm tra listing và tồn kho Davipharm trên hệ thống Long Châu · thương thảo shelf placement</div>
+<div class="card-action en-text">Sales: Audit Davipharm listing and stock on Long Châu · negotiate shelf placement</div>
+</div>
+<!-- DOMESTIC 4: Imexpharm Strategy 2026 -->
+<div class="card">
+<span class="card-tag tag-domestic vi-text">🇻🇳 Trong nước · Nhà máy</span><span class="card-tag tag-domestic en-text">🇻🇳 Domestic · Factory</span>
+<div class="card-title vi-text">Imexpharm 2026: 3.200 tỷ · Nhà máy Cát Khánh 1.500 tỷ đầu tư · 50% sản phẩm bệnh mãn tính</div>
+<div class="card-title en-text">Imexpharm 2026: 3,200B revenue · Cat Khanh factory 1,500B · 50% chronic disease products</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Báo Đầu Tư · 22/04/2026 (ĐHCĐ thường niên)</span><span class="card-source en-text">Báo Đầu Tư · 22/04/2026 (Annual Shareholders)</span>
+<div class="src-links-row"><a class="card-source-link" href="https://baodautu.vn/nam-2026-imexpharm-tang-truong-hai-con-so-mo-rong-nang-luc-rd-va-san-xuat-cong-nghe-cao-d580776.html" target="_blank">📎 ĐHCĐ 2026 — baodautu.vn ↗</a></div>
+</div>
+<span class="sentiment sent-neg"><span class="sent-dot" style="background:#fca5a5"></span><span class="vi-text">Cạnh tranh trực tiếp</span><span class="en-text">Direct competition</span></span>
+<div class="card-body vi-text">Tại ĐHCĐ 22/4/2026, Imexpharm công bố nhà máy Cát Khánh với ~50% sản phẩm điều trị bệnh mãn tính (tim mạch, tiểu đường). Năm 2026: doanh thu Q1 đạt 629 tỷ (+8%). 160+ dự án R&amp;D sẵn sàng sản xuất, bao gồm hợp tác Genuone Sciences (Hàn Quốc) về thuốc tiểu đường/tim mạch.</div>
+<div class="card-body en-text">At AGM 22/4/2026, Imexpharm announced Cat Khanh factory with ~50% products targeting chronic diseases (cardio, diabetes). Q1 2026: Revenue 629B (+8%). 160+ R&amp;D projects ready, including Genuone Sciences (Korea) for diabetes/cardio drugs.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Imexpharm đang build năng lực sản xuất trực tiếp cạnh tranh với empagliflozin trong kênh ETC — timeline 2026–2027.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Imexpharm is building manufacturing capacity to directly compete with empagliflozin in ETC channel — timeline 2026–2027.</div>
+<div class="card-action vi-text">Medical: Tăng cường medical engagement tại BV trọng điểm trước khi IMP5 đi vào hoạt động</div>
+<div class="card-action en-text">Medical: Strengthen hospital engagement before IMP5 factory goes live</div>
+</div>
+<!-- GLOBAL 1: Regeneron MFN -->
+<div class="card">
+<span class="card-tag tag-global vi-text">🌏 Toàn cầu · Giá thuốc</span><span class="card-tag tag-global en-text">🌏 Global · Pricing</span>
+<div class="card-title vi-text">Regeneron ký MFN deal với Mỹ — 17/17 Big Pharma đồng ý · Áp lực giảm giá biệt dược</div>
+<div class="card-title en-text">Regeneron signs MFN deal with US — 17/17 Big Pharma agreed · Branded drug price pressure</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Regeneron · CNBC · 23/04/2026</span><span class="card-source en-text">Regeneron · CNBC · 23/04/2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://investor.regeneron.com/news-releases/news-release-details/regeneron-announces-agreement-us-government-help-lower-drug" target="_blank">📎 Thông cáo — regeneron.com ↗</a>
+<a class="card-source-link" href="https://www.cnbc.com/2026/04/23/regeneron-inks-drug-pricing-deal-with-trump-will-offer-hearing-loss-therapy-free.html" target="_blank">📎 CNBC phân tích ↗</a>
+</div>
+</div>
+<span class="sentiment sent-pos"><span class="sent-dot" style="background:#86efac"></span><span class="vi-text">Cơ hội</span><span class="en-text">Opportunity</span></span>
+<div class="card-body vi-text">17 công ty dược lớn nhất thế giới cam kết định giá theo mức thấp nhất giữa các nước phát triển (MFN). Xu hướng này có thể tạo áp lực giảm giá biệt dược Jardiance, Priligy, Cialis tại VN.</div>
+<div class="card-body en-text">17 largest global pharma companies committed to MFN pricing (lowest price among developed nations). This trend may pressure branded Jardiance, Priligy, Cialis prices in Vietnam.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Khoảng cách giá biệt dược vs generic thu hẹp → cơ hội cho empagliflozin, tadalafil, dapoxetine của Davipharm.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Gap between branded and generic narrows → opportunity for Davipharm's empagliflozin, tadalafil, dapoxetine.</div>
+</div>
+<!-- GLOBAL 2: FDA Idvynso -->
+<div class="card">
+<span class="card-tag tag-regulatory vi-text">🌏 FDA · Phê duyệt</span><span class="card-tag tag-regulatory en-text">🌏 FDA · Approval</span>
+<div class="card-title vi-text">FDA phê duyệt Idvynso (Merck) — HIV 2 thuốc đầu tiên không INSTI/tenofovir · Benchmark cho Davipharm</div>
+<div class="card-title en-text">FDA approves Idvynso (Merck) — first 2-drug HIV regimen · Regulatory benchmark</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Merck · PharmacyTimes · 21/04/2026</span><span class="card-source en-text">Merck · PharmacyTimes · 21/04/2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://www.merck.com/news/fda-approves-mercks-once-daily-idvynso-doravirine-islatravir/" target="_blank">📎 Thông cáo — merck.com ↗</a>
+<a class="card-source-link" href="https://www.pharmacytimes.com/view/fda-approves-once-daily-hiv-regimen-combining-doravirine-and-islatravir" target="_blank">📎 Phân tích — pharmacytimes.com ↗</a>
+</div>
+</div>
+<span class="sentiment sent-neu"><span class="sent-dot" style="background:#94a3b8"></span><span class="vi-text">Thông tin tham khảo</span><span class="en-text">Reference info</span></span>
+<div class="card-body vi-text">Phê duyệt nhanh của FDA (từ nộp hồ sơ đến approval ~12 tháng). Dùng làm benchmark timeline khi Davipharm chuẩn bị nộp hồ sơ mở rộng chỉ định empagliflozin sang suy tim tại VN.</div>
+<div class="card-body en-text">FDA's fast approval track (submission to approval ~12 months). Use as regulatory timeline benchmark for Davipharm's empagliflozin HF indication expansion filing in VN.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Không tác động trực tiếp. Sử dụng timeline FDA làm tham chiếu khi lập kế hoạch nộp hồ sơ với Cục QLD.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> No direct impact. Use FDA timeline as reference when planning filing with DAV.</div>
+</div>
+<!-- GLOBAL 3: Cytisine/WHO -->
+<div class="card">
+<span class="card-tag tag-science vi-text">🌏 WHO · Cai thuốc lá</span><span class="card-tag tag-science en-text">🌏 WHO · Smoking Cessation</span>
+<div class="card-title vi-text">Cytisinicline (Achieve Life Sciences) dự kiến FDA approval 2026 · Cytisine vào danh mục thiết yếu WHO 2025</div>
+<div class="card-title en-text">Cytisinicline expected FDA approval 2026 · Cytisine on WHO Essential Medicines 2025</div>
+<div class="card-source-row">
+<span class="card-source vi-text">WHO EML 2025 · Achieve Life Sciences</span><span class="card-source en-text">WHO EML 2025 · Achieve Life Sciences</span>
+<div class="src-links-row"><a class="card-source-link" href="https://www.who.int/publications/i/item/9789240093768" target="_blank">📎 WHO EML 2025 ↗</a></div>
+</div>
+<span class="sentiment sent-pos"><span class="sent-dot" style="background:#86efac"></span><span class="vi-text">Cơ hội lớn</span><span class="en-text">Major opportunity</span></span>
+<div class="card-body vi-text">Cytisine được WHO đưa vào danh mục thuốc thiết yếu 2025 — tăng uy tín toàn cầu. Cytisinicline (dạng tổng hợp) sắp được FDA phê duyệt 2026. VN đang cấm thuốc lá điện tử và tăng thuế thuốc lá mạnh.</div>
+<div class="card-body en-text">Cytisine added to WHO Essential Medicines 2025 — boosting global credibility. Cytisinicline (synthetic form) expected FDA approval 2026. Vietnam banning e-cigarettes and aggressively raising tobacco taxes.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Thời điểm launch Cytisine Q4/2026 là lý tưởng nhất trong 10 năm — cấm TLĐT + thuế + WHO + FDA momentum tạo nhu cầu lớn.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Q4/2026 Cytisine launch timing is best in 10 years — e-cig ban + tax + WHO + FDA momentum creates massive demand.</div>
+</div>
+<!-- GLOBAL 4: Traphaco AI -->
+<div class="card">
+<span class="card-tag tag-domestic vi-text">🇻🇳 Trong nước · Công nghệ</span><span class="card-tag tag-domestic en-text">🇻🇳 Domestic · Tech</span>
+<div class="card-title vi-text">Traphaco 2026: AI đánh giá dược liệu · EU-GMP mới · Daewoong (Hàn) chuyển giao 3–4 SP/năm · Nhà máy tân dược mở rộng</div>
+<div class="card-title en-text">Traphaco 2026: AI in drug evaluation · New EU-GMP · Daewoong (Korea) 3–4 products/year · Expanded pharma factory</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Thời Báo Ngân Hàng · Tháng 4/2026</span><span class="card-source en-text">Thời Báo Ngân Hàng · April 2026</span>
+<div class="src-links-row"><a class="card-source-link" href="https://thoibaonganhang.vn/nganh-duoc-nam-2026-khi-cuoc-dua-doanh-so-nhuong-cho-cho-gia-tri-ben-vung-180535.html" target="_blank">📎 Ngành dược 2026 — thoibaonganhang.vn ↗</a></div>
+</div>
+<span class="sentiment sent-neu"><span class="sent-dot" style="background:#94a3b8"></span><span class="vi-text">Theo dõi</span><span class="en-text">Monitor</span></span>
+<div class="card-body vi-text">Traphaco ứng dụng AI đánh giá dược liệu (186 thiết bị mới), đầu tư nhà máy EU-GMP, phát triển R&amp;D center. Cổ đông chiến lược DaeWoong (Hàn Quốc) chuyển giao 3–4 sản phẩm tân dược/năm. Mục tiêu 2026: 2.916 tỷ doanh thu.</div>
+<div class="card-body en-text">Traphaco applies AI in drug evaluation (186 new instruments), investing in EU-GMP factory and R&amp;D center. Strategic shareholder DaeWoong (Korea) transfers 3–4 pharma products/year. Target 2026: 2,916B revenue.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Traphaco đang chuyển dịch mạnh từ đông dược sang tân dược cao cấp · theo dõi danh mục sản phẩm chuyển giao từ DaeWoong để phát hiện sản phẩm cạnh tranh.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Traphaco aggressively shifting from traditional to modern pharma · track DaeWoong product transfers for potential competing products.</div>
+</div>
+</div>
+</div>
+<!-- V. PRODUCT TRACKER -->
+<div class="section" id="dav-portfolio">
+<div class="section-header">
+<div class="section-icon">💊</div>
+<div><div class="section-label">Portfolio Tracker</div><div class="section-title vi-text">Theo Dõi Sản Phẩm Davipharm</div><div class="section-title en-text">Davipharm Product Tracker</div></div>
+</div>
+<div class="product-grid">
+<div class="product-card pc-blue">
+<div class="product-name">Dapoxetine</div>
+<div class="product-indication vi-text">Xuất tinh sớm (PE)</div><div class="product-indication en-text">Premature Ejaculation</div>
+<div class="product-status">
+<div class="status-row"><span class="status-key vi-text">Tin 7 ngày</span><span class="status-key en-text">7-day news</span><span class="status-val vi-text">Không có</span><span class="status-val en-text">None</span></div>
+<div class="status-row"><span class="status-key vi-text">Thị trường</span><span class="status-key en-text">Market</span><span class="status-val highlight vi-text">Ổn định</span><span class="status-val highlight en-text">Stable</span></div>
+<div class="status-row"><span class="status-key vi-text">Đối thủ</span><span class="status-key en-text">Rival</span><span class="status-val warn">Priligy (Menarini)</span></div>
+<div class="status-row"><span class="status-key">BHYT</span><span class="status-val vi-text">Chưa có</span><span class="status-val en-text">Not covered</span></div>
+<div class="status-row"><span class="status-key vi-text">Long Châu</span><span class="status-key en-text">Long Châu</span><span class="status-val danger vi-text">Kiểm tra listing</span><span class="status-val danger en-text">Audit listing</span></div>
+</div>
+<div class="product-alert alert-info vi-text">Theo dõi Priligy — OTC risk nếu Long Châu tăng trữ lượng Priligy</div>
+<div class="product-alert alert-info en-text">Watch Priligy — OTC risk if Long Châu increases Priligy stock</div>
+</div>
+<div class="product-card pc-blue">
+<div class="product-name">Tadalafil</div>
+<div class="product-indication vi-text">Rối loạn cương dương (ED)</div><div class="product-indication en-text">Erectile Dysfunction</div>
+<div class="product-status">
+<div class="status-row"><span class="status-key vi-text">Tin 7 ngày</span><span class="status-key en-text">7-day news</span><span class="status-val warn vi-text">1 · MFN pricing</span><span class="status-val warn en-text">1 · MFN pricing</span></div>
+<div class="status-row"><span class="status-key vi-text">Thị trường</span><span class="status-key en-text">Market</span><span class="status-val highlight vi-text">Tăng trưởng</span><span class="status-val highlight en-text">Growing</span></div>
+<div class="status-row"><span class="status-key vi-text">Đối thủ</span><span class="status-key en-text">Rivals</span><span class="status-val warn vi-text">Imexpharm · India</span><span class="status-val warn en-text">Imexpharm · India</span></div>
+<div class="status-row"><span class="status-key">OTC risk</span><span class="status-val danger vi-text">Theo dõi FDA</span><span class="status-val danger en-text">Monitor FDA</span></div>
+</div>
+<div class="product-alert alert-warn vi-text">MFN: Cialis giảm giá → thu hẹp khoảng cách với generic. Imexpharm (Livzon-backed) cạnh tranh mạnh hơn.</div>
+<div class="product-alert alert-warn en-text">MFN: Cialis price cut → narrows gap with generics. Imexpharm (Livzon-backed) competition intensifies.</div>
+</div>
+<div class="product-card pc-teal">
+<div class="product-name">Empagliflozin</div>
+<div class="product-indication vi-text">ĐTĐ type 2 / Suy tim / Thận mạn</div><div class="product-indication en-text">T2DM / Heart Failure / CKD</div>
+<div class="product-status">
+<div class="status-row"><span class="status-key vi-text">Tin 7 ngày</span><span class="status-key en-text">7-day news</span><span class="status-val good vi-text">3 · chính sách VN</span><span class="status-val good en-text">3 · VN policy</span></div>
+<div class="status-row"><span class="status-key">Guideline</span><span class="status-val good">ESC Class I–A</span></div>
+<div class="status-row"><span class="status-key vi-text">SĐK suy tim VN</span><span class="status-key en-text">HF approval VN</span><span class="status-val warn vi-text">Chưa có</span><span class="status-val warn en-text">Pending</span></div>
+<div class="status-row"><span class="status-key vi-text">Đối thủ mới</span><span class="status-key en-text">New rivals</span><span class="status-val danger vi-text">IMP + Livzon · BI</span><span class="status-val danger en-text">IMP + Livzon · BI</span></div>
+</div>
+<div class="product-alert alert-good vi-text">🔑 3 chính sách mới (TT40 + TT26 + BHYT) đều có lợi. Nộp hồ sơ suy tim ngay → +40% thị trường tiềm năng.</div>
+<div class="product-alert alert-good en-text">🔑 3 new policies (TT40 + TT26 + BHYT) all favorable. File HF indication now → +40% market potential.</div>
+</div>
+<div class="product-card pc-amber">
+<div class="product-name">Cytisine</div>
+<div class="product-indication vi-text">Cai thuốc lá · Pre-launch Q4/2026</div><div class="product-indication en-text">Smoking Cessation · Pre-launch Q4/2026</div>
+<div class="product-status">
+<div class="status-row"><span class="status-key vi-text">Tin 7 ngày</span><span class="status-key en-text">7-day news</span><span class="status-val good vi-text">3 · WHO + FDA + VN</span><span class="status-val good en-text">3 · WHO + FDA + VN</span></div>
+<div class="status-row"><span class="status-key">WHO</span><span class="status-val good vi-text">Thiết yếu 2025</span><span class="status-val good en-text">Essential 2025</span></div>
+<div class="status-row"><span class="status-key vi-text">FDA (cytisinicline)</span><span class="status-key en-text">FDA (cytisinicline)</span><span class="status-val highlight vi-text">Dự kiến 2026</span><span class="status-val highlight en-text">Expected 2026</span></div>
+<div class="status-row"><span class="status-key vi-text">Cấm TLĐT VN</span><span class="status-key en-text">E-cig ban VN</span><span class="status-val good vi-text">Đang thực hiện</span><span class="status-val good en-text">In effect</span></div>
+</div>
+<div class="product-alert alert-good vi-text">⚡ Timing tốt nhất 10 năm. Cấm TLĐT + tăng thuế thuốc lá + WHO Essential + FDA momentum = nhu cầu bùng nổ.</div>
+<div class="product-alert alert-good en-text">⚡ Best 10-year window. E-cig ban + tobacco tax + WHO Essential + FDA momentum = demand surge.</div>
+</div>
+</div>
+</div>
+<!-- VI. COMPETITORS (EXPANDED) -->
+<div class="section" id="competitors">
+<div class="section-header">
+<div class="section-icon">⚔️</div>
+<div>
+<div class="section-label vi-text">Tình báo cạnh tranh · Trong nước &amp; Quốc tế</div><div class="section-label en-text">Competitive Intelligence · Domestic &amp; Global</div>
+<div class="section-title vi-text">Tín Hiệu Đối Thủ Quan Trọng</div><div class="section-title en-text">Key Competitor Signals</div>
+</div>
+<span class="section-count">5 signals</span>
+</div>
+<div class="card-grid">
+<div class="card">
+<span class="card-tag tag-competitor vi-text">🔴 Khẩn · Boehringer Ingelheim</span><span class="card-tag tag-competitor en-text">🔴 Urgent · Boehringer Ingelheim</span>
+<div class="card-title vi-text">BI đang push chỉ định suy tim Jardiance tại SEA qua CME — Davipharm có nguy cơ mất first-mover</div>
+<div class="card-title en-text">BI pushing Jardiance HF indication in SEA via CME — Davipharm risks losing first-mover advantage</div>
+<div class="card-source-row">
+<span class="card-source vi-text">VNHA · BV 108 · Phân tích 05/2026</span><span class="card-source en-text">VNHA · BV 108 · Analysis 05/2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://tapchi.vnha.org.vn/news/155/cap-nhat-vai-tro-cua-thuoc-uc-che-sglt2-trong-du-phong-va-dieu-tri-suy-tim.html" target="_blank">📎 SGLT2 suy tim — vnha.org.vn ↗</a>
+<a class="card-source-link" href="https://benhvien108.vn/duoc-lam-sang/nhom-thuoc-uc-che-sglt2-trong-dieu-tri-suy-tim-phan-suat-tong-mau-giam.htm" target="_blank">📎 BV 108 — SGLT2 &amp; suy tim ↗</a>
+</div>
+</div>
+<span class="sentiment sent-neg"><span class="sent-dot" style="background:#fca5a5"></span><span class="vi-text">Cần phản ứng khẩn</span><span class="en-text">Urgent action</span></span>
+<div class="card-body vi-text">BI tổ chức CME quy mô lớn cho bác sĩ tim mạch tại VN và SEA về empagliflozin trong suy tim. Tại VN, SGLT2i hiện chỉ có SĐK cho ĐTĐ type 2. Nếu BI đăng ký trước → chiếm toàn bộ thị trường tim mạch cho Jardiance branded.</div>
+<div class="card-body en-text">BI organizing large-scale CME for VN and SEA cardiologists on empagliflozin in heart failure. In VN, SGLT2i only approved for T2DM. If BI registers first → captures entire cardiology market for branded Jardiance.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Nguy cơ cao nhất trong tuần. BI đăng ký SĐK suy tim trước → Davipharm mất 40% thị trường tiềm năng của empagliflozin.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Highest risk this week. If BI registers HF indication first → Davipharm loses 40% potential empagliflozin market.</div>
+<div class="card-action vi-text">Regulatory (KHẨN): Đánh giá và nộp hồ sơ mở rộng chỉ định empagliflozin → suy tim · deadline 31/05</div>
+<div class="card-action en-text">Regulatory (URGENT): Evaluate and file empagliflozin HF indication expansion · deadline 31/05</div>
+</div>
+<div class="card">
+<span class="card-tag tag-competitor vi-text">Imexpharm + Livzon (TQ)</span><span class="card-tag tag-competitor en-text">Imexpharm + Livzon (China)</span>
+<div class="card-title vi-text">Livzon kiểm soát Imexpharm + nhà máy IMP5 thuốc mãn tính — Cạnh tranh ETC trực tiếp 2026–2027</div>
+<div class="card-title en-text">Livzon controls Imexpharm + IMP5 factory for chronic drugs — Direct ETC competition 2026–2027</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Báo Đầu Tư · Trungtamthuoc.com</span><span class="card-source en-text">Báo Đầu Tư · Trungtamthuoc.com</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://baodautu.vn/nam-2026-imexpharm-tang-truong-hai-con-so-mo-rong-nang-luc-rd-va-san-xuat-cong-nghe-cao-d580776.html" target="_blank">📎 IMP 2026 strategy — baodautu.vn ↗</a>
+</div>
+</div>
+<span class="sentiment sent-neg"><span class="sent-dot" style="background:#fca5a5"></span><span class="vi-text">Cạnh tranh cao</span><span class="en-text">High competition</span></span>
+<div class="card-body vi-text">Với backing của Livzon (TQ) + công nghệ Genuone Sciences (Hàn), Imexpharm đang build năng lực sản xuất trực tiếp cạnh tranh thuốc tim mạch và tiểu đường tại kênh ETC. IMP5 dự kiến 2026–2027. Imexpharm EU-GMP Nhóm 1 trong 11 năm liên tiếp.</div>
+<div class="card-body en-text">Backed by Livzon (China) + Genuone Sciences (Korea) tech, Imexpharm building manufacturing for direct competition in cardio/diabetes ETC channel. IMP5 expected 2026–2027. Imexpharm EU-GMP Group 1 for 11 consecutive years.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Lợi thế EU-GMP của Davipharm (Adamed) vẫn là tham số, nhưng Imexpharm đang đuổi kịp. Phải hành động về empagliflozin HF + xây dựng medical engagement trước khi IMP5 hoạt động.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Davipharm's EU-GMP advantage (Adamed) still holds, but Imexpharm is closing the gap. Must act on empagliflozin HF + build medical engagement before IMP5 launches.</div>
+<div class="card-action vi-text">Medical: Tăng tần suất academic detailing tại BV trọng điểm về empagliflozin suy tim</div>
+<div class="card-action en-text">Medical: Increase academic detailing frequency at key hospitals on empagliflozin HF</div>
+</div>
+<div class="card">
+<span class="card-tag tag-competitor">Long Châu · OTC dominance</span>
+<div class="card-title vi-text">Long Châu 2.517 điểm + 30+ thuốc mới bệnh mãn tính + AstraZeneca — Kiểm soát kênh OTC toàn quốc</div>
+<div class="card-title en-text">Long Châu 2,517 points + 30+ new chronic drugs + AstraZeneca — Controls national OTC channel</div>
+<div class="card-source-row">
+<span class="card-source vi-text">CafeF · Thanh Niên · 29/04/2026</span><span class="card-source en-text">CafeF · Thanh Niên · 29/04/2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://thanhnien.vn/long-chau-dan-dat-tang-truong-fpt-retail-dat-loi-ich-nguoi-dan-lam-trong-tam-185260429132718316.htm" target="_blank">📎 Long Châu Q1 — thanhnien.vn ↗</a>
+<a class="card-source-link" href="https://doanhnghiephoinhap.vn/long-chau-lan-san-thuoc-hiem-canh-bac-kho-hay-chien-luoc-giu-ngoi-dau-133050.html" target="_blank">📎 Chiến lược thuốc mới ↗</a>
+</div>
+</div>
+<span class="sentiment sent-neg"><span class="sent-dot" style="background:#fca5a5"></span><span class="vi-text">Áp lực kênh OTC</span><span class="en-text">OTC channel pressure</span></span>
+<div class="card-body vi-text">Long Châu đang hợp tác AstraZeneca đưa thuốc chuyên khoa vào chuỗi. Mở rộng sàng lọc tim mạch, tăng huyết áp miễn phí toàn quốc. Với 33 triệu người dùng và miễn phí giao hàng mọi đơn hàng, Long Châu trở thành điểm tiếp cận thuốc mãn tính quan trọng nhất VN.</div>
+<div class="card-body en-text">Long Châu partnering with AstraZeneca to bring specialty drugs into the chain. Expanding free nationwide cardiovascular and hypertension screening. With 33M users and free delivery on all orders, Long Châu becomes Vietnam's most important chronic disease drug access point.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Phải đảm bảo Davipharm listed trên Long Châu với ưu tiên shelf space cho empagliflozin và tadalafil. Nguy cơ Long Châu push AstraZeneca Farxiga (dapagliflozin) thay vì empagliflozin.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Must secure prime shelf listing on Long Châu for empagliflozin and tadalafil. Risk of Long Châu pushing AstraZeneca Farxiga (dapagliflozin) over empagliflozin.</div>
+<div class="card-action vi-text">Sales: Đánh giá mối quan hệ và shelf presence Davipharm tại Long Châu · xây kế hoạch co-marketing</div>
+<div class="card-action en-text">Sales: Assess Davipharm relationship and shelf presence at Long Châu · build co-marketing plan</div>
+</div>
+<div class="card">
+<span class="card-tag tag-competitor vi-text">Sun Pharma · M&amp;A Global</span><span class="card-tag tag-competitor en-text">Sun Pharma · Global M&amp;A</span>
+<div class="card-title vi-text">Sun Pharmaceutical mua Organon $11.75B — Tập đoàn generic Ấn Độ lớn nhất tại VN mở rộng thêm</div>
+<div class="card-title en-text">Sun Pharmaceutical acquires Organon $11.75B — Largest Indian generic in VN expands further</div>
+<div class="card-source-row">
+<span class="card-source vi-text">Firstpost · 27/04/2026</span><span class="card-source en-text">Firstpost · 27/04/2026</span>
+<div class="src-links-row"><a class="card-source-link" href="https://www.firstpost.com/business/markets/sun-pharma-to-acquire-organon-in-11-75-billion-deal" target="_blank">📎 M&amp;A deal — firstpost.com ↗</a></div>
+</div>
+<span class="sentiment sent-neu"><span class="sent-dot" style="background:#94a3b8"></span><span class="vi-text">Theo dõi</span><span class="en-text">Monitor</span></span>
+<div class="card-body vi-text">Sun Pharma (Ấn Độ) mua Organon với mức premium 24% — M&amp;A biopharma lớn nhất 2026. Sun Pharma là nhà cung cấp tadalafil/sildenafil generic lớn nhất tại VN qua kênh nhập khẩu.</div>
+<div class="card-body en-text">Sun Pharma (India) acquires Organon at 24% premium — largest biopharma M&amp;A of 2026. Sun Pharma is Vietnam's largest tadalafil/sildenafil generic supplier through import channel.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> Thương vụ có thể tăng cường phân phối Sun Pharma tại SEA. Theo dõi hoạt động đấu thầu Sun Pharma VN Q3–Q4/2026.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> Deal may strengthen Sun Pharma SEA distribution. Monitor Sun Pharma VN tender activity Q3–Q4/2026.</div>
+<div class="card-action vi-text">Sales: Theo dõi hoạt động đấu thầu tadalafil của Sun Pharma tại BV trọng điểm</div>
+<div class="card-action en-text">Sales: Monitor Sun Pharma tadalafil tender activity at key hospitals</div>
+</div>
+<div class="card">
+<span class="card-tag tag-competitor vi-text">DHG Pharma · Taisho (Nhật)</span><span class="card-tag tag-competitor en-text">DHG Pharma · Taisho (Japan)</span>
+<div class="card-title vi-text">DHG 5.530 tỷ 2026 · Japan-GMP + EU-GMP · 34 chi nhánh · &gt;500 trình dược viên · Mạng phân phối ETC mạnh nhất VN</div>
+<div class="card-title en-text">DHG 5,530B 2026 · Japan-GMP + EU-GMP · 34 branches · &gt;500 MRs · Strongest ETC distribution in VN</div>
+<div class="card-source-row">
+<span class="card-source vi-text">DHG Pharma · Thời Báo Ngân Hàng · 2026</span><span class="card-source en-text">DHG Pharma · Thời Báo Ngân Hàng · 2026</span>
+<div class="src-links-row">
+<a class="card-source-link" href="https://thoibaonganhang.vn/nganh-duoc-nam-2026-khi-cuoc-dua-doanh-so-nhuong-cho-cho-gia-tri-ben-vung-180535.html" target="_blank">📎 Chiến lược DHG 2026 ↗</a>
+<a class="card-source-link" href="https://dhgpharma.com.vn/vi/tin-tuc-2/3292-ky-luc-moi-cua-quan-quan-27102023" target="_blank">📎 DHG kỷ lục — dhgpharma.com.vn ↗</a>
+</div>
+</div>
+<span class="sentiment sent-neu"><span class="sent-dot" style="background:#94a3b8"></span><span class="vi-text">Cạnh tranh kênh ETC</span><span class="en-text">ETC competition</span></span>
+<div class="card-body vi-text">DHG duy trì 2 tiêu chuẩn vàng Japan-GMP + EU-GMP đồng thời (duy nhất tại VN). Taisho (51%) đang nâng cấp dây chuyền và mở rộng sản phẩm tim mạch. DHG có hệ thống phân phối ETC lớn nhất VN — 34 chi nhánh, &gt;500 MR.</div>
+<div class="card-body en-text">DHG maintains dual Japan-GMP + EU-GMP simultaneously (unique in VN). Taisho (51%) upgrading production lines and expanding cardiovascular products. DHG has Vietnam's largest ETC distribution — 34 branches, &gt;500 MRs.</div>
+<div class="card-impact vi-text"><strong>Davipharm:</strong> DHG với mạng lưới ETC lớn nhất VN và 2 chuẩn GMP cao nhất là đối thủ trực tiếp trong đấu thầu. Davipharm cần đẩy mạnh lợi thế "European quality + Adamed science" rõ ràng hơn.</div>
+<div class="card-impact en-text"><strong>Davipharm:</strong> DHG with largest ETC network and dual top GMP is direct tender competition. Davipharm must more clearly push "European quality + Adamed science" advantage.</div>
+<div class="card-action vi-text">Marketing: Xây dựng messaging "Adamed European science" để khác biệt hóa so với DHG-Taisho</div>
+<div class="card-action en-text">Marketing: Build "Adamed European science" messaging to differentiate from DHG-Taisho</div>
+</div>
+</div>
+</div>
+<!-- VII. ACTION TABLE -->
+<div class="section" id="action-items">
+<div class="section-header">
+<div class="section-icon">⚡</div>
+<div><div class="section-label">Action Items</div><div class="section-title vi-text">Khuyến Nghị Hành Động Tuần Này</div><div class="section-title en-text">Recommended Actions This Week</div></div>
+</div>
+<div style="background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);">
+<table class="action-table">
+<thead>
+<tr>
+<th><span class="vi-text">Hành động</span><span class="en-text">Action</span></th>
+<th>Team</th>
+<th><span class="vi-text">Nguồn</span><span class="en-text">Source</span></th>
+<th><span class="vi-text">Ưu tiên</span><span class="en-text">Priority</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="vi-text">Đánh giá &amp; nộp hồ sơ mở rộng chỉ định empagliflozin → suy tim (BI đang đi trước tại SEA)</span><span class="en-text">Evaluate &amp; file empagliflozin HF indication expansion (BI ahead in SEA)</span></td>
+<td><span class="team-badge team-reg">Regulatory</span></td>
+<td><a class="src-table-link" href="https://tapchi.vnha.org.vn/news/155/cap-nhat-vai-tro-cua-thuoc-uc-che-sglt2-trong-du-phong-va-dieu-tri-suy-tim.html" target="_blank">VNHA ↗</a></td>
+<td><span class="urgency urg-high">🔴 <span class="vi-text">Khẩn · 31/05</span><span class="en-text">Urgent · 31/05</span></span></td>
+</tr>
+<tr>
+<td><span class="vi-text">Tải QĐ 257/QĐ-QLD · xác nhận empagliflozin, tadalafil, dapoxetine trong danh mục đấu thầu Đợt 1/2026</span><span class="en-text">Download Decision 257 · confirm empagliflozin, tadalafil, dapoxetine in Batch 1/2026 tender list</span></td>
+<td><span class="team-badge team-reg">Regulatory</span></td>
+<td><a class="src-table-link" href="https://dav.gov.vn/quyet-dinh-so-257qd-qld-ve-viec-cong-bo-danh-muc-thuoc-dap-ung-quy-dinh-tai-diem-c-khoan-1-dieu-4-thong-tu-so-402025tt-byt-ngay-25102025-cua-bo-truong-bo-y-te-quy-dinh-ve-dau-thau-thuoc-tai-co-so-y-te-cong-lap-dot-1---nam-2026-n5310.html" target="_blank">DAV ↗</a></td>
+<td><span class="urgency urg-high">🔴 <span class="vi-text">Khẩn · 07/05</span><span class="en-text">Urgent · 07/05</span></span></td>
+</tr>
+<tr>
+<td><span class="vi-text">Map GMP certificate từng SP vào 5 nhóm TT40/2025 · tối ưu giá trần đấu thầu · ưu tiên Nhóm 1 (EU-GMP)</span><span class="en-text">Map each product GMP cert to 5 groups in Circular 40/2025 · optimize price ceiling · prioritize Group 1 (EU-GMP)</span></td>
+<td><span class="team-badge team-reg">Regulatory</span></td>
+<td><a class="src-table-link" href="https://xaydungchinhsach.chinhphu.vn/nhung-diem-moi-trong-thong-tu-40-2025-tt-byt-ve-dau-thau-thuoc-119251105153744446.htm" target="_blank">Chinhphu ↗</a></td>
+<td><span class="urgency urg-high">🔴 <span class="vi-text">Khẩn · 14/05</span><span class="en-text">Urgent · 14/05</span></span></td>
+</tr>
+<tr>
+<td><span class="vi-text">Soạn 1-pager cho Sales: Empagliflozin suy tim (ESC 2021 Class I-A + EMPEROR-Reduced) — dùng trước khi BI đưa thêm CME</span><span class="en-text">Prepare 1-pager for Sales: Empagliflozin in HF (ESC 2021 I-A + EMPEROR-Reduced) — before BI adds more CME</span></td>
+<td><span class="team-badge team-med">Medical</span></td>
+<td><a class="src-table-link" href="https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Heart-Failure" target="_blank">ESC ↗</a></td>
+<td><span class="urgency urg-mid">🟡 <span class="vi-text">Tuần này · 14/05</span><span class="en-text">This week · 14/05</span></span></td>
+</tr>
+<tr>
+<td><span class="vi-text">Kiểm tra listing Davipharm (empagliflozin, tadalafil, dapoxetine) trên Long Châu · shelf position · co-marketing plan</span><span class="en-text">Audit Davipharm listing (empagliflozin, tadalafil, dapoxetine) on Long Châu · shelf position · co-marketing plan</span></td>
+<td><span class="team-badge team-sales">Sales</span></td>
+<td><a class="src-table-link" href="https://cafef.vn/long-chau-va-fpt-shop-cung-tang-truong-fpt-retail-hoan-thanh-25-ke-hoach-doanh-thu-nam-sau-quy-dau-tien-18826042816270087.chn" target="_blank">Long Châu ↗</a></td>
+<td><span class="urgency urg-mid">🟡 <span class="vi-text">Tháng này · 31/05</span><span class="en-text">This month · 31/05</span></span></td>
+</tr>
+<tr>
+<td><span class="vi-text">Xây dựng messaging framework Cytisine: "Adamed European efficacy + Giá tốt nhất" — chuẩn bị cho launch Q4/2026</span><span class="en-text">Build Cytisine messaging: "Adamed European efficacy + Best price" — prepare for Q4/2026 launch</span></td>
+<td><span class="team-badge team-mkt">Marketing</span></td>
+<td><a class="src-table-link" href="https://www.adamed.com/en/" target="_blank">Adamed ↗</a></td>
+<td><span class="urgency urg-mid">🟡 <span class="vi-text">Tháng này · 31/05</span><span class="en-text">This month · 31/05</span></span></td>
+</tr>
+<tr>
+<td><span class="vi-text">Lập danh sách BV huyện tiềm năng cho empagliflozin · ưu tiên tỉnh ĐTĐ cao · khai thác BHYT mở tuyến huyện</span><span class="en-text">Build target district hospital list for empagliflozin · prioritize high T2DM provinces · leverage BHYT district expansion</span></td>
+<td><span class="team-badge team-sales">Sales</span></td>
+<td><a class="src-table-link" href="https://baohiemxahoi.gov.vn/tintuc/Pages/linh-vuc-bao-hiem-y-te.aspx?ItemID=25723&amp;CateID=169" target="_blank">BHXH ↗</a></td>
+<td><span class="urgency urg-low">🟢 <span class="vi-text">30/06</span><span class="en-text">30/06</span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><!-- /container -->
+<!-- FOOTER -->
+<div class="footer">
+<div>
+<div style="font-size:13px;font-weight:700;color:var(--text)">Davipharm Market Intelligence System — Tuần 18/2026</div>
+<div style="font-size:11px;color:var(--muted);margin-top:3px">Powered by DIG · Claude AI (Anthropic) · Tổng hợp: 02/05/2026 09:00 ICT</div>
+<div class="disclaimer" style="margin-top:8px">
+<strong>⚠️ <span class="vi-text">Lưu ý:</span><span class="en-text">Note:</span></strong>
+<span class="vi-text"> Dữ liệu không tự cập nhật sau khi tạo. Với quyết định quan trọng, xác minh trực tiếp từ link nguồn. Tin tức trong nước từ web search ngày 02/05/2026.</span>
+<span class="en-text"> Data does not auto-update after generation. For critical decisions, verify directly from source links. Domestic news from web search dated 02/05/2026.</span>
+</div>
+</div>
+<div class="footer-right">Report: DMI-20260502-001<br/>02/05/2026 09:00 ICT</div>
+</div>
+<!-- FLASH (bottom fixed) -->
+<div class="flash-bar">
+<div class="flash-label"><span class="flash-dot"></span><span class="vi-text">Cảnh báo</span><span class="en-text">Alerts</span></div>
+<div class="flash-ticker">
+<div class="flash-items">
+<div class="flash-set">
+<span class="flash-item"><span class="flash-num">01.</span><strong>QĐ 257</strong><span class="vi-text"> — Danh mục đấu thầu Đợt 1/2026 · 24/04</span><span class="en-text"> — Tender Batch 1/2026 · 24/04</span></span>
+<span class="flash-item"><span class="flash-num">02.</span><strong>IMP+Livzon</strong><span class="vi-text"> — Livzon TQ kiểm soát 65% Imexpharm · nhà máy ĐTĐ/tim mạch 2026</span><span class="en-text"> — Livzon controls 65% Imexpharm · cardio/diabetes factory 2026</span></span>
+<span class="flash-item"><span class="flash-num">03.</span><strong>Long Châu</strong><span class="vi-text"> — 2.517 nhà thuốc + 30 thuốc mới 2026 + AstraZeneca</span><span class="en-text"> — 2,517 pharmacies + 30 new drugs 2026 + AstraZeneca</span></span>
+<span class="flash-item"><span class="flash-num">04.</span><strong>BI Jardiance</strong><span class="vi-text"> — Push suy tim SEA · Davipharm hành động ngay</span><span class="en-text"> — HF push SEA · Davipharm act now</span></span>
+</div>
+<div aria-hidden="true" class="flash-set">
+<span class="flash-item"><span class="flash-num">01.</span><strong>QĐ 257</strong><span class="vi-text"> — Danh mục đấu thầu Đợt 1/2026 · 24/04</span><span class="en-text"> — Tender Batch 1/2026 · 24/04</span></span>
+<span class="flash-item"><span class="flash-num">02.</span><strong>IMP+Livzon</strong><span class="vi-text"> — Livzon TQ kiểm soát 65% Imexpharm · nhà máy ĐTĐ/tim mạch 2026</span><span class="en-text"> — Livzon controls 65% Imexpharm · cardio/diabetes factory 2026</span></span>
+<span class="flash-item"><span class="flash-num">03.</span><strong>Long Châu</strong><span class="vi-text"> — 2.517 nhà thuốc + 30 thuốc mới 2026 + AstraZeneca</span><span class="en-text"> — 2,517 pharmacies + 30 new drugs 2026 + AstraZeneca</span></span>
+<span class="flash-item"><span class="flash-num">04.</span><strong>BI Jardiance</strong><span class="vi-text"> — Push suy tim SEA · Davipharm hành động ngay</span><span class="en-text"> — HF push SEA · Davipharm act now</span></span>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.includes(l==='vi'?'Việt':'English')));
+}
+
+function downloadWord(){
+  const l=document.body.classList.contains('lang-en')?'en':'vi';
+  const html=`<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'><title>Davipharm MIR</title><style>body{font-family:Calibri,Arial,sans-serif;font-size:11pt;margin:2cm;}h1{color:#003B71;font-size:20pt;border-bottom:2pt solid #003B71;padding-bottom:6pt;}h2{color:#003B71;font-size:14pt;border-bottom:1pt solid #003B71;margin-top:16pt;}h3{color:#003B71;font-size:12pt;margin-top:12pt;}p{line-height:1.5;margin:5pt 0;}table{border-collapse:collapse;width:100%;margin:10pt 0;}th{background:#003B71;color:white;padding:6pt 8pt;font-size:10pt;text-align:left;}td{border:1pt solid #ddd;padding:6pt 8pt;font-size:10pt;vertical-align:top;}tr:nth-child(even)td{background:#f8fafc;}.impact{border-left:3pt solid #003B71;padding-left:8pt;color:#003B71;margin:5pt 0;font-size:10pt;}.urgent{color:#b91c1c;font-weight:bold;}.medium{color:#b45309;font-weight:bold;}.good{color:#15803d;font-weight:bold;}.disclaimer{background:#fffbeb;border:1pt solid #fef3c7;padding:8pt;font-size:9pt;color:#92400e;margin-top:16pt;}</style></head><body>
+<p style="color:#64748b;font-size:10pt;">DAVIPHARM · A member of Adamed Group</p>
+<h1>${l==='vi'?'Báo Cáo Thị Trường — Tuần 18/2026':'Market Intelligence Report — Week 18/2026'}</h1>
+<p><b>${l==='vi'?'Ngày:':'Date:'}</b> 02/05/2026 &nbsp;|&nbsp; <b>${l==='vi'?'Kỳ theo dõi:':'Period:'}</b> 25/04–02/05/2026 &nbsp;|&nbsp; <b>Report:</b> DMI-20260502-001</p>
+
+<h2>${l==='vi'?'I. Cảnh Báo Khẩn':'I. Urgent Alerts'}</h2>
+<table><tr><th>#</th><th>${l==='vi'?'Cảnh báo':'Alert'}</th></tr>
+<tr><td>01</td><td><b>QĐ 257/QĐ-QLD</b> — ${l==='vi'?'Danh mục đấu thầu Đợt 1/2026 · 24/04':'Tender list Batch 1/2026 · 24/04'}</td></tr>
+<tr><td>02</td><td><b>Imexpharm+Livzon</b> — ${l==='vi'?'Livzon (TQ) kiểm soát 65% IMP · nhà máy ĐTĐ/tim mạch 2026–2027':'Livzon (China) controls 65% IMP · cardio/diabetes factory 2026–2027'}</td></tr>
+<tr><td>03</td><td><b>Long Châu</b> — ${l==='vi'?'2.517 nhà thuốc + 30+ thuốc mới bệnh mãn tính 2026 + AstraZeneca':'2,517 pharmacies + 30+ new chronic disease drugs 2026 + AstraZeneca'}</td></tr>
+<tr><td>04</td><td><b>BI Jardiance</b> — ${l==='vi'?'Đang push chỉ định suy tim SEA · Davipharm cần phản ứng ngay':'Pushing HF indication SEA · Davipharm must act immediately'}</td></tr></table>
+
+<h2>${l==='vi'?'II. Chính Sách & Pháp Lý Việt Nam':'II. Vietnam Regulatory & Policy'}</h2>
+<h3>1. ${l==='vi'?'QĐ 257/QĐ-QLD — Danh mục đấu thầu Đợt 1/2026':'Decision 257 — Drug Tender List Batch 1/2026'}</h3>
+<p>${l==='vi'?'Nguồn: Cục Quản lý Dược · 24/04/2026 · https://dav.gov.vn':'Source: Drug Administration of Vietnam · 24/04/2026 · https://dav.gov.vn'}</p>
+<p class="impact"><b>${l==='vi'?'Davipharm:':'Davipharm:'}</b> ${l==='vi'?'Rà soát ngay empagliflozin, tadalafil, dapoxetine. Thiếu → nộp bổ sung trước đấu thầu Q2.':'Immediately verify empagliflozin, tadalafil, dapoxetine. Missing → file supplement before Q2 tenders.'}</p>
+<h3>2. ${l==='vi'?'TT 40/2025 — 5 nhóm GMP đấu thầu':'Circular 40/2025 — 5 GMP Groups for Tenders'}</h3>
+<p class="impact"><b>Davipharm:</b> ${l==='vi'?'Adamed (Ba Lan) → khả năng Nhóm 1 EU-GMP. Map GMP cert deadline 14/05.':'Adamed (Poland) → likely Group 1 EU-GMP. Map GMP certs deadline 14/05.'}</p>
+<h3>3. ${l==='vi'?'TT 26/2025 — Kê đơn điện tử + kê đơn mãn tính trên 30 ngày':'Circular 26/2025 — e-Prescription + 30-day chronic prescriptions'}</h3>
+<p class="impact"><b>Davipharm:</b> ${l==='vi'?'Lợi cho empagliflozin — kê 30 ngày/lần thay vì 2 tuần → tăng adherence.':'Benefits empagliflozin — 30-day prescriptions vs bi-weekly → improves adherence.'}</p>
+<h3>4. ${l==='vi'?'TT 37/2024 — BHYT bỏ hạng BV, mở tuyến huyện':'Circular 37/2024 — BHYT removes hospital tiers, opens district level'}</h3>
+<p class="impact"><b>Davipharm:</b> ${l==='vi'?'Thị trường empagliflozin: ~300 BV tỉnh → 700+ cơ sở tuyến huyện.':'Empagliflozin market: ~300 provincial hospitals → 700+ district facilities.'}</p>
+
+<h2>${l==='vi'?'III. Tín Hiệu Đối Thủ Quan Trọng':'III. Key Competitor Signals'}</h2>
+<table><tr><th>${l==='vi'?'Đối thủ':'Competitor'}</th><th>${l==='vi'?'Tín hiệu':'Signal'}</th><th>${l==='vi'?'Tác động':'Impact'}</th></tr>
+<tr><td class="urgent">BI Jardiance</td><td>${l==='vi'?'CME suy tim SEA · push chỉ định suy tim':'CME HF in SEA · pushing HF indication'}</td><td class="urgent">${l==='vi'?'Mất 40% thị trường nếu BI đăng ký trước':'Lose 40% market if BI registers first'}</td></tr>
+<tr><td>Imexpharm+Livzon</td><td>${l==='vi'?'Livzon (TQ) 65% + Genuone (HQ) + IMP5 ĐTĐ/tim mạch':'Livzon (China) 65% + Genuone (Korea) + IMP5 cardio/diabetes'}</td><td>${l==='vi'?'Cạnh tranh ETC trực tiếp 2026–2027':'Direct ETC competition 2026–2027'}</td></tr>
+<tr><td>Long Châu</td><td>${l==='vi'?'2.517 nhà thuốc + AstraZeneca + 30 thuốc mới':'2,517 pharmacies + AstraZeneca + 30 new drugs'}</td><td>${l==='vi'?'Cần đảm bảo listing Davipharm trên hệ thống':'Must secure Davipharm listing on platform'}</td></tr>
+<tr><td>DHG + Taisho</td><td>${l==='vi'?'Japan-GMP + EU-GMP + 34 chi nhánh + >500 MR':'Japan-GMP + EU-GMP + 34 branches + >500 MRs'}</td><td>${l==='vi'?'Đối thủ ETC mạnh nhất tại kênh bệnh viện':'Strongest ETC competitor in hospital channel'}</td></tr>
+<tr><td>Sun Pharma</td><td>${l==='vi'?'M&A Organon $11.75B · mở rộng SEA':'M&A Organon $11.75B · SEA expansion'}</td><td>${l==='vi'?'Tăng cường cạnh tranh tadalafil/sildenafil':'Increased tadalafil/sildenafil competition'}</td></tr></table>
+
+<h2>${l==='vi'?'IV. Theo Dõi Sản Phẩm':'IV. Product Tracker'}</h2>
+<table><tr><th>${l==='vi'?'Sản phẩm':'Product'}</th><th>${l==='vi'?'Chỉ định':'Indication'}</th><th>${l==='vi'?'Tin 7 ngày (nội dung)':'7-day news (content)'}</th><th>${l==='vi'?'Trạng thái':'Status'}</th></tr>
+<tr><td>Dapoxetine</td><td>${l==='vi'?'Xuất tinh sớm':'Premature Ejaculation'}</td><td>${l==='vi'?'Không có tin mới':'No new news'}</td><td>${l==='vi'?'Ổn định · kiểm tra listing Long Châu':'Stable · check Long Châu listing'}</td></tr>
+<tr><td>Tadalafil</td><td>${l==='vi'?'Rối loạn cương dương':'Erectile Dysfunction'}</td><td>${l==='vi'?'1 tin: MFN deal → áp lực giá Cialis':'1 news: MFN deal → Cialis price pressure'}</td><td>${l==='vi'?'Tăng trưởng · IMP+Livzon cạnh tranh':'Growing · IMP+Livzon competition'}</td></tr>
+<tr><td>Empagliflozin</td><td>T2DM / HF / CKD</td><td>${l==='vi'?'3 tin: QĐ257 + TT40 + BHYT tuyến huyện':'3 news: QĐ257 + TT40 + BHYT district expansion'}</td><td class="urgent">${l==='vi'?'KHẨN: Nộp hồ sơ suy tim ngay':'URGENT: File HF indication now'}</td></tr>
+<tr><td>Cytisine</td><td>${l==='vi'?'Cai thuốc lá · Q4/2026':'Smoking Cessation · Q4/2026'}</td><td>${l==='vi'?'3 tin: WHO Essential + FDA expected + cấm TLĐT VN':'3 news: WHO Essential + FDA expected + VN e-cig ban'}</td><td class="good">${l==='vi'?'Timing tốt nhất 10 năm':'Best 10-year launch window'}</td></tr></table>
+
+<h2>${l==='vi'?'V. Khuyến Nghị Hành Động':'V. Recommended Actions'}</h2>
+<table><tr><th>#</th><th>${l==='vi'?'Hành động':'Action'}</th><th>Team</th><th>Deadline</th><th>${l==='vi'?'Nguồn':'Source'}</th></tr>
+<tr><td>1</td><td class="urgent">${l==='vi'?'Đánh giá & nộp hồ sơ empagliflozin → suy tim (BI đang đi trước)':'Evaluate & file empagliflozin HF indication (BI ahead)'}</td><td>Regulatory</td><td class="urgent">31/05</td><td>VNHA · ESC</td></tr>
+<tr><td>2</td><td class="urgent">${l==='vi'?'Tải QĐ 257 · xác nhận danh mục đấu thầu 3 sản phẩm':'Download QĐ 257 · confirm 3 products in tender list'}</td><td>Regulatory</td><td class="urgent">07/05</td><td>dav.gov.vn</td></tr>
+<tr><td>3</td><td class="urgent">${l==='vi'?'Map GMP cert → 5 nhóm TT40 · tối ưu giá trần':'Map GMP cert → 5 TT40 groups · optimize price ceiling'}</td><td>Regulatory</td><td class="urgent">14/05</td><td>chinhphu.vn</td></tr>
+<tr><td>4</td><td>${l==='vi'?'1-pager empagliflozin suy tim cho Sales (ESC Class I-A)':'1-pager empagliflozin HF for Sales (ESC Class I-A)'}</td><td>Medical</td><td>14/05</td><td>escardio.org</td></tr>
+<tr><td>5</td><td>${l==='vi'?'Audit listing Davipharm trên Long Châu · shelf placement · co-marketing':'Audit Davipharm listing on Long Châu · shelf placement · co-marketing'}</td><td>Sales</td><td>31/05</td><td>Long Châu</td></tr>
+<tr><td>6</td><td>${l==='vi'?'Messaging Cytisine: "Adamed European efficacy + Giá tốt nhất"':'Cytisine messaging: "Adamed European efficacy + Best price"'}</td><td>Marketing</td><td>31/05</td><td>Adamed</td></tr>
+<tr><td>7</td><td>${l==='vi'?'Danh sách BV huyện empagliflozin · khai thác BHYT mở tuyến huyện':'District hospital list empagliflozin · leverage BHYT district expansion'}</td><td>Sales</td><td>30/06</td><td>BHXH</td></tr></table>
+
+<div class="disclaimer"><b>⚠️ ${l==='vi'?'Lưu ý:':'Note:'}</b> ${l==='vi'?'Báo cáo tổng hợp 02/05/2026. Dữ liệu không tự cập nhật. Xác minh từ link nguồn cho quyết định quan trọng. Powered by DIG · Claude AI.':'Report compiled 02/05/2026. Data not auto-updated. Verify from source links for critical decisions. Powered by DIG · Claude AI.'}</div>
+</body></html>`;
+  const b=new Blob(['\ufeff',html],{type:'application/vnd.ms-word;charset=utf-8'});
+  const u=URL.createObjectURL(b);
+  const a=document.createElement('a');
+  a.href=u;a.download=`Davipharm_MIR_W18_${l==='vi'?'VI':'EN'}_02052026.doc`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+}
+</script>
+</body>
+</html>
