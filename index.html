@@ -161,18 +161,21 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 
 .action-table td{word-break:break-word;min-width:120px;}
 .action-table td{word-break:break-word;min-width:120px;}
-        /* UI Polish & Fixes */
-        * { text-align: left !important; } /* Chống justify gây giãn chữ */
-        .card { height: auto !important; min-height: 380px; display: flex; flex-direction: column; gap: 12px; }
-        .card-body { font-size: 13px; line-height: 1.6; color: #475569; margin-bottom: 8px; }
-        .sentiment { margin: 10px 0; padding: 6px 12px; border-radius: 6px; font-weight: 500; display: inline-flex; align-items: center; width: fit-content; }
-        .card-impact { background: #f0f7ff; border-left: 4px solid var(--primary); padding: 15px; border-radius: 0 8px 8px 0; margin-top: auto; }
-        .card-impact strong { display: block; color: var(--primary); margin-bottom: 8px; font-size: 13px; }
-        .card-impact p { margin: 0; font-size: 12.5px; color: #1e293b; line-height: 1.5; }
         
-        .action-table { table-layout: fixed; width: 100%; }
-        .action-table th, .action-table td { padding: 15px; border-bottom: 1px solid #e2e8f0; word-wrap: break-word; }
-        .action-table th:nth-child(1) { width: 30%; }
+        /* UI Polish & Nuclear Fix - v2 */
+        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; text-align: left; }
+        .card { background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 24px; display: block !important; height: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .card-title { font-size: 15px; font-weight: 700; line-height: 1.4; margin: 12px 0; color: #1e293b; display: block; }
+        .card-body { font-size: 13.5px; line-height: 1.6; color: #475569; display: block !important; text-align: left !important; margin-bottom: 16px; }
+        .card-body strong { font-weight: 700; color: #1e293b; display: inline; } /* Đảm bảo không bị nhảy dòng */
+        .sentiment { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 4px; font-size: 11px; margin: 8px 0; font-weight: 600; }
+        .card-impact { background: #f8fafc; border-left: 4px solid var(--primary); padding: 16px; border-radius: 4px; margin-top: 16px; display: block !important; }
+        .card-impact strong { display: block; color: var(--primary); margin-bottom: 6px; font-size: 13px; font-weight: 700; }
+        .card-impact p { margin: 0; font-size: 12.5px; line-height: 1.5; color: #334155; }
+        
+        .action-table { table-layout: fixed; width: 100%; border-collapse: collapse; }
+        .action-table th, .action-table td { padding: 16px; text-align: left !important; vertical-align: top; border-bottom: 1px solid #f1f5f9; }
+        .action-table th:nth-child(1) { width: 35%; }
         .action-table th:nth-child(2) { width: 15%; }
         </style>
 </head>
@@ -234,7 +237,7 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 </div>
 </div>
 <div class="dashboard-grid">
-<a class="kpi-card" href="#reg-policy"><div class="kpi-number" style="color:#0d9488">06</div><div class="kpi-label vi-text">Chính sách &amp; Pháp lý VN</div><div class="kpi-label en-text">Regulatory &amp; Policy VN</div><div class="kpi-priority pri-high">Critical</div></a>
+<a class="kpi-card" href="#reg-policy"><div class="kpi-number" style="color:#0d9488">08</div><div class="kpi-label vi-text">Chính sách &amp; Pháp lý VN</div><div class="kpi-label en-text">Regulatory &amp; Policy VN</div><div class="kpi-priority pri-high">Critical</div></a>
 <a class="kpi-card" href="#market-intel"><div class="kpi-number" style="color:#d97706">08</div><div class="kpi-label vi-text">Tin ngành · trong &amp; ngoài nước</div><div class="kpi-label en-text">Domestic + Global News</div><div class="kpi-priority pri-mid">Monitor</div></a>
 <a class="kpi-card" href="#competitors"><div class="kpi-number" style="color:#be123c">05</div><div class="kpi-label vi-text">Tín hiệu đối thủ</div><div class="kpi-label en-text">Competitor Signals</div><div class="kpi-priority pri-high">🔴 Alert</div></a>
 <a class="kpi-card" href="#dav-portfolio"><div class="kpi-number" style="color:#003B71">04</div><div class="kpi-label vi-text">Sản phẩm theo dõi</div><div class="kpi-label en-text">Portfolio Tracking</div><div class="kpi-priority pri-low">On Track</div></a>
@@ -265,9 +268,54 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 <div class="section-header">
 <div class="section-icon">📋</div>
 <div><div class="section-label">Regulatory · Vietnam</div><div class="section-title vi-text">Chính Sách &amp; Pháp Lý Việt Nam</div><div class="section-title en-text">Vietnam Regulatory &amp; Policy</div></div>
-<span class="section-count">6 updates</span>
+<span class="section-count">8 updates</span>
 </div>
 <div class="card-grid"><div class="card">
+<div class="card-header">
+<span class="card-tag tag-market vi-text">Đấu Thầu Thuốc</span>
+<span class="card-tag tag-market en-text">Drug Procurement</span>
+<div class="card-title vi-text">Bộ Y Tế Phản Hồi Về Khó Khăn Đấu Thầu: Cơ Hội Cải Cách Chính Sách Mua Sắm Dược Phẩm</div>
+<div class="card-title en-text">Ministry of Health Responds to Procurement Challenges: Policy Reform Opportunity for Pharmaceutical Procurement</div>
+</div>
+<div class="card-body vi-text">Bộ Y tế đã chính thức lên tiếng phản hồi sau khi các Đại biểu Quốc hội phản ánh những khó khăn, vướng mắc trong quá trình đấu thầu và mua sắm trang thiết bị y tế tại các cơ sở y tế công lập. Đây là tín hiệu cho thấy cơ quan quản lý đang nhìn nhận nghiêm túc các bất cập trong hệ thống đấu thầu hiện hành, mở ra khả năng điều chỉnh chính sách theo hướng minh bạch và thuận lợi hơn cho doanh nghiệp dược nội địa. <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxPdENabDZpaHVqNTZ1TS16ODNNRkN3T0d6SmhqU18yLW14dE5hRUt4eUE0amRyVWNYYWE1YUtGYjhESEhXWlR1MmhicHg0aEI3YXkxUjE5cWlpaHR3X2tCS2paY0RXS0YyWHBBX2M1X2xqUUZpcHc5T0hHbmZVNjhVbU1GSGN0MzU4bUxOSHlreGczbGZnQzc3aDlhZTFUQ2FfMzd2cXdZdUtUNDd1b2l1Z25OU040Mmw5WDVzUQ?oc=5" target="_blank">[Nguồn]</a></div>
+<div class="card-body en-text">The Ministry of Health has officially responded to concerns raised by National Assembly delegates regarding difficulties in the tendering and procurement of medical equipment and pharmaceuticals at public health facilities. This signals that the regulatory authority is seriously addressing systemic inefficiencies in the current procurement framework, potentially paving the way for policy reforms that favor transparency and domestic pharmaceutical manufacturers. <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxPdENabDZpaHVqNTZ1TS16ODNNRkN3T0d6SmhqU18yLW14dE5hRUt4eUE0amRyVWNYYWE1YUtGYjhESEhXWlR1MmhicHg0aEI3YXkxUjE5cWlpaHR3X2tCS2paY0RXS0YyWHBBX2M1X2xqUUZpcHc5T0hHbmZVNjhVbU1GSGN0MzU4bUxOSHlreGczbGZnQzc3aDlhZTFUQ2FfMzd2cXdZdUtUNDd1b2l1Z25OU040Mmw5WDVzUQ?oc=5" target="_blank">[Source]</a></div>
+<div class="sentiment sent-neu vi-text"><span class="sent-dot"></span>Trung lập – Theo dõi chính sách: Tín hiệu cải cách tích cực nhưng chưa có thay đổi cụ thể</div>
+<div class="sentiment sent-neu en-text"><span class="sent-dot"></span>Neutral – Policy Watch: Positive reform signals but no concrete changes yet</div>
+<div class="card-impact vi-text">
+<strong>Tác động Davipharm:</strong>
+<p><strong>Bối cảnh chung:</strong> Phản hồi của Bộ Y tế trước áp lực từ Quốc hội cho thấy hệ thống đấu thầu dược phẩm đang đứng trước ngưỡng cải cách. Đây là thời điểm quan trọng để Davipharm chủ động định vị và tham gia vào quá trình định hình chính sách.</p>
+<p><strong>Empagliflozin (điều trị đái tháo đường/tim mạch):</strong> Nếu cải cách đấu thầu đi theo hướng ưu tiên thuốc generic nội địa chất lượng cao (nhóm 1, nhóm 2), Empagliflozin của Davipharm có cơ hội lớn thâm nhập kênh bệnh viện công – phân khúc hiện đang bị chi phối bởi thuốc ngoại. Davipharm cần chuẩn bị hồ sơ kỹ thuật đạt chuẩn để sẵn sàng tham gia các gói thầu cấp quốc gia và địa phương ngay khi chính sách được điều chỉnh.</p>
+<p><strong>Tadalafil &amp; Dapoxetine (nam khoa):</strong> Hai sản phẩm này chủ yếu phân phối qua kênh ETC (nhà thuốc bán lẻ) và OTC, ít phụ thuộc vào đấu thầu bệnh viện. Tuy nhiên, nếu cải cách tạo ra môi trường đấu thầu minh bạch hơn, Davipharm có thể xem xét mở rộng kênh bệnh viện cho Tadalafil (chỉ định tăng áp phổi, phì đại tuyến tiền liệt lành tính) – một phân khúc chưa được khai thác triệt để.</p>
+<p><strong>Khuyến nghị chiến lược:</strong> Davipharm nên (1) theo dõi sát các văn bản hướng dẫn sắp ban hành từ Bộ Y tế; (2) chủ động vận động chính sách thông qua Hiệp hội Doanh nghiệp Dược Việt Nam để bảo vệ lợi ích của nhà sản xuất nội địa; (3) chuẩn bị năng lực đấu thầu (hồ sơ năng lực, giá cạnh tranh, chứng nhận chất lượng) để nắm bắt cơ hội ngay khi cửa sổ chính sách mở ra.</p>
+</div>
+<div class="card-impact en-text">
+<strong>Strategic Impact:</strong>
+<p><strong>General Context:</strong> The Ministry of Health</p></div></div><div class="card">
+<div class="card-header">
+<span class="card-tag tag-market vi-text">Đấu Thầu Thuốc</span>
+<span class="card-tag tag-market en-text">Drug Procurement</span>
+<div class="card-title vi-text">Giải Pháp Khắc Phục Thiếu Thuốc &amp; Lạm Dụng Thuốc: Cơ Hội Tái Định Vị Cho Davipharm</div>
+<div class="card-title en-text">Addressing Drug Shortages &amp; Misuse: Strategic Repositioning Opportunity for Davipharm</div>
+</div>
+<div class="card-body vi-text">
+        Bài báo trên Báo Dân trí đề cập đến các giải pháp nhằm khắc phục tình trạng thiếu thuốc và lạm dụng thuốc đang diễn ra tại Việt Nam, trong bối cảnh hệ thống đấu thầu và cung ứng dược phẩm còn nhiều bất cập. Các giải pháp được đề xuất hướng đến việc tăng cường kiểm soát chuỗi cung ứng, cải thiện cơ chế đấu thầu và nâng cao trách nhiệm của nhà sản xuất lẫn nhà phân phối. Đây là tín hiệu quan trọng cho thấy môi trường pháp lý và thị trường dược phẩm Việt Nam đang trong giai đoạn chuyển đổi mạnh mẽ.
+        <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNaXhjXzVhdm9VVG5Id3hocjRoancxVU5tR3ZKdmxWT19PLXR6RFI3RW85bi04R205ZDJsbGdpeWhRcmlxcU5GdFBIc1BGNFlKM29ieVdBMEhYYm1HR3E4V2NSb1I3SHNZLW1Bc1ZnVkQ2cUF5VEx6QzVvVEdWOHU0eXVuaXpJWTVGdXFSb3Y1ZFN6d09SaUUyRWZoZC1GcFR4NjJMMDhsbHZRY242UmZQdktLVQ?oc=5" target="_blank">[Nguồn]</a>
+</div>
+<div class="card-body en-text">
+        An article from Báo Dân trí discusses proposed solutions to address ongoing drug shortages and medication misuse in Vietnam, highlighting systemic weaknesses in the procurement and supply chain framework. The solutions focus on strengthening supply chain oversight, reforming tendering mechanisms, and increasing accountability among manufacturers and distributors. This signals a significant regulatory and market transformation underway in Vietnam's pharmaceutical sector.
+        <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNaXhjXzVhdm9VVG5Id3hocjRoancxVU5tR3ZKdmxWT19PLXR6RFI3RW85bi04R205ZDJsbGdpeWhRcmlxcU5GdFBIc1BGNFlKM29ieVdBMEhYYm1HR3E4V2NSb1I3SHNZLW1Bc1ZnVkQ2cUF5VEx6QzVvVEdWOHU0eXVuaXpJWTVGdXFSb3Y1ZFN6d09SaUUyRWZoZC1GcFR4NjJMMDhsbHZRY242UmZQdktLVQ?oc=5" target="_blank">[Source]</a>
+</div>
+<div class="sentiment sent-pos vi-text"><span class="sent-dot"></span>Tích cực – Cải cách đấu thầu tạo lợi thế cạnh tranh cho nhà sản xuất nội địa uy tín như Davipharm</div>
+<div class="sentiment sent-pos en-text"><span class="sent-dot"></span>Positive – Procurement reforms create competitive advantages for reputable domestic manufacturers like Davipharm</div>
+<div class="card-impact vi-text">
+<strong>Tác động Davipharm:</strong>
+<p><strong>🔵 Empagliflozin (Điều trị Đái tháo đường / Tim mạch):</strong> Tình trạng thiếu thuốc điều trị mãn tính như đái tháo đường type 2 là vấn đề nghiêm trọng tại các bệnh viện công. Nếu cơ chế đấu thầu được cải thiện và ưu tiên nguồn cung ổn định từ nhà sản xuất nội địa, Davipharm có cơ hội lớn để đẩy mạnh Empagliflozin vào kênh bệnh viện (ETC). Chiến lược cần tập trung vào việc đảm bảo năng lực cung ứng liên tục, xây dựng hồ sơ năng lực đấu thầu vượt trội và chủ động tiếp cận các hội đồng đấu thầu tỉnh/thành.</p>
+<p><strong>🔵 Tadalafil &amp; Dapoxetine (Sức khỏe Nam giới):</strong> Hai sản phẩm này chủ yếu phân phối qua kênh OTC và nhà thuốc tư nhân – vốn ít bị ảnh hưởng trực tiếp bởi đấu thầu bệnh viện. Tuy nhiên, vấn đề lạm dụng thuốc được đề cập trong bài báo đặt ra thách thức về hình ảnh thương hiệu: Davipharm cần chủ động truyền thông về việc sử dụng Tadalafil và Dapoxetine đúng chỉ định, có kê đơn, nhằm tách biệt sản phẩm khỏi nhóm thuốc bị lạm dụng và củng cố uy tín thương hiệu dược phẩm có trách nhiệm.</p>
+<p><strong>⚡ Khuyến nghị chiến lược:</strong> Davipharm nên tận dụng giai đoạn cải cách này để (1) Đăng ký tham gia các chương trình đấu thầu tập trung quốc gia cho Empagliflozin; (2) Xây dựng cam kết cung ứng dài hạn với Sở Y tế các tỉnh; (3) Phát triển tài liệu truyền thông y tế về sử dụng thuốc đúng cách cho Tadalafil/Dapoxetine nhằm định vị Davipharm là đối tác dược phẩm có trách nhiệm xã hội.</p>
+</div>
+<div class="card-impact en-text">
+<strong>Strategic Impact:</strong>
+<p></p></div></div><div class="card">
 <div class="card-header">
 <span class="card-tag tag-market vi-text">Kênh phân phối / Đối thủ chuỗi bán lẻ</span>
 <span class="card-tag tag-market en-text">Distribution Channel / Retail Chain Competitor</span>
