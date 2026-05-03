@@ -25,16 +25,35 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body { background: var(--bg); color: var(--text-main); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
 
+        /* LANG BAR */
+        .lang-bar { background: #fff; border-bottom: 1px solid var(--border); padding: 8px 5%; display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+        .lang-toggle { display: flex; background: #f3f4f6; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+        .lang-btn { padding: 4px 12px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--text-muted); transition: all 0.2s; }
+        .lang-btn.active { background: var(--primary); color: #fff; }
+
         /* HEADER */
-        header { background: #fff; border-bottom: 1px solid var(--border); padding: 2rem 5%; position: sticky; top: 0; z-index: 1000; }
+        header { background: #fff; border-bottom: 1px solid var(--border); padding: 1.5rem 5%; position: sticky; top: 0; z-index: 1000; }
         .header-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo img { height: 48px; width: auto; }
-        .header-meta { text-align: right; }
-        .header-meta h1 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        .header-meta p { font-size: 0.875rem; color: var(--text-muted); }
+        .logo img { height: 44px; width: auto; }
+        
+        .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+        .word-btn { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+        .word-btn:hover { background: var(--primary-light); transform: translateY(-1px); }
+
+        /* FLASH TICKER */
+        .flash-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #FEF2F2; border-top: 1px solid #FECACA; padding: 10px 5%; display: flex; align-items: center; gap: 20px; z-index: 2000; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); }
+        .flash-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #DC2626; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+        .flash-dot { width: 8px; height: 8px; background: #DC2626; border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.95); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.5; } 100% { transform: scale(0.95); opacity: 1; } }
+        .flash-ticker { overflow: hidden; flex: 1; }
+        .flash-items { display: inline-flex; font-size: 0.8125rem; font-weight: 500; color: #991B1B; white-space: nowrap; animation: ticker 40s linear infinite; }
+        .flash-items:hover { animation-play-state: paused; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .flash-item { margin-right: 40px; }
+        .flash-item strong { color: #DC2626; margin-right: 5px; }
 
         /* LAYOUT */
-        .main-container { max-width: 1400px; margin: 2rem auto; padding: 0 5%; }
+        .main-container { max-width: 1400px; margin: 2rem auto; padding: 0 5% 5rem 5%; }
         .section { margin-bottom: 4rem; }
         .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
         .section-header h2 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); }
@@ -115,19 +134,26 @@
     <div class="logo">
      <img alt="Davipharm Logo" src="logo.png"/>
     </div>
-    <div class="header-meta">
-     <h1 class="vi-text">
-      Báo Cáo Market Intelligence
-     </h1>
-     <h1 class="en-text">
-      Market Intelligence Dashboard
-     </h1>
-     <p class="vi-text">
-      Cập nhật lần cuối: 03/05/2026
-     </p>
-     <p class="en-text">
-      Last Update: May 3, 2026
-     </p>
+    <div class="header-actions">
+     <div class="header-meta">
+      <h1 class="vi-text">
+       Báo Cáo Market Intelligence
+      </h1>
+      <h1 class="en-text">
+       Market Intelligence Dashboard
+      </h1>
+     </div>
+     <button class="word-btn" onclick="downloadWord()">
+      <span>
+       ⬇
+      </span>
+      <span class="vi-text">
+       Tải về Word
+      </span>
+      <span class="en-text">
+       Download Word
+      </span>
+     </button>
     </div>
    </div>
   </header>
@@ -150,7 +176,7 @@
      </a>
      <a class="kpi-card" href="#market-intel">
       <div class="kpi-value" id="count-market">
-       2
+       7
       </div>
       <div class="kpi-label">
        Tin ngành Dược
@@ -158,7 +184,7 @@
      </a>
      <a class="kpi-card" href="#competitors">
       <div class="kpi-value" id="count-comp">
-       4
+       5
       </div>
       <div class="kpi-label">
        Đối thủ cạnh tranh
@@ -397,7 +423,6 @@
        </p>
       </div>
      </div>
-     <!-- Cards will be inserted here -->
     </div>
    </div>
    <!-- MARKET INTEL -->
@@ -407,10 +432,374 @@
       Tin ngành Dược
      </h2>
      <span class="section-count" id="badge-market">
-      2 items
+      7 items
      </span>
     </div>
     <div class="card-grid">
+     <div class="card" data-cat="market-intel">
+      <span class="card-tag">
+       Thị trường dược phẩm Việt Nam
+      </span>
+      <div class="card-title vi-text">
+       Dược phẩm 2/9 đặt mục tiêu doanh thu trăm tỉ đồng, kiện toàn nhân sự cấp cao - Báo Tuổi Trẻ
+      </div>
+      <div class="card-title en-text">
+       September 2nd Pharma Sets Hundred-Billion VND Revenue Target, Restructures Senior Leadership
+      </div>
+      <div class="card-body">
+       <span class="vi-text">
+        Công ty Dược phẩm 2/9 (DNP) công bố mục tiêu doanh thu trăm tỉ đồng trong năm tài chính tới, đồng thời thực hiện kiện toàn nhân sự cấp cao nhằm tăng cường năng lực quản trị và thúc đẩy tăng trưởng. Đây là tín hiệu cho thấy các doanh nghiệp dược vừa và nhỏ trong nước đang tích cực tái cơ cấu để cạnh tranh trong bối cảnh thị trường ngày càng sôi động.
+        <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPRHE2U1hLa2tjc1FoWTF4WFltdjR1aWlLTTZJM2xUVWc4cmotaC1rMDc4engxaklqSU5JTVNScVE5UHBZMERfZk9pQTNaandFcU5aeFJKak43LUgtcFpoQlMxc1l6NnBtVG1GbGl3RUN6NjctZlJtVWJWZkxNQ0hLUExFT21IQld1aEF3MW9qR0hLMWM4LTFkVElEQ3VFUmY2UkszYkxCa1pXQUZiMUR6X3pFT1V6bHM?oc=5" target="_blank">
+         [Nguồn]
+        </a>
+       </span>
+       <span class="en-text">
+        September 2nd Pharmaceutical Company (DNP) has announced a hundred-billion VND revenue target for the upcoming fiscal year, alongside a senior leadership restructuring aimed at strengthening governance and accelerating growth. This signals that small-to-mid-sized domestic pharma companies are actively reorganizing to compete in an increasingly dynamic market.
+        <a href="https://news.google.com/rss/articles/CBMitwFBVV95cUxPRHE2U1hLa2tjc1FoWTF4WFltdjR1aWlLTTZJM2xUVWc4cmotaC1rMDc4engxaklqSU5JTVNScVE5UHBZMERfZk9pQTNaandFcU5aeFJKak43LUgtcFpoQlMxc1l6NnBtVG1GbGl3RUN6NjctZlJtVWJWZkxNQ0hLUExFT21IQld1aEF3MW9qR0hLMWM4LTFkVElEQ3VFUmY2UkszYkxCa1pXQUZiMUR6X3pFT1V6bHM?oc=5" target="_blank">
+         [Source]
+        </a>
+       </span>
+      </div>
+      <div class="sentiment sent-neu">
+       <span class="vi-text">
+        ⚠️ Trung lập – Tín hiệu cạnh tranh gián tiếp từ phân khúc dược nội địa tầm trung
+       </span>
+       <span class="en-text">
+        ⚠️ Neutral – Indirect competitive signal from mid-tier domestic pharma segment
+       </span>
+      </div>
+      <div class="card-impact">
+       <strong>
+        Davipharm Strategy
+       </strong>
+       <p class="vi-text">
+        <strong>
+         🔍 Bối cảnh cạnh tranh – Nhà sản xuất nội địa tầm trung đang trỗi dậy:
+        </strong>
+        Dược phẩm 2/9 không phải đối thủ trực tiếp lớn của Davipharm, nhưng động thái đặt mục tiêu doanh thu trăm tỉ và kiện toàn nhân sự cấp cao phản ánh xu hướng
+        <em>
+         tái cơ cấu mạnh mẽ
+        </em>
+        của các nhà sản xuất dược nội địa quy mô vừa. Đây là tín hiệu cảnh báo sớm:
+        <strong>
+         làn sóng chuyên nghiệp hóa
+        </strong>
+        đang lan rộng trong ngành, thu hẹp khoảng cách năng lực giữa các doanh nghiệp.
+        <br/>
+        <br/>
+        <strong>
+         ⚔️ Cạnh tranh sản phẩm &amp; Đấu thầu:
+        </strong>
+        Khi DNP nâng cấp nhân sự và đặt mục tiêu tăng trưởng tham vọng, khả năng họ sẽ
+        <strong>
+         mở rộng danh mục sản phẩm
+        </strong>
+        và tích cực hơn trong các gói thầu bệnh viện (ETC channel) là rất cao. Davipharm cần rà soát các phân khúc sản phẩm có thể bị chồng lấn, đặc biệt ở nhóm generic phổ thông và các gói thầu địa phương tại khu vực phía Nam – nơi DNP có lợi thế địa lý.
+        <br/>
+        <br/>
+        <strong>
+         💡 Khuyến nghị chiến lược cho Davipharm:
+        </strong>
+        <ul>
+         <li>
+          <strong>
+           Củng cố vị thế thương hiệu:
+          </strong>
+          Đẩy mạnh định vị "chất lượng EU-GMP" để tạo khoảng cách rõ ràng với các đối thủ tầm trung đang nâng cấp.
+         </li>
+         <li>
+          <strong>
+           Ưu tiên đấu thầu chiến lược:
+          </strong>
+          Tập trung vào các gói thầu nhóm 1-2 (tiêu chí kỹ thuật cao) thay vì cạnh tranh giá ở nhóm generic thông thường.
+         </li>
+         <li>
+          <strong>
+           Theo dõi nhân sự DNP:
+          </strong>
+          Các lãnh đạo mới được bổ nhiệm có thể mang theo chiến lược từ các công ty dược lớn hơn – cần cập nhật thông tin tình báo cạnh tranh.
+         </li>
+         <li>
+          <strong>
+           Cơ hội M&amp;A/hợp tác:
+          </strong>
+          Sự tái cơ cấu của DNP cũng có thể mở ra cơ hội hợp tác phân phối hoặc nhượng quyền sản phẩm tại các thị trường ngách mà Davipharm chưa phủ sâu.
+         </li>
+        </ul>
+       </p>
+       <p class="en-text">
+        <strong>
+         🔍
+        </strong>
+       </p>
+      </div>
+     </div>
+     <div class="card" data-cat="market-intel">
+      <span class="card-tag">
+       FPT Retail Long Châu
+      </span>
+      <div class="card-title vi-text">
+       Long Châu dẫn đầu tăng trưởng FPT Retail, đặt lợi ích người dân làm trung tâm - Vietnam.vn
+      </div>
+      <div class="card-title en-text">
+       Long Chau Drives FPT Retail Growth with People-Centric Strategy — Channel Power Implications for Pharma Manufacturers
+      </div>
+      <div class="card-body">
+       <span class="vi-text">
+        Chuỗi nhà thuốc Long Châu (thuộc FPT Retail) tiếp tục là động lực tăng trưởng chủ lực, mở rộng mạng lưới và củng cố vị thế dẫn đầu thị trường bán lẻ dược phẩm tại Việt Nam. Chiến lược của Long Châu tập trung vào việc phục vụ lợi ích sức khỏe cộng đồng, gia tăng độ phủ điểm bán và nâng cao trải nghiệm khách hàng.
+        <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNQ1V3Wm12VFVxaFVQQmxWbWRUQXlrNzY5Yk5Ib3lzaTNXbUlobTBySERvMjlPY3FzTm14MkxUdDE0c2laUV84a3NROUhVSXRHd0ZDWndCbTBpRnBwYnYwa1BlZU12dWFvRm9Cb1J3QkppRjU4MXJRZ3lmUDBXeXVvSHk2eDBjRTN1dEUxZ2gzZ2F3Ri1aLVA2ajNDcVlyUlFVdFVuRg?oc=5" target="_blank">
+         [Nguồn]
+        </a>
+       </span>
+       <span class="en-text">
+        Long Chau pharmacy chain (under FPT Retail) continues to be the primary growth engine, expanding its nationwide network and reinforcing its leadership in Vietnam's retail pharmaceutical market. Its strategy centers on community health service, increased outlet coverage, and enhanced customer experience.
+        <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxNQ1V3Wm12VFVxaFVQQmxWbWRUQXlrNzY5Yk5Ib3lzaTNXbUlobTBySERvMjlPY3FzTm14MkxUdDE0c2laUV84a3NROUhVSXRHd0ZDWndCbTBpRnBwYnYwa1BlZU12dWFvRm9Cb1J3QkppRjU4MXJRZ3lmUDBXeXVvSHk2eDBjRTN1dEUxZ2gzZ2F3Ri1aLVA2ajNDcVlyUlFVdFVuRg?oc=5" target="_blank">
+         [Source]
+        </a>
+       </span>
+      </div>
+      <div class="sentiment sent-pos">
+       <span class="vi-text">
+        ⚡ Tác động Kép: Cơ hội mở rộng kênh phân phối — nhưng kèm rủi ro phụ thuộc &amp; áp lực đàm phán giá
+       </span>
+       <span class="en-text">
+        ⚡ Dual Impact: Distribution expansion opportunity — offset by channel dependency risk &amp; pricing pressure
+       </span>
+      </div>
+      <div class="card-impact">
+       <strong>
+        Davipharm Strategy
+       </strong>
+       <p class="vi-text">
+        <strong>
+         🏪 Quyền lực kênh (Channel Power):
+        </strong>
+        Sự tăng trưởng liên tục của Long Châu — hiện sở hữu hơn 1.800+ điểm bán trên toàn quốc — đang tái định hình cán cân quyền lực giữa nhà sản xuất và nhà bán lẻ. Khi Long Châu chiếm tỷ trọng ngày càng lớn trong doanh thu OTC của Davipharm, nhà bán lẻ này có thể yêu cầu chiết khấu cao hơn, điều kiện thanh toán dài hơn, hoặc độc quyền SKU nhất định — tạo ra rủi ro phụ thuộc kênh nghiêm trọng.
+        <br/>
+        <br/>
+        <strong>
+         📦 Shelf-space &amp; Danh mục sản phẩm:
+        </strong>
+        Với chiến lược "đặt lợi ích người dân làm trung tâm", Long Châu có xu hướng ưu tiên các sản phẩm có giá trị lâm sàng rõ ràng, giá cạnh tranh và nhận diện thương hiệu mạnh. Davipharm cần chủ động đàm phán vị trí shelf-space ưu tiên (eye-level, end-cap) cho các dòng sản phẩm chiến lược, đặc biệt là các nhóm vitamin, kháng sinh OTC và sản phẩm generic cao cấp.
+        <br/>
+        <br/>
+        <strong>
+         🤝 Khuyến nghị chiến lược:
+        </strong>
+        (1) Xây dựng chương trình đối tác chiến lược (Strategic Partnership Program) với Long Châu, bao gồm hỗ trợ đào tạo dược sĩ tư vấn về sản phẩm Davipharm; (2) Phát triển SKU độc quyền hoặc bundle pack dành riêng cho kênh Long Châu để tăng tính gắn kết; (3) Đầu tư vào dữ liệu sell-out từ Long Châu để tối ưu hóa dự báo nhu cầu và tránh tình trạng out-of-stock; (4) Đồng thời đa dạng hóa kênh phân phối (Pharmacity, nhà thuốc độc lập, kênh ETC) để giảm thiểu rủi ro phụ thuộc vào một kênh duy nhất.
+       </p>
+       <p class="en-text">
+        <strong>
+         🏪 Channel Power Dynamics:
+        </strong>
+        Long Chau's sustained expansion (1,800+ outlets nationwide) is reshaping the manufacturer-retailer power balance. As Long Chau captures an increasing share of Davipharm's OTC revenue, the retailer gains leverage to demand higher trade discounts, extended payment terms, or exclusive SKU arrangements — creating significant channel dependency risk.
+        <br/>
+        <br/>
+        <strong>
+         📦 Shelf-Space &amp; Portfolio Positioning:
+        </strong>
+        Long Chau's "people-centric" strategy favors products with clear clinical value, competitive pricing, and strong brand recognition. Davipharm must proactively negotiate premium shelf positioning (eye-level, end-cap displays) for strategic product lines, particularly vitamins, OTC antibiotics, and premium generics.
+        <br/>
+        <br/>
+        <strong>
+         🤝 Strategic Recommendations:
+        </strong>
+        (1) Establish a Strategic Partnership Program with Long Chau, including pharmacist training support on
+       </p>
+      </div>
+     </div>
+     <div class="card" data-cat="market-intel">
+      <span class="card-tag">
+       Pharmacity
+      </span>
+      <div class="card-title vi-text">
+       Pharmacity: Khát vọng 'nối liền bản đồ y tế' và sứ mệnh phụng sự vì sức khỏe Việt - Thanh Niên
+      </div>
+      <div class="card-title en-text">
+       Pharmacity: Ambition to 'Connect the Healthcare Map' and Mission to Serve Vietnamese Health
+      </div>
+      <div class="card-body">
+       <span class="vi-text">
+        Pharmacity tiếp tục khẳng định tầm nhìn mở rộng mạng lưới chuỗi nhà thuốc trên toàn quốc, hướng đến mục tiêu phủ sóng rộng khắp các tỉnh thành, kể cả vùng sâu vùng xa, nhằm "nối liền bản đồ y tế" Việt Nam. Chuỗi này nhấn mạnh sứ mệnh cung cấp dịch vụ chăm sóc sức khỏe toàn diện, không chỉ bán thuốc mà còn tư vấn và kết nối bệnh nhân với hệ sinh thái y tế.
+        <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxQa3BYUWprWGlGMFpkQmNESjVKT2ZIX3liZG14Qkttc3NMV2hRbURjaHkxbVg4ZEdXeVRrTEZhbnNOUF8wT1VoN2prbTE0Y0tsMnZ5V0xZWU1ib0tVdFlrTGdab216V0dWUDlvNFpfa2d1UG5mX2FPSzVvVUNEUlBtOUhyLW9QQUFkR05GQ0ZqMWhUUjMyczcxWS1iZ1JUV1FUc1dIdWliUzVoTFczNWxQZUM2YS10N09OSDFOYnZ1OA?oc=5" target="_blank">
+         [Nguồn]
+        </a>
+       </span>
+       <span class="en-text">
+        Pharmacity continues to assert its vision of expanding its pharmacy chain network nationwide, targeting coverage across all provinces including remote areas, aiming to "connect Vietnam's healthcare map." The chain emphasizes a mission of comprehensive healthcare services — not just drug retail, but also patient consultation and ecosystem connectivity.
+        <a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxQa3BYUWprWGlGMFpkQmNESjVKT2ZIX3liZG14Qkttc3NMV2hRbURjaHkxbVg4ZEdXeVRrTEZhbnNOUF8wT1VoN2prbTE0Y0tsMnZ5V0xZWU1ib0tVdFlrTGdab216V0dWUDlvNFpfa2d1UG5mX2FPSzVvVUNEUlBtOUhyLW9QQUFkR05GQ0ZqMWhUUjMyczcxWS1iZ1JUV1FUc1dIdWliUzVoTFczNWxQZUM2YS10N09OSDFOYnZ1OA?oc=5" target="_blank">
+         [Source]
+        </a>
+       </span>
+      </div>
+      <div class="sentiment sent-pos">
+       <span class="vi-text">
+        ⚡ Tác động Tích cực có Điều kiện — Cơ hội mở rộng kênh phân phối lớn, nhưng đi kèm rủi ro phụ thuộc và áp lực shelf-space
+       </span>
+       <span class="en-text">
+        ⚡ Conditionally Positive — Major distribution channel expansion opportunity, but with dependency risk and shelf-space pressure
+       </span>
+      </div>
+      <div class="card-impact">
+       <strong>
+        Davipharm Strategy
+       </strong>
+       <p class="vi-text">
+        <strong>
+         🏪 Quyền lực kênh (Channel Power):
+        </strong>
+        Pharmacity mở rộng mạng lưới đồng nghĩa với việc chuỗi này ngày càng nắm giữ quyền lực lớn hơn trong chuỗi giá trị dược phẩm OTC. Khi Pharmacity "nối liền bản đồ y tế" — đặc biệt tại các tỉnh thành vùng sâu vùng xa — họ trở thành cổng tiếp cận người tiêu dùng không thể thiếu. Davipharm cần đánh giá lại mức độ phụ thuộc vào kênh này: nếu doanh thu từ Pharmacity chiếm tỷ trọng cao, rủi ro đàm phán giá và điều khoản sẽ tăng theo.
+        <br/>
+        <br/>
+        <strong>
+         📦 Shelf-space &amp; Listing Fee:
+        </strong>
+        Tham vọng mở rộng của Pharmacity thường đi kèm với yêu cầu listing fee cao hơn, yêu cầu SKU tối ưu hóa và áp lực co-marketing. Davipharm cần chủ động đàm phán vị trí trưng bày ưu tiên (prime shelf) cho các sản phẩm chiến lược, đặc biệt là các dòng OTC có biên lợi nhuận cao. Cần xây dựng bộ dữ liệu sell-through để chứng minh giá trị sản phẩm với buyer của Pharmacity.
+        <br/>
+        <br/>
+        <strong>
+         🌏 Cơ hội địa lý:
+        </strong>
+        Việc Pharmacity phủ sóng vùng sâu vùng xa là cơ hội vàng để Davipharm đưa sản phẩm đến các thị trường mà trước đây khó tiếp cận qua kênh truyền thống. Đây là đòn bẩy để tăng trưởng doanh thu mà không cần đầu tư hạ tầng phân phối riêng.
+        <br/>
+        <br/>
+        <strong>
+         ⚠️ Khuyến nghị chiến lược:
+        </strong>
+        Duy trì đa dạng hóa kênh (không để Pharmacity chiếm &gt;30% doanh thu OTC); đồng thời xây dựng chương trình đối tác chiến lược dài hạn với Pharmacity để đảm bảo vị thế ưu tiên trong danh mục sản phẩm của chuỗi.
+       </p>
+       <p class="en-text">
+        <strong>
+         🏪 Channel Power:
+        </strong>
+        Pharmacity's network expansion means the chain increasingly controls access to OTC consumers, especially in underserved provinces. Davipharm must reassess dependency risk — high revenue concentration in this channel weakens negotiating leverage on pricing and terms.
+        <br/>
+        <br/>
+        <strong>
+         📦 Shelf-space &amp; Listing Fees:
+        </strong>
+        Pharmacity's growth ambitions typically come with higher listing fees, SKU ration
+       </p>
+      </div>
+     </div>
+     <div class="card" data-cat="market-intel">
+      <span class="card-tag">
+       Tây Ninh
+      </span>
+      <div class="card-title vi-text">
+       Phường Long An khẳng định vị thế chính trị - kinh tế hàng đầu của tỉnh Tây Ninh - Thanh Niên
+      </div>
+      <div class="card-title en-text">
+       Long An Ward Asserts Leading Political-Economic Position in Tay Ninh Province
+      </div>
+      <div class="card-body">
+       <span class="vi-text">
+        Bài báo đề cập đến sự phát triển kinh tế - xã hội của phường Long An, tỉnh Tây Ninh, khẳng định vị thế đầu tàu về chính trị và kinh tế trong khu vực. Tuy nhiên, nội dung bài báo gốc không được cung cấp đầy đủ qua nguồn Google News RSS.
+        <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPYmhSNThqS0hXSkVJTnNtTktfYWFONFJWU3JGMGZXcjlTTV94c3JxSkdFeEpmbXVONGRRZEhFTXU1NkFGSzJSdVhNbThpdFg1THhIOTRMY2dKcEJwZWpIU2g1dTNGbUR6bEpjMV9WUE4xN041RFJZcG5BMXRnRDduZElJejFrandVeHA5N3BVMHozVjVKQmV2ZWVFYkpNXzQtX0lVYVZTZWlGMTJTV00yNWxncTh3ZVRKSEJoQ2JB?oc=5" target="_blank">
+         [Nguồn]
+        </a>
+       </span>
+       <span class="en-text">
+        The article highlights the socio-economic development of Long An Ward in Tay Ninh province, affirming its leading role in the region's political and economic landscape. Full article content was not available via the Google News RSS feed.
+        <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPYmhSNThqS0hXSkVJTnNtTktfYWFONFJWU3JGMGZXcjlTTV94c3JxSkdFeEpmbXVONGRRZEhFTXU1NkFGSzJSdVhNbThpdFg1THhIOTRMY2dKcEJwZWpIU2g1dTNGbUR6bEpjMV9WUE4xN041RFJZcG5BMXRnRDduZElJejFrandVeHA5N3BVMHozVjVKQmV2ZWVFYkpNXzQtX0lVYVZTZWlGMTJTV00yNWxncTh3ZVRKSEJoQ2JB?oc=5" target="_blank">
+         [Source]
+        </a>
+       </span>
+      </div>
+      <div class="sentiment sent-neu">
+       <span class="vi-text">
+        ⚪ Trung tính – Tin tức địa phương, tác động gián tiếp đến Davipharm
+       </span>
+       <span class="en-text">
+        ⚪ Neutral – Local governance news with indirect relevance to Davipharm
+       </span>
+      </div>
+      <div class="card-impact">
+       <strong>
+        Davipharm Strategy
+       </strong>
+       <p class="vi-text">
+        <strong>
+         Cơ hội mở rộng thị trường tỉnh:
+        </strong>
+        Tây Ninh là tỉnh biên giới có tiềm năng tăng trưởng kinh tế, dân số đang phát triển và hạ tầng y tế đang được đầu tư. Sự phát triển của các đô thị trung tâm như phường Long An tạo ra nhu cầu gia tăng về dược phẩm OTC và ETC tại các cơ sở y tế địa phương.
+        <br/>
+        <br/>
+        <strong>
+         Chiến lược phân phối:
+        </strong>
+        Davipharm nên xem xét củng cố mạng lưới trình dược viên (MR) tại Tây Ninh, đặc biệt nhắm vào các bệnh viện tuyến tỉnh, trung tâm y tế phường/xã đang được nâng cấp. Đây là cơ hội để đẩy mạnh danh mục sản phẩm generic chất lượng cao vào kênh đấu thầu bệnh viện công.
+        <br/>
+        <br/>
+        <strong>
+         Lưu ý hạn chế:
+        </strong>
+        Bài báo mang tính chính trị - hành chính, không có dữ liệu cụ thể về ngành dược. Cần theo dõi thêm các thông tin về đầu tư y tế, mở mới cơ sở khám chữa bệnh tại địa bàn để có hành động chiến lược cụ thể hơn.
+       </p>
+       <p class="en-text">
+        <strong>
+         Provincial Market Expansion:
+        </strong>
+        Tay Ninh is a border province with growing economic potential and expanding healthcare infrastructure. Urban development in key wards like Long An signals rising demand for both OTC and ETC pharmaceuticals at local health facilities.
+        <br/>
+        <br/>
+        <strong>
+         Distribution Strategy:
+        </strong>
+        Davipharm should consider strengthening its Medical Representative (MR) network in Tay Ninh, targeting provincial hospitals and upgraded commune health centers — key venues for public hospital tender opportunities with quality generic products.
+        <br/>
+        <br/>
+        <strong>
+         Caveat:
+        </strong>
+        This article is primarily political-administrative in nature with no direct pharmaceutical data. Further monitoring of healthcare investment announcements in the region is recommended before committing strategic resources.
+       </p>
+      </div>
+     </div>
+     <div class="card" data-cat="market-intel">
+      <span class="card-tag">
+       Thị Trường
+      </span>
+      <div class="card-title vi-text">
+       Không có nội dung bài báo được cung cấp để phân tích
+      </div>
+      <div class="card-title en-text">
+       No Article Content Provided for Strategic Analysis
+      </div>
+      <div class="card-body">
+       <span class="vi-text">
+        Bài báo được cung cấp chỉ chứa nguồn "Google News" mà không có nội dung cụ thể. Vui lòng cung cấp nội dung bài báo đầy đủ để có thể thực hiện phân tích chiến lược chính xác cho Davipharm.
+        <a href="#" target="_blank">
+         [Nguồn]
+        </a>
+       </span>
+       <span class="en-text">
+        The provided article only contains the source label "Google News" without any substantive content. Please provide the full article text to enable accurate strategic analysis for Davipharm.
+        <a href="#" target="_blank">
+         [Source]
+        </a>
+       </span>
+      </div>
+      <div class="sentiment sent-neutral">
+       <span class="vi-text">
+        ⚪ Không xác định — Thiếu dữ liệu đầu vào
+       </span>
+       <span class="en-text">
+        ⚪ Undetermined — Insufficient Input Data
+       </span>
+      </div>
+      <div class="card-impact">
+       <strong>
+        Davipharm Strategy
+       </strong>
+       <p class="vi-text">
+        Không thể thực hiện phân tích chiến lược do thiếu nội dung bài báo. Để đưa ra khuyến nghị có giá trị, Davipharm cần nội dung đầy đủ bao gồm: (1) Chủ thể liên quan — kênh phân phối (Long Châu, Pharmacity) hay đối thủ sản xuất (DHG, IMP, Traphaco); (2) Thông tin về thị trường, chính sách, hoặc động thái cạnh tranh; (3) Dữ liệu về đấu thầu, shelf-space, hoặc xu hướng tiêu dùng. Vui lòng cung cấp lại bài báo với nội dung đầy đủ.
+       </p>
+       <p class="en-text">
+        Strategic analysis cannot be performed due to missing article content. To deliver actionable recommendations, Davipharm requires complete content covering: (1) Key entities involved — distribution channels (Long Chau, Pharmacity) or manufacturing competitors (DHG, IMP, Traphaco); (2) Market, policy, or competitive movement data; (3) Tendering, shelf-space, or consumer trend insights. Please resubmit with full article content.
+       </p>
+      </div>
+     </div>
      <div class="card" data-cat="market-intel">
       <span class="card-tag">
        Thị trường dược phẩm
@@ -543,7 +932,6 @@
        </p>
       </div>
      </div>
-     <!-- Cards will be inserted here -->
     </div>
    </div>
    <!-- COMPETITORS -->
@@ -553,10 +941,84 @@
       Đối thủ cạnh tranh
      </h2>
      <span class="section-count" id="badge-comp">
-      4 signals
+      5 signals
      </span>
     </div>
     <div class="card-grid">
+     <div class="card" data-cat="competitors">
+      <span class="card-tag">
+       Dược Hậu Giang
+      </span>
+      <div class="card-title vi-text">
+       Dược Hậu Giang chi cổ tức đậm, ông lớn Nhật Taisho đều đặn bỏ túi trăm tỷ - Chứng khoán DNSE
+      </div>
+      <div class="card-title en-text">
+       DHG Pharma Pays Generous Dividends, Japanese Giant Taisho Consistently Pockets Hundreds of Billions VND
+      </div>
+      <div class="card-body">
+       <span class="vi-text">
+        Dược Hậu Giang (DHG) tiếp tục duy trì chính sách chi trả cổ tức cao, qua đó cổ đông chiến lược Taisho (Nhật Bản) — đang nắm giữ tỷ lệ cổ phần lớn — đều đặn thu về hàng trăm tỷ đồng mỗi năm. Điều này phản ánh nền tảng tài chính vững mạnh và khả năng sinh lời ổn định của DHG trong ngành dược phẩm Việt Nam.
+        <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxOLXRtVklCeVRDakEzZVM2bUM2MktOTF9BTVo3M28xS1hHbDFvYTB4eDJjUXY1a3JrV3hwQUd1bVNrTi1lRTBlcEFfZG5TYnhpZGFIZW83R2pGNUdYRzE1QWhlUmtYbTktWGVXLW1DSW5OWjZnbENoMlVfX2tZdWEtVVJqbV9zaGlhaHNKV2R5WU5mYWF0YmV3dVd0NVdSdWVOZXJKbU5pYmZ4dDFFOUdNdnpBelRPS0xJMWZYcw?oc=5" target="_blank">
+         [Nguồn]
+        </a>
+       </span>
+       <span class="en-text">
+        DHG Pharma (Dược Hậu Giang) continues its high dividend payout policy, allowing its major strategic shareholder — Japanese pharmaceutical giant Taisho — to consistently receive hundreds of billions of VND annually. This reflects DHG's strong financial foundation and stable profitability within Vietnam's pharmaceutical sector.
+        <a href="https://news.google.com/rss/articles/CBMivAFBVV95cUxOLXRtVklCeVRDakEzZVM2bUM2MktOTF9BTVo3M28xS1hHbDFvYTB4eDJjUXY1a3JrV3hwQUd1bVNrTi1lRTBlcEFfZG5TYnhpZGFIZW83R2pGNUdYRzE1QWhlUmtYbTktWGVXLW1DSW5OWjZnbENoMlVfX2tZdWEtVVJqbV9zaGlhaHNKV2R5WU5mYWF0YmV3dVd0NVdSdWVOZXJKbU5pYmZ4dDFFOUdNdnpBelRPS0xJMWZYcw?oc=5" target="_blank">
+         [Source]
+        </a>
+       </span>
+      </div>
+      <div class="sentiment sent-neg">
+       <span class="vi-text">
+        ⚠️ Thách thức — Đối thủ được hậu thuẫn tài chính mạnh từ cổ đông Nhật Bản, gia tăng áp lực cạnh tranh dài hạn lên Davipharm
+       </span>
+       <span class="en-text">
+        ⚠️ Challenging — Competitor backed by strong Japanese financial support, increasing long-term competitive pressure on Davipharm
+       </span>
+      </div>
+      <div class="card-impact">
+       <strong>
+        Davipharm Strategy
+       </strong>
+       <p class="vi-text">
+        <strong>
+         🔴 Cạnh tranh sản phẩm &amp; Năng lực tài chính đối thủ:
+        </strong>
+        Việc DHG duy trì cổ tức cao và được Taisho hậu thuẫn tài chính bền vững cho thấy đối thủ này có nguồn lực dồi dào để tiếp tục đầu tư vào R&amp;D, nâng cấp dây chuyền sản xuất (GMP), và mở rộng danh mục sản phẩm — đặc biệt trong phân khúc OTC và generic cao cấp, vốn là địa bàn cạnh tranh trực tiếp với Davipharm.
+        <br/>
+        <br/>
+        <strong>
+         🔴 Đấu thầu bệnh viện:
+        </strong>
+        Với nền tảng tài chính vững chắc, DHG có khả năng chấp nhận biên lợi nhuận thấp hơn trong các gói thầu bệnh viện (ETC channel) để giành thị phần, tạo áp lực giá đáng kể lên Davipharm tại kênh đấu thầu.
+        <br/>
+        <br/>
+        <strong>
+         🟡 Cơ hội cho Davipharm:
+        </strong>
+        Sự tập trung của DHG vào việc duy trì lợi nhuận để trả cổ tức có thể khiến họ thận trọng hơn trong việc đầu tư mạo hiểm vào các phân khúc mới hoặc sản phẩm chuyên biệt. Davipharm nên tận dụng khoảng trống này để đẩy mạnh đổi mới sản phẩm, tấn công vào các phân khúc điều trị chuyên sâu mà DHG chưa phủ mạnh, đồng thời xây dựng lợi thế cạnh tranh bền vững thông qua chất lượng sản xuất (EU-GMP) và tốc độ đưa sản phẩm ra thị trường.
+       </p>
+       <p class="en-text">
+        <strong>
+         🔴 Product Competition &amp; Competitor Financial Strength:
+        </strong>
+        DHG's sustained high dividend payouts, backed by Taisho's financial support, signal that this key competitor has ample resources to continuously invest in R&amp;D, GMP-standard manufacturing upgrades, and product portfolio expansion — particularly in OTC and premium generic segments that directly overlap with Davipharm's core business.
+        <br/>
+        <br/>
+        <strong>
+         🔴 Hospital Tendering (ETC Channel):
+        </strong>
+        With a solid financial base, DHG can afford to accept thinner margins in hospital tender bids to capture market share, placing significant pricing pressure on Davipharm in the ETC channel.
+        <br/>
+        <br/>
+        <strong>
+         🟡 Opportunity for Davipharm:
+        </strong>
+        DHG's focus on maintaining profitability for dividend distribution may make them more conservative in pursuing high-risk innovation or niche therapeutic segments. Davipharm should exploit this gap by accelerating product innovation, targeting specialized treatment segments underserved by DHG, and building sustainable
+       </p>
+      </div>
+     </div>
      <div class="card" data-cat="competitors">
       <span class="card-tag">
        Chuỗi nhà thuốc Long Châu
@@ -890,7 +1352,6 @@
        </p>
       </div>
      </div>
-     <!-- Cards will be inserted here -->
     </div>
    </div>
    <!-- PRODUCT TRACKER -->
@@ -1077,9 +1538,68 @@
     </div>
    </div>
   </footer>
+  <!-- FLASH TICKER -->
+  <div class="flash-bar">
+   <div class="flash-label">
+    <span class="flash-dot">
+    </span>
+    <span class="vi-text">
+     Khẩn cấp
+    </span>
+    <span class="en-text">
+     Alerts
+    </span>
+   </div>
+   <div class="flash-ticker">
+    <div class="flash-items" id="flash-items">
+     <div class="flash-item">
+      <strong>
+       QĐ 257/QĐ-QLD
+      </strong>
+      —
+      <span class="vi-text">
+       Danh mục đấu thầu Đợt 1/2026
+      </span>
+      <span class="en-text">
+       Tender list Batch 1/2026
+      </span>
+     </div>
+     <div class="flash-item">
+      <strong>
+       Imexpharm+Livzon
+      </strong>
+      —
+      <span class="vi-text">
+       Tập đoàn TQ kiểm soát 65% IMP
+      </span>
+      <span class="en-text">
+       Chinese group controls 65% IMP
+      </span>
+     </div>
+     <div class="flash-item">
+      <strong>
+       BI Jardiance
+      </strong>
+      —
+      <span class="vi-text">
+       Đang push chỉ định suy tim tại SEA
+      </span>
+      <span class="en-text">
+       Pushing HF indication in SEA
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
   <script>
    function setLang(lang) {
             document.body.className = 'lang-' + lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+        }
+
+        function downloadWord() {
+            alert('Đang chuẩn bị file Word cho báo cáo này...');
         }
   </script>
  </body>
