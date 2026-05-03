@@ -160,7 +160,21 @@ body.lang-vi .en-block{display:none;}body.lang-en .en-block{display:block;}
 @media print{.lang-bar,.flash-bar,.word-btn{display:none!important;}body{padding-bottom:0;}}
 
 .action-table td{word-break:break-word;min-width:120px;}
-.action-table td{word-break:break-word;min-width:120px;}</style>
+.action-table td{word-break:break-word;min-width:120px;}
+        /* UI Polish & Fixes */
+        * { text-align: left !important; } /* Chống justify gây giãn chữ */
+        .card { height: auto !important; min-height: 380px; display: flex; flex-direction: column; gap: 12px; }
+        .card-body { font-size: 13px; line-height: 1.6; color: #475569; margin-bottom: 8px; }
+        .sentiment { margin: 10px 0; padding: 6px 12px; border-radius: 6px; font-weight: 500; display: inline-flex; align-items: center; width: fit-content; }
+        .card-impact { background: #f0f7ff; border-left: 4px solid var(--primary); padding: 15px; border-radius: 0 8px 8px 0; margin-top: auto; }
+        .card-impact strong { display: block; color: var(--primary); margin-bottom: 8px; font-size: 13px; }
+        .card-impact p { margin: 0; font-size: 12.5px; color: #1e293b; line-height: 1.5; }
+        
+        .action-table { table-layout: fixed; width: 100%; }
+        .action-table th, .action-table td { padding: 15px; border-bottom: 1px solid #e2e8f0; word-wrap: break-word; }
+        .action-table th:nth-child(1) { width: 30%; }
+        .action-table th:nth-child(2) { width: 15%; }
+        </style>
 </head>
 <body class="lang-vi">
 <!-- LANG BAR -->
