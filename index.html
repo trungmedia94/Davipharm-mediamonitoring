@@ -209,6 +209,41 @@
             .exec-body { grid-template-columns: 1fr; gap: 1.5rem; }
             .exec-summary { padding: 1.5rem; }
         }
+
+        /* MARKET-INTEL: 4 cols, compact cards */
+        #market-intel .card-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+        #market-intel .card {
+            padding: 1.25rem;
+            gap: 0.625rem;
+        }
+        #market-intel .card-title { font-size: 0.9375rem; }
+        #market-intel .card-body span {
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: 0.8125rem;
+            line-height: 1.55;
+        }
+        #market-intel .card-impact p { font-size: 0.8125rem; }
+        @media (max-width: 1200px) {
+            #market-intel .card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            #market-intel .card-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ACTION ITEMS: priority badges */
+        #action-table td:last-child { white-space: nowrap; font-weight: 600; }
+        #action-table td:nth-child(2) { color: var(--primary); font-weight: 500; white-space: nowrap; }
+        .action-highlight {
+            background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+            border-left: 3px solid var(--primary);
+        }
   </style>
  </head>
  <body class="lang-vi">
@@ -253,10 +288,10 @@
     </div>
     <div id="exec-summary-content">
      <div class="exec-headline vi-text">
-      Đang tải dữ liệu thị trường — chạy script để cập nhật.
+      Tuần này: Cải cách đấu thầu mở cơ hội cho Davipharm trong khi Long Châu tăng tốc mở rộng tạo áp lực kênh phân phối.
      </div>
      <div class="exec-headline en-text">
-      Loading market data — run the script to update.
+      This week: Tender reform opens opportunities for Davipharm while Long Châu's rapid expansion intensifies distribution channel pressure.
      </div>
      <div class="exec-body">
       <div class="exec-col">
@@ -270,10 +305,40 @@
        </div>
        <ul class="exec-list">
         <li class="vi-text">
-         Chưa có dữ liệu
+         <strong>
+          Đấu thầu:
+         </strong>
+         Tiêu chí không còn là "giá thấp nhất" — nhà sản xuất GMP-EU được hưởng lợi trực tiếp.
         </li>
         <li class="en-text">
-         No data yet
+         <strong>
+          Tendering:
+         </strong>
+         Criteria shift away from "lowest price" — GMP-EU manufacturers gain direct advantage.
+        </li>
+        <li class="vi-text">
+         <strong>
+          Kênh OTC:
+         </strong>
+         FPT Retail lãi tăng 73% Q1/2026, Long Châu dẫn dắt tăng trưởng — đàm phán shelf-space ngày càng khó.
+        </li>
+        <li class="en-text">
+         <strong>
+          OTC Channel:
+         </strong>
+         FPT Retail +73% profit Q1/2026, Long Châu leads — shelf-space negotiation increasingly challenging.
+        </li>
+        <li class="vi-text">
+         <strong>
+          Cung ứng:
+         </strong>
+         Nhập khẩu nguyên liệu Q1/2026 giảm mạnh — cần đánh giá lại chuỗi cung ứng API.
+        </li>
+        <li class="en-text">
+         <strong>
+          Supply Chain:
+         </strong>
+         Q1/2026 raw material imports declined sharply — API supply chain review warranted.
         </li>
        </ul>
       </div>
@@ -288,10 +353,40 @@
        </div>
        <ul class="exec-list exec-actions">
         <li class="vi-text">
-         Chưa có dữ liệu
+         <strong>
+          P1
+         </strong>
+         RA/Marketing: Chuẩn bị hồ sơ EU-GMP để đủ điều kiện thầu Nhóm 1 theo quy định mới.
         </li>
         <li class="en-text">
-         No data yet
+         <strong>
+          P1
+         </strong>
+         RA/Marketing: Prepare EU-GMP dossier to qualify for Group 1 tenders under new regulations.
+        </li>
+        <li class="vi-text">
+         <strong>
+          P2
+         </strong>
+         Sales: Đàm phán partnership cấp tập đoàn với Long Châu — tránh đàm phán từng điểm bán.
+        </li>
+        <li class="en-text">
+         <strong>
+          P2
+         </strong>
+         Sales: Negotiate group-level partnership with Long Châu — avoid store-by-store negotiations.
+        </li>
+        <li class="vi-text">
+         <strong>
+          P3
+         </strong>
+         Supply Chain: Rà soát tồn kho API, đánh giá nguồn cung thay thế trong bối cảnh nhập khẩu giảm.
+        </li>
+        <li class="en-text">
+         <strong>
+          P3
+         </strong>
+         Supply Chain: Audit API inventory and evaluate alternative sourcing amid import decline.
         </li>
        </ul>
       </div>
@@ -308,7 +403,7 @@
     <div class="dashboard-grid">
      <a class="kpi-card" href="#reg-policy">
       <div class="kpi-value" id="count-reg">
-       4
+       3
       </div>
       <div class="kpi-label">
        Chính sách &amp; Pháp lý
@@ -316,7 +411,7 @@
      </a>
      <a class="kpi-card" href="#market-intel">
       <div class="kpi-value" id="count-market">
-       10
+       5
       </div>
       <div class="kpi-label">
        Tin ngành Dược
@@ -324,7 +419,7 @@
      </a>
      <a class="kpi-card" href="#competitors">
       <div class="kpi-value" id="count-comp">
-       5
+       3
       </div>
       <div class="kpi-label">
        Đối thủ cạnh tranh
@@ -355,54 +450,10 @@
       Chính sách &amp; Pháp lý
      </h2>
      <span class="section-count" id="badge-reg">
-      4 updates
+      3 updates
      </span>
     </div>
     <div class="card-grid">
-     <div class="card" data-cat="reg-policy">
-      <span class="card-tag">
-       Chính sách &amp; Quy định
-      </span>
-      <div class="card-title vi-text">
-       Không tìm thấy nội dung bài báo - Vui lòng cung cấp nội dung cụ thể
-      </div>
-      <div class="card-title en-text">
-       Article Content Unavailable - Please Provide Specific Content
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        Nội dung bài báo được cung cấp chỉ hiển thị "Google News" mà không có thông tin chi tiết. Vui lòng dán nội dung đầy đủ của bài báo để phân tích chính xác.
-        <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPR2QzeVJ4djN3RmdoQS1pZ2JndHk2MTljUEI4VVVYYmZFQWgzOGdDRHh6eWc1bVR3eGE4Z3BCaWlzeENtV2g1LVcxNzI5cXFJS2ZXaGExdXQ2VG5OaU14cnNaTGpQVzBWTWZFeHJEU2VDQm5hZGNlZkJMeW9Ba1pOWVNLMk9KUFJOQmhYc1VQblc3MXV5emlMWDlWWTVOdw?oc=5" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        The article content provided only shows "Google News" without any detailed information. Please paste the full article content for accurate analysis.
-        <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPR2QzeVJ4djN3RmdoQS1pZ2JndHk2MTljUEI4VVVYYmZFQWgzOGdDRHh6eWc1bVR3eGE4Z3BCaWlzeENtV2g1LVcxNzI5cXFJS2ZXaGExdXQ2VG5OaU14cnNaTGpQVzBWTWZFeHJEU2VDQm5hZGNlZkJMeW9Ba1pOWVNLMk9KUFJOQmhYc1VQblc3MXV5emlMWDlWWTVOdw?oc=5" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neutral">
-       <span class="vi-text">
-        ⚠️ Chưa xác định — Cần nội dung bài báo đầy đủ để đánh giá tác động
-       </span>
-       <span class="en-text">
-        ⚠️ Undetermined — Full article content required for impact assessment
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategy
-       </strong>
-       <p class="vi-text">
-        Không thể thực hiện phân tích chiến lược do thiếu nội dung bài báo. Để nhận phân tích đầy đủ về cơ hội/thách thức cho Davipharm — bao gồm các góc độ như đấu thầu thuốc, cạnh tranh với IMP/DHG/Traphaco, hay quyền lực kênh phân phối Long Châu/Pharmacity — vui lòng cung cấp toàn văn bài báo.
-       </p>
-       <p class="en-text">
-        Strategic analysis cannot be performed due to missing article content. To receive a full assessment covering tendering dynamics, competitor benchmarking (vs. IMP/DHG/Traphaco), or channel power analysis (Long Châu/Pharmacity), please provide the complete article text.
-       </p>
-      </div>
-     </div>
      <div class="card" data-cat="reg-policy">
       <span class="card-tag">
        Đấu thầu thuốc
@@ -694,148 +745,16 @@
       Tin ngành Dược
      </h2>
      <span class="section-count" id="badge-market">
-      10 items
+      5 items
      </span>
     </div>
     <div class="card-grid">
      <div class="card" data-cat="market-intel">
       <span class="card-tag">
-       Tin thị trường
-      </span>
-      <div class="card-title vi-text">
-       Không có nội dung bài báo – Chỉ nhận được tiêu đề nguồn "Google News"
-      </div>
-      <div class="card-title en-text">
-       No Article Content Detected – Only "Google News" Source Label Received
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        Bài báo được cung cấp không chứa nội dung có thể phân tích. Hệ thống chỉ nhận được chuỗi văn bản "Google News" mà không có tiêu đề, nội dung, hay đường dẫn cụ thể. Vui lòng dán toàn bộ nội dung bài báo (tiêu đề, tóm tắt, nội dung chính và URL) để tiến hành phân tích chiến lược.
-        <a href="#" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        The submitted article contains no analyzable content. The system only received the string "Google News" without any headline, body text, or URL. Please paste the full article content (title, summary, body, and source link) to enable strategic analysis.
-        <a href="#" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neutral">
-       <span class="vi-text">
-        ⚠️ Không xác định – Thiếu dữ liệu đầu vào
-       </span>
-       <span class="en-text">
-        ⚠️ Undetermined – Insufficient Input Data
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategy
-       </strong>
-       <p class="vi-text">
-        Không thể thực hiện phân tích chiến lược do thiếu nội dung bài báo. Để nhận phân tích đầy đủ theo framework của Davipharm (cơ hội đấu thầu, cạnh tranh sản phẩm với IMP/DHG/Traphaco, quyền lực kênh với Long Châu/Pharmacity, hay chính sách Bộ Y tế), vui lòng cung cấp: (1) Tiêu đề bài báo, (2) Nội dung chính, (3) Nguồn và ngày đăng, (4) URL gốc.
-       </p>
-       <p class="en-text">
-        Strategic analysis cannot be performed due to missing article content. To receive a full Davipharm-focused analysis — covering tender opportunities, product competition vs. IMP/DHG/Traphaco, channel power dynamics with Long Chau/Pharmacity, or MoH regulatory shifts — please provide: (1) Article headline, (2) Main body text, (3) Source and publication date, (4) Original URL.
-       </p>
-      </div>
-     </div>
-     <div class="card" data-cat="market-intel">
-      <span class="card-tag">
-       Tin thị trường
-      </span>
-      <div class="card-title vi-text">
-       Không có nội dung bài báo – Google News (Không tải được dữ liệu)
-      </div>
-      <div class="card-title en-text">
-       No Article Content Available – Google News Feed Error
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        Bài báo được cung cấp chỉ chứa nguồn "Google News" mà không có nội dung cụ thể. Hệ thống không thể trích xuất thông tin để phân tích chiến lược. Vui lòng cung cấp lại nội dung bài báo đầy đủ.
-        <a href="#" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        The article provided contains only the source label "Google News" with no extractable content. A full article body is required for strategic analysis. Please resubmit with complete article text.
-        <a href="#" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neu">
-       <span class="vi-text">
-        ⚠️ Trung lập – Không đủ dữ liệu để đánh giá tác động
-       </span>
-       <span class="en-text">
-        ⚠️ Neutral – Insufficient data to assess impact
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategy
-       </strong>
-       <p class="vi-text">
-        Không thể thực hiện phân tích chiến lược do thiếu nội dung bài báo. Để đảm bảo chất lượng phân tích, đề nghị cung cấp toàn văn bài báo bao gồm: tiêu đề, nội dung chính, nguồn trích dẫn và ngày đăng. Davipharm cần thông tin chính xác để đưa ra các quyết định về đấu thầu, phân phối kênh và định vị sản phẩm.
-       </p>
-       <p class="en-text">
-        Strategic analysis cannot be performed without article content. Please provide the full article text including headline, body, source, and publication date. Accurate intelligence is critical for Davipharm's decisions on tender bidding, channel strategy, and product positioning.
-       </p>
-      </div>
-     </div>
-     <div class="card" data-cat="market-intel">
-      <span class="card-tag">
-       Tin tức thị trường
-      </span>
-      <div class="card-title vi-text">
-       Cập nhật tin tức dược phẩm - Google News
-      </div>
-      <div class="card-title en-text">
-       Pharmaceutical Market Update - Google News
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        Không có nội dung bài báo cụ thể được cung cấp. Nguồn dữ liệu từ Google News không trả về nội dung bài viết đầy đủ. Vui lòng cung cấp nội dung bài báo để phân tích chiến lược chính xác.
-        <a href="https://news.google.com" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        No specific article content was provided. The Google News source did not return full article content. Please provide the article body for accurate strategic analysis.
-        <a href="https://news.google.com" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neu">
-       <span class="vi-text">
-        ⚠️ Trung lập – Chưa đủ dữ liệu để đánh giá tác động
-       </span>
-       <span class="en-text">
-        ⚠️ Neutral – Insufficient data to assess impact
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategy
-       </strong>
-       <p class="vi-text">
-        Không thể thực hiện phân tích chiến lược đầy đủ do nội dung bài báo chưa được cung cấp. Để có phân tích chính xác, vui lòng dán toàn bộ nội dung bài báo vào yêu cầu. Khi có nội dung, Davipharm cần đánh giá: (1) Tác động đến kênh phân phối (Long Châu, Pharmacity); (2) Cạnh tranh sản phẩm với Imexpharm, DHG, Traphaco; (3) Cơ hội đấu thầu bệnh viện; (4) Định vị thương hiệu nhà sản xuất nội địa chất lượng cao.
-       </p>
-       <p class="en-text">
-        A full strategic analysis cannot be completed as no article content was provided. Please paste the complete article text. When available, Davipharm should assess: (1) Channel power dynamics with distributors; (2) Product competition vs. Imexpharm, DHG, Traphaco; (3) Hospital tender opportunities; (4) Positioning as a high-quality domestic manufacturer.
-       </p>
-      </div>
-     </div>
-     <div class="card" data-cat="market-intel">
-      <span class="card-tag">
        Thị trường dược phẩm Việt Nam
       </span>
       <div class="card-title vi-text">
-       Nhượng quyền chuỗi nhà thuốc: Hướng mở rộng thị trường gắn với chuẩn hóa quản trị dược phẩm - nhaquanly.vn
+       Nhượng quyền chuỗi nhà thuốc: Hướng mở rộng thị trường gắn với chuẩn hóa quản trị dược phẩm
       </div>
       <div class="card-title en-text">
        Pharmacy Chain Franchising: Market Expansion Linked to Pharmaceutical Governance Standardization
@@ -918,7 +837,7 @@
        Thị trường dược phẩm Việt Nam
       </span>
       <div class="card-title vi-text">
-       3 tháng đầu năm 2026: Kim ngạch nhập khẩu nguyên phụ liệu dược phẩm của Việt Nam giảm mạnh - Vinanet
+       3 tháng đầu năm 2026: Kim ngạch nhập khẩu nguyên phụ liệu dược phẩm của Việt Nam giảm mạnh
       </div>
       <div class="card-title en-text">
        Q1 2026: Vietnam's Pharmaceutical Raw Material Imports Decline Sharply – Strategic Implications for Domestic Manufacturers
@@ -989,7 +908,7 @@
        Thị trường dược phẩm Việt Nam
       </span>
       <div class="card-title vi-text">
-       Dược phẩm 2/9 đặt mục tiêu doanh thu trăm tỉ đồng, kiện toàn nhân sự cấp cao - Báo Tuổi Trẻ
+       Dược phẩm 2/9 đặt mục tiêu doanh thu trăm tỉ đồng, kiện toàn nhân sự cấp cao
       </div>
       <div class="card-title en-text">
        September 2nd Pharma Sets Hundred-Billion VND Revenue Target, Restructures Senior Leadership
@@ -1087,7 +1006,7 @@
        FPT Retail Long Châu
       </span>
       <div class="card-title vi-text">
-       Long Châu dẫn đầu tăng trưởng FPT Retail, đặt lợi ích người dân làm trung tâm - Vietnam.vn
+       Long Châu dẫn đầu tăng trưởng FPT Retail, đặt lợi ích người dân làm trung tâm
       </div>
       <div class="card-title en-text">
        Long Chau Drives FPT Retail Growth with People-Centric Strategy — Channel Power Implications for Pharma Manufacturers
@@ -1161,7 +1080,7 @@
        Pharmacity
       </span>
       <div class="card-title vi-text">
-       Pharmacity: Khát vọng 'nối liền bản đồ y tế' và sứ mệnh phụng sự vì sức khỏe Việt - Thanh Niên
+       Pharmacity: Khát vọng 'nối liền bản đồ y tế' và sứ mệnh phụng sự vì sức khỏe Việt
       </div>
       <div class="card-title en-text">
        Pharmacity: Ambition to 'Connect the Healthcare Map' and Mission to Serve Vietnamese Health
@@ -1230,124 +1149,6 @@
        </p>
       </div>
      </div>
-     <div class="card" data-cat="market-intel">
-      <span class="card-tag">
-       Tây Ninh
-      </span>
-      <div class="card-title vi-text">
-       Phường Long An khẳng định vị thế chính trị - kinh tế hàng đầu của tỉnh Tây Ninh - Thanh Niên
-      </div>
-      <div class="card-title en-text">
-       Long An Ward Asserts Leading Political-Economic Position in Tay Ninh Province
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        Bài báo đề cập đến sự phát triển kinh tế - xã hội của phường Long An, tỉnh Tây Ninh, khẳng định vị thế đầu tàu về chính trị và kinh tế trong khu vực. Tuy nhiên, nội dung bài báo gốc không được cung cấp đầy đủ qua nguồn Google News RSS.
-        <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPYmhSNThqS0hXSkVJTnNtTktfYWFONFJWU3JGMGZXcjlTTV94c3JxSkdFeEpmbXVONGRRZEhFTXU1NkFGSzJSdVhNbThpdFg1THhIOTRMY2dKcEJwZWpIU2g1dTNGbUR6bEpjMV9WUE4xN041RFJZcG5BMXRnRDduZElJejFrandVeHA5N3BVMHozVjVKQmV2ZWVFYkpNXzQtX0lVYVZTZWlGMTJTV00yNWxncTh3ZVRKSEJoQ2JB?oc=5" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        The article highlights the socio-economic development of Long An Ward in Tay Ninh province, affirming its leading role in the region's political and economic landscape. Full article content was not available via the Google News RSS feed.
-        <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxPYmhSNThqS0hXSkVJTnNtTktfYWFONFJWU3JGMGZXcjlTTV94c3JxSkdFeEpmbXVONGRRZEhFTXU1NkFGSzJSdVhNbThpdFg1THhIOTRMY2dKcEJwZWpIU2g1dTNGbUR6bEpjMV9WUE4xN041RFJZcG5BMXRnRDduZElJejFrandVeHA5N3BVMHozVjVKQmV2ZWVFYkpNXzQtX0lVYVZTZWlGMTJTV00yNWxncTh3ZVRKSEJoQ2JB?oc=5" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neu">
-       <span class="vi-text">
-        ⚪ Trung tính – Tin tức địa phương, tác động gián tiếp đến Davipharm
-       </span>
-       <span class="en-text">
-        ⚪ Neutral – Local governance news with indirect relevance to Davipharm
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategy
-       </strong>
-       <p class="vi-text">
-        <strong>
-         Cơ hội mở rộng thị trường tỉnh:
-        </strong>
-        Tây Ninh là tỉnh biên giới có tiềm năng tăng trưởng kinh tế, dân số đang phát triển và hạ tầng y tế đang được đầu tư. Sự phát triển của các đô thị trung tâm như phường Long An tạo ra nhu cầu gia tăng về dược phẩm OTC và ETC tại các cơ sở y tế địa phương.
-        <br/>
-        <br/>
-        <strong>
-         Chiến lược phân phối:
-        </strong>
-        Davipharm nên xem xét củng cố mạng lưới trình dược viên (MR) tại Tây Ninh, đặc biệt nhắm vào các bệnh viện tuyến tỉnh, trung tâm y tế phường/xã đang được nâng cấp. Đây là cơ hội để đẩy mạnh danh mục sản phẩm generic chất lượng cao vào kênh đấu thầu bệnh viện công.
-        <br/>
-        <br/>
-        <strong>
-         Lưu ý hạn chế:
-        </strong>
-        Bài báo mang tính chính trị - hành chính, không có dữ liệu cụ thể về ngành dược. Cần theo dõi thêm các thông tin về đầu tư y tế, mở mới cơ sở khám chữa bệnh tại địa bàn để có hành động chiến lược cụ thể hơn.
-       </p>
-       <p class="en-text">
-        <strong>
-         Provincial Market Expansion:
-        </strong>
-        Tay Ninh is a border province with growing economic potential and expanding healthcare infrastructure. Urban development in key wards like Long An signals rising demand for both OTC and ETC pharmaceuticals at local health facilities.
-        <br/>
-        <br/>
-        <strong>
-         Distribution Strategy:
-        </strong>
-        Davipharm should consider strengthening its Medical Representative (MR) network in Tay Ninh, targeting provincial hospitals and upgraded commune health centers — key venues for public hospital tender opportunities with quality generic products.
-        <br/>
-        <br/>
-        <strong>
-         Caveat:
-        </strong>
-        This article is primarily political-administrative in nature with no direct pharmaceutical data. Further monitoring of healthcare investment announcements in the region is recommended before committing strategic resources.
-       </p>
-      </div>
-     </div>
-     <div class="card" data-cat="market-intel">
-      <span class="card-tag">
-       Thị Trường
-      </span>
-      <div class="card-title vi-text">
-       Không có nội dung bài báo được cung cấp để phân tích
-      </div>
-      <div class="card-title en-text">
-       No Article Content Provided for Strategic Analysis
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        Bài báo được cung cấp chỉ chứa nguồn "Google News" mà không có nội dung cụ thể. Vui lòng cung cấp nội dung bài báo đầy đủ để có thể thực hiện phân tích chiến lược chính xác cho Davipharm.
-        <a href="#" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        The provided article only contains the source label "Google News" without any substantive content. Please provide the full article text to enable accurate strategic analysis for Davipharm.
-        <a href="#" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neutral">
-       <span class="vi-text">
-        ⚪ Không xác định — Thiếu dữ liệu đầu vào
-       </span>
-       <span class="en-text">
-        ⚪ Undetermined — Insufficient Input Data
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategy
-       </strong>
-       <p class="vi-text">
-        Không thể thực hiện phân tích chiến lược do thiếu nội dung bài báo. Để đưa ra khuyến nghị có giá trị, Davipharm cần nội dung đầy đủ bao gồm: (1) Chủ thể liên quan — kênh phân phối (Long Châu, Pharmacity) hay đối thủ sản xuất (DHG, IMP, Traphaco); (2) Thông tin về thị trường, chính sách, hoặc động thái cạnh tranh; (3) Dữ liệu về đấu thầu, shelf-space, hoặc xu hướng tiêu dùng. Vui lòng cung cấp lại bài báo với nội dung đầy đủ.
-       </p>
-       <p class="en-text">
-        Strategic analysis cannot be performed due to missing article content. To deliver actionable recommendations, Davipharm requires complete content covering: (1) Key entities involved — distribution channels (Long Chau, Pharmacity) or manufacturing competitors (DHG, IMP, Traphaco); (2) Market, policy, or competitive movement data; (3) Tendering, shelf-space, or consumer trend insights. Please resubmit with full article content.
-       </p>
-      </div>
-     </div>
     </div>
    </div>
    <!-- COMPETITORS -->
@@ -1357,7 +1158,7 @@
       Đối thủ cạnh tranh
      </h2>
      <span class="section-count" id="badge-comp">
-      5 signals
+      3 signals
      </span>
     </div>
     <div class="card-grid">
@@ -1366,7 +1167,7 @@
        Dược Hậu Giang
       </span>
       <div class="card-title vi-text">
-       Dược Hậu Giang chi cổ tức đậm, ông lớn Nhật Taisho đều đặn bỏ túi trăm tỷ - Chứng khoán DNSE
+       Dược Hậu Giang chi cổ tức đậm, ông lớn Nhật Taisho đều đặn bỏ túi trăm tỷ
       </div>
       <div class="card-title en-text">
        DHG Pharma Pays Generous Dividends, Japanese Giant Taisho Consistently Pockets Hundreds of Billions VND
@@ -1440,7 +1241,7 @@
        Chuỗi nhà thuốc Long Châu
       </span>
       <div class="card-title vi-text">
-       Long Châu: Tiên phong ứng dụng dữ liệu số, ra mắt dịch vụ y tế đột phá - Doanh nghiệp Cuộc sống
+       Long Châu: Tiên phong ứng dụng dữ liệu số, ra mắt dịch vụ y tế đột phá
       </div>
       <div class="card-title en-text">
        Long Châu Pharmacy Chain: Pioneering Digital Data Integration &amp; Breakthrough Healthcare Services
@@ -1518,155 +1319,6 @@
          Strategic Action:
         </strong>
         Prioritize strategic supply agreements with Long Châu; invest in Real-World Evidence (RWE) for Empagliflozin to meet the evidence-based selection criteria of Long Châu
-       </p>
-      </div>
-     </div>
-     <div class="card" data-cat="competitors">
-      <span class="card-tag">
-       FPT Retail Long Châu
-      </span>
-      <div class="card-title vi-text">
-       FPT Retail (FRT) ghi nhận lãi 472 tỷ đồng trong quý đầu năm 2026 - Tin nhanh chứng khoán
-      </div>
-      <div class="card-title en-text">
-       FPT Retail (FRT) Reports VND 472 Billion Profit in Q1 2026 — Strategic Implications for Pharma Supply Chain
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        FPT Retail ghi nhận lợi nhuận sau thuế đạt 472 tỷ đồng trong quý I/2026, phản ánh đà tăng trưởng mạnh mẽ của chuỗi nhà thuốc Long Châu — hiện là chuỗi bán lẻ dược phẩm lớn nhất Việt Nam với hơn 1.800 điểm bán. Kết quả này củng cố vị thế thống lĩnh của Long Châu trong phân khúc OTC và thực phẩm chức năng, đồng thời cho thấy sức mua dược phẩm tại kênh bán lẻ hiện đại tiếp tục tăng trưởng hai chữ số.
-        <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxONjlOb3ZfdjE5Sjk4cjhrQkpEYlktWVJmX1hpTDAzZ1R5WlBleThWWW1zbjFaa0xJbFRaQTNXSHFEY1dmT013dW93RnhiYzB1M3Y1QkVXNFRnWmRRa0JJOEJxbDRmS182eU94NVdyVzNfLWxnT0pWeG5XeXplcENyUmhWNFJMWWQ2djdtNDlZQ3VaRXM2dFV3bjg3VWw0N3hYS1VEaEtqRm9mRnV5RXN6WFJ30gGuAUFVX3lxTE0waFhSNnNGNk1kLVNTRjZFMEsyMGF4Mk9nUVB2T2dINE9LUktJNTl1WkNsZlljandhRFRqY1hJVnl2MkIzWnA0c2xIVzhiTkVEcHgxNHVWWmQ4bWtWMlJZUk9CdEQzbnc5RWp6WHRWSEdzMzV3R0hHdVUzNF9ENE12SVhhWUhjNU9XZVhlN0pUeTFpWUF1ZGVoc1lYVWV0UVpDczBRUk1ldzRhb05DZw?oc=5" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        FPT Retail posted VND 472 billion in after-tax profit for Q1 2026, driven by the explosive growth of its Long Châu pharmacy chain — now Vietnam's largest retail pharmacy network with over 1,800 outlets. The result underscores Long Châu's dominance in OTC and nutraceutical segments, with modern-channel pharmaceutical retail continuing double-digit growth momentum.
-        <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxONjlOb3ZfdjE5Sjk4cjhrQkpEYlktWVJmX1hpTDAzZ1R5WlBleThWWW1zbjFaa0xJbFRaQTNXSHFEY1dmT013dW93RnhiYzB1M3Y1QkVXNFRnWmRRa0JJOEJxbDRmS182eU94NVdyVzNfLWxnT0pWeG5XeXplcENyUmhWNFJMWWQ2djdtNDlZQ3VaRXM2dFV3bjg3VWw0N3hYS1VEaEtqRm9mRnV5RXN6WFJ30gGuAUFVX3lxTE0waFhSNnNGNk1kLVNTRjZFMEsyMGF4Mk9nUVB2T2dINE9LUktJNTl1WkNsZlljandhRFRqY1hJVnl2MkIzWnA0c2xIVzhiTkVEcHgxNHVWWmQ4bWtWMlJZUk9CdEQzbnc5RWp6WHRWSEdzMzV3R0hHdVUzNF9ENE12SVhhWUhjNU9XZVhlN0pUeTFpWUF1ZGVoc1lYVWV0UVpDczBRUk1ldzRhb05DZw?oc=5" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-pos">
-       <span class="vi-text">
-        ⚡ Tác động kép: Cơ hội phân phối lớn — Áp lực đàm phán giá tăng cao
-       </span>
-       <span class="en-text">
-        ⚡ Dual Impact: Major Distribution Opportunity — Heightened Pricing Negotiation Pressure
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Strategic Impact
-       </strong>
-       <p class="vi-text">
-        Sức mạnh tài chính ngày càng tăng của Long Châu (472 tỷ lợi nhuận Q1/2026) tạo ra cả cơ hội lẫn thách thức chiến lược trực tiếp cho Davipharm.
-        <br/>
-        <br/>
-        <strong>
-         🎯 Cơ hội:
-        </strong>
-        Với mạng lưới 1.800+ điểm bán phủ rộng toàn quốc, Long Châu là kênh phân phối OTC lý tưởng cho danh mục chiến lược của Davipharm — đặc biệt
-        <em>
-         Tadalafil
-        </em>
-        và
-        <em>
-         Dapoxetine
-        </em>
-        (phân khúc sức khỏe nam giới đang tăng trưởng mạnh tại kênh nhà thuốc hiện đại) và
-        <em>
-         Empagliflozin
-        </em>
-        (tiểu đường type 2 — nhu cầu mãn tính, tái mua cao). Đây là thời điểm Davipharm cần đẩy mạnh đàm phán listing sản phẩm vào hệ thống Long Châu trước khi đối thủ nội địa khác chiếm vị trí shelf space.
-        <br/>
-        <br/>
-        <strong>
-         ⚠️ Thách thức:
-        </strong>
-        Lợi nhuận cao đồng nghĩa Long Châu có năng lực tài chính để tăng cường nhãn hàng riêng (private label) và ép biên lợi nhuận
-       </p>
-      </div>
-     </div>
-     <div class="card" data-cat="competitors">
-      <span class="card-tag">
-       FPT Retail Long Châu
-      </span>
-      <div class="card-title vi-text">
-       Lợi nhuận trước thuế quý I đạt 472 tỷ đồng, FPT Retail hoàn thành 30% kế hoạch năm 2026 - Thời báo Tài chính Việt Nam
-      </div>
-      <div class="card-title en-text">
-       FPT Retail Q1 Pre-Tax Profit Reaches VND 472 Billion, Completing 30% of 2026 Annual Target
-      </div>
-      <div class="card-body">
-       <span class="vi-text">
-        FPT Retail ghi nhận lợi nhuận trước thuế quý I/2026 đạt 472 tỷ đồng, hoàn thành 30% kế hoạch cả năm — tín hiệu tăng trưởng mạnh mẽ từ chuỗi nhà thuốc Long Châu, khẳng định vị thế dẫn đầu trong phân phối dược phẩm bán lẻ tại Việt Nam.
-        <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQdEZyOXZmcWNNT256NUlzTDJpRklCSDYtWnYwRmMxSzVFX3JqYVpRcVFIUlgwV0pmd2hCZmNaeXJmSzlfcVV0NkZsZmt2a1JscXMyMUVfTHZMX2tlcTVvZC1FbUF5R3dKM1Y1alRpYXJxcWN4SEw5Z0V5R3ZvekpHNmh0OWltVXBrX0kyQVljdFpOdUZTNEpUY3dhTUN5UHlNUk83Q2ZNSlFkd2JJS1ptc0hPRURlYUF5QkM3ejYzOEhKc2JLM1ZRNm1hWQ?oc=5" target="_blank">
-         [Nguồn]
-        </a>
-       </span>
-       <span class="en-text">
-        FPT Retail reported Q1/2026 pre-tax profit of VND 472 billion, achieving 30% of its full-year plan — driven by the rapid expansion and strong performance of the Long Châu pharmacy chain, reinforcing its dominant position in Vietnam's retail pharmaceutical distribution market.
-        <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxQdEZyOXZmcWNNT256NUlzTDJpRklCSDYtWnYwRmMxSzVFX3JqYVpRcVFIUlgwV0pmd2hCZmNaeXJmSzlfcVV0NkZsZmt2a1JscXMyMUVfTHZMX2tlcTVvZC1FbUF5R3dKM1Y1alRpYXJxcWN4SEw5Z0V5R3ZvekpHNmh0OWltVXBrX0kyQVljdFpOdUZTNEpUY3dhTUN5UHlNUk83Q2ZNSlFkd2JJS1ptc0hPRURlYUF5QkM3ejYzOEhKc2JLM1ZRNm1hWQ?oc=5" target="_blank">
-         [Source]
-        </a>
-       </span>
-      </div>
-      <div class="sentiment sent-neg">
-       <span class="vi-text">
-        ⚠️ Thách thức cạnh tranh — Long Châu tăng trưởng vượt bậc, gia tăng áp lực lên nhà cung cấp dược phẩm nội địa
-       </span>
-       <span class="en-text">
-        ⚠️ Competitive Pressure — Long Châu's accelerating growth intensifies bargaining power over domestic pharma suppliers
-       </span>
-      </div>
-      <div class="card-impact">
-       <strong>
-        Davipharm Impact
-       </strong>
-       <p class="vi-text">
-        Sự tăng trưởng mạnh mẽ của Long Châu (472 tỷ lợi nhuận Q1, hoàn thành 30% kế hoạch năm) phản ánh sức mua ngày càng lớn và quyền lực đàm phán ngày càng cao của chuỗi này đối với các nhà cung cấp dược phẩm như Davipharm.
-        <strong>
-         Cơ hội:
-        </strong>
-        Long Châu là kênh phân phối OTC chiến lược — Davipharm cần đẩy mạnh danh mục sản phẩm tự chọn (OTC) như
-        <em>
-         Empagliflozin
-        </em>
-        (quản lý đái tháo đường type 2 — phân khúc tăng trưởng nhanh),
-        <em>
-         Tadalafil
-        </em>
-        và
-        <em>
-         Dapoxetine
-        </em>
-        (sức khỏe nam giới — nhu cầu tiêu dùng tự chủ cao) vào hệ thống Long Châu để tận dụng lưu lượng khách hàng khổng lồ.
-        <strong>
-         Thách thức:
-        </strong>
-        Với quy mô lợi nhuận này, Long Châu có thể ưu tiên nhãn hàng riêng (private label) hoặc đàm phán chiết khấu sâu hơn, gây áp lực biên lợi nhuận cho Davipharm. Cần xây dựng chiến lược listing sản phẩm chủ động, kèm chương trình hỗ trợ dược sĩ tư vấn (pharmacist detailing) để bảo vệ thị phần tại kênh này.
-       </p>
-       <p class="en-text">
-        Long Châu's exceptional Q1 performance (VND 472B pre-tax profit, 30% of annual plan) signals rapidly growing purchasing power and strengthened negotiation leverage over pharma suppliers including Davipharm.
-        <strong>
-         Opportunity:
-        </strong>
-        Long Châu represents a critical OTC distribution channel — Davipharm should prioritize listing high-demand products such as
-        <em>
-         Empagliflozin
-        </em>
-        (fast-growing type 2 diabetes management segment),
-        <em>
-         Tadalafil
-        </em>
-        , and
-        <em>
-         Dapoxetine
-        </em>
-        (men's health — high consumer self-selection intent) to capitalize on Long Châu's massive foot traffic.
-        <strong>
-         Challenge:
-        </strong>
-        At this profitability scale, Long Châu may increasingly favor private-label products or demand deeper trade discounts, compressing Davipharm's margins. A proactive product listing strategy combined with pharmacist detailing programs is essential to defend and grow market share within this dominant retail channel.
        </p>
       </div>
      </div>
@@ -1927,7 +1579,126 @@
         </tr>
        </thead>
        <tbody>
-        <!-- Actions will be inserted here -->
+        <tr>
+         <td>
+          <span class="vi-text">
+           Chuẩn bị hồ sơ EU-GMP để tham gia thầu Nhóm 1
+          </span>
+          <span class="en-text">
+           High — Qualify for Group 1 tenders with EU-GMP dossier
+          </span>
+         </td>
+         <td>
+          RA &amp; Marketing
+         </td>
+         <td>
+          <span class="vi-text">
+           Chính sách đấu thầu
+          </span>
+          <span class="en-text">
+           Chính sách đấu thầu
+          </span>
+         </td>
+         <td>
+          🔴 Cao
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <span class="vi-text">
+           Đàm phán partnership cấp tập đoàn với Long Châu/Pharmacity
+          </span>
+          <span class="en-text">
+           High — Negotiate group-level deal, not store-by-store
+          </span>
+         </td>
+         <td>
+          Sales
+         </td>
+         <td>
+          <span class="vi-text">
+           Long Châu expansion
+          </span>
+          <span class="en-text">
+           Long Châu expansion
+          </span>
+         </td>
+         <td>
+          🔴 Cao
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <span class="vi-text">
+           Rà soát API inventory, tìm nguồn cung thay thế
+          </span>
+          <span class="en-text">
+           Medium — Review API stock and alternative suppliers
+          </span>
+         </td>
+         <td>
+          Supply Chain
+         </td>
+         <td>
+          <span class="vi-text">
+           Nhập khẩu nguyên liệu
+          </span>
+          <span class="en-text">
+           Nhập khẩu nguyên liệu
+          </span>
+         </td>
+         <td>
+          🟡 Trung
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <span class="vi-text">
+           Theo dõi giá Sun Pharma cho Tadalafil, điều chỉnh chiến lược giá
+          </span>
+          <span class="en-text">
+           Medium — Monitor Sun Pharma pricing for Tadalafil
+          </span>
+         </td>
+         <td>
+          Marketing
+         </td>
+         <td>
+          <span class="vi-text">
+           Sản phẩm Tadalafil
+          </span>
+          <span class="en-text">
+           Sản phẩm Tadalafil
+          </span>
+         </td>
+         <td>
+          🟡 Trung
+         </td>
+        </tr>
+        <tr>
+         <td>
+          <span class="vi-text">
+           Lập kế hoạch ra mắt Cytisine Q4/2026 — phân tích thị trường cai thuốc lá
+          </span>
+          <span class="en-text">
+           Low — Plan Q4/2026 Cytisine launch; assess cessation market
+          </span>
+         </td>
+         <td>
+          Strategy
+         </td>
+         <td>
+          <span class="vi-text">
+           Portfolio Cytisine
+          </span>
+          <span class="en-text">
+           Portfolio Cytisine
+          </span>
+         </td>
+         <td>
+          🟢 Thấp
+         </td>
+        </tr>
        </tbody>
       </table>
      </div>
