@@ -126,6 +126,89 @@
         .vi-text, .en-text { display: none; }
         body.lang-vi .vi-text { display: block; }
         body.lang-en .en-text { display: block; }
+        /* Override display for inline/list contexts */
+        body.lang-vi li.vi-text, body.lang-en li.en-text { display: list-item; }
+        body.lang-vi span.vi-text, body.lang-en span.en-text { display: inline; }
+
+        /* EXECUTIVE SUMMARY */
+        .exec-summary {
+            background: linear-gradient(135deg, #003B71 0%, #0056D2 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 2rem 2.5rem 2.25rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 24px rgba(0,59,113,0.25);
+        }
+        .exec-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .exec-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+        }
+        .exec-week {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+        }
+        .exec-headline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.45;
+            color: #fff;
+            margin-bottom: 1.75rem;
+        }
+        .exec-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .exec-col-header {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 0.875rem;
+        }
+        .exec-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .exec-list li {
+            font-size: 0.875rem;
+            line-height: 1.55;
+            color: rgba(255,255,255,0.88);
+            padding-left: 1.25rem;
+            position: relative;
+        }
+        .exec-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #00C2FF;
+            font-size: 0.75rem;
+            top: 2px;
+        }
+        .exec-actions li::before { color: #FCD34D; content: '→'; }
+        .exec-list li strong { color: #fff; }
+        @media (max-width: 768px) {
+            .exec-body { grid-template-columns: 1fr; gap: 1.5rem; }
+            .exec-summary { padding: 1.5rem; }
+        }
   </style>
  </head>
  <body class="lang-vi">
@@ -158,6 +241,63 @@
    </div>
   </header>
   <main class="main-container">
+   <!-- EXECUTIVE SUMMARY -->
+   <div class="exec-summary">
+    <div class="exec-top-row">
+     <span class="exec-badge">
+      Executive Summary
+     </span>
+     <span class="exec-week" id="exec-week">
+      Tuần 11/05 – 17/05/2026
+     </span>
+    </div>
+    <div id="exec-summary-content">
+     <div class="exec-headline vi-text">
+      Đang tải dữ liệu thị trường — chạy script để cập nhật.
+     </div>
+     <div class="exec-headline en-text">
+      Loading market data — run the script to update.
+     </div>
+     <div class="exec-body">
+      <div class="exec-col">
+       <div class="exec-col-header">
+        <span class="vi-text">
+         Insights tuần này
+        </span>
+        <span class="en-text">
+         Key Insights
+        </span>
+       </div>
+       <ul class="exec-list">
+        <li class="vi-text">
+         Chưa có dữ liệu
+        </li>
+        <li class="en-text">
+         No data yet
+        </li>
+       </ul>
+      </div>
+      <div class="exec-col">
+       <div class="exec-col-header">
+        <span class="vi-text">
+         Hành động ưu tiên
+        </span>
+        <span class="en-text">
+         Priority Actions
+        </span>
+       </div>
+       <ul class="exec-list exec-actions">
+        <li class="vi-text">
+         Chưa có dữ liệu
+        </li>
+        <li class="en-text">
+         No data yet
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </div>
    <!-- DASHBOARD -->
    <div class="section" id="overview">
     <div class="section-header">
@@ -1730,7 +1870,7 @@
         Ghi chú:
        </span>
        <span class="status-val">
-        Q4/2026 - Cơ hội vàng
+        Q4/2026 – Cơ hội vàng
        </span>
       </div>
      </div>
@@ -1801,7 +1941,7 @@
       Davipharm Market Intelligence
      </h3>
      <p>
-      Hệ thống tự động hóa thu thập và phân tích dữ liệu thị trường ngành dược phẩm Việt Nam. Powered by Claude 3.5 Sonnet.
+      Hệ thống tự động hóa thu thập và phân tích dữ liệu thị trường ngành dược phẩm Việt Nam. Powered by Claude Sonnet 4.6.
      </p>
     </div>
     <div class="footer-meta">
