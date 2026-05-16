@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   Davipharm | Market Intelligence Dashboard
+   Davipharm | Market Intelligence Report
   </title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Outfit:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
   <style>
@@ -19,11 +19,9 @@
             --border: #E5E7EB;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-        body { background: var(--bg); color: var(--text-main); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text-main); line-height: 1.6; }
 
         /* LANG BAR */
         .lang-bar { background: #fff; border-bottom: 1px solid var(--border); padding: 8px 5%; display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
@@ -33,334 +31,73 @@
 
         /* HEADER */
         header { background: #fff; border-bottom: 1px solid var(--border); padding: 1.5rem 5%; position: sticky; top: 0; z-index: 1000; }
-        .header-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .logo img { height: 44px; width: auto; }
-        
-        .header-actions { display: flex; align-items: center; gap: 1.5rem; }
-        .word-btn { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
-        .word-btn:hover { background: var(--primary-light); transform: translateY(-1px); }
-
-        /* FLASH TICKER */
-        .flash-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: #FEF2F2; border-top: 1px solid #FECACA; padding: 10px 5%; display: flex; align-items: center; gap: 20px; z-index: 2000; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); }
-        .flash-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: #DC2626; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-        .flash-dot { width: 8px; height: 8px; background: #DC2626; border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.5; } 100% { transform: scale(0.95); opacity: 1; } }
-        .flash-ticker { overflow: hidden; flex: 1; }
-        .flash-items { display: inline-flex; font-size: 0.8125rem; font-weight: 500; color: #991B1B; white-space: nowrap; animation: ticker 40s linear infinite; }
-        .flash-items:hover { animation-play-state: paused; }
-        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .flash-item { margin-right: 40px; }
-        .flash-item strong { color: #DC2626; margin-right: 5px; }
+        .header-meta h1 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: var(--primary); font-weight: 700; margin-bottom: 0.25rem; }
+        .header-meta p { font-size: 0.875rem; color: var(--text-muted); }
+        .word-btn { background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none; display: flex; align-items: center; gap: 8px; }
 
         /* LAYOUT */
-        .main-container { max-width: 1400px; margin: 2rem auto; padding: 0 5% 5rem 5%; }
-        .section { margin-bottom: 4rem; }
-        .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; }
-        .section-header h2 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); }
-        .section-count { margin-left: auto; background: var(--primary); color: #fff; font-size: 0.75rem; padding: 2px 8px; border-radius: 99px; }
+        .main-container { max-width: 1200px; margin: 2rem auto; padding: 0 5% 5rem 5%; }
+        .section { margin-bottom: 3rem; background: #fff; padding: 2rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .section-title { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.05em; display: flex; justify-content: space-between; align-items: center; }
 
-        /* DASHBOARD GRID */
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
-        .kpi-card { background: #fff; padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow-sm); transition: transform 0.2s; text-decoration: none; color: inherit; }
-        .kpi-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
-        .kpi-value { font-size: 2.5rem; font-weight: 700; color: var(--primary); font-family: 'Outfit', sans-serif; }
-        .kpi-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); }
+        /* I. SUMMARY DASHBOARD */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .kpi-card { background: #F8FAFC; border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .kpi-value { font-size: 2rem; font-weight: 700; color: var(--primary); font-family: 'Outfit', sans-serif; }
+        .kpi-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+        .kpi-priority { font-size: 0.7rem; padding: 2px 8px; border-radius: 12px; margin-top: 0.5rem; display: inline-block; font-weight: 600; }
+        .prio-high { background: #FEE2E2; color: #991B1B; }
+        .prio-med { background: #FEF3C7; color: #92400E; }
+        .prio-normal { background: #E0F2FE; color: #075985; }
 
-        /* CARDS */
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2rem; }
-        .card { background: #fff; border-radius: 16px; border: 1px solid var(--border); padding: 2rem; display: flex; flex-direction: column; gap: 1rem; box-shadow: var(--shadow-md); transition: box-shadow 0.3s; }
-        .card:hover { box-shadow: var(--shadow-lg); }
-        .card-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; background: #EEF2FF; color: #4338CA; padding: 4px 10px; border-radius: 6px; align-self: flex-start; }
-        .card-title { font-family: 'Outfit', sans-serif; font-size: 1.125rem; font-weight: 700; line-height: 1.4; color: var(--text-main); }
-        .card-body { font-size: 0.9375rem; color: #4B5563; line-height: 1.7; text-align: justify; }
-        .card-body a { color: var(--primary-light); font-weight: 600; text-decoration: none; }
-        .card-body a:hover { text-decoration: underline; }
+        /* CARDS (For Sections III, IV, VI, VII) */
+        .card-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+        .card { padding: 1.5rem; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: var(--shadow-sm); transition: transform 0.2s; }
+        .card:hover { border-color: var(--primary-light); box-shadow: var(--shadow-md); }
         
-        .sentiment { display: inline-flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; padding: 6px 12px; border-radius: 8px; margin-top: 0.5rem; }
+        .card-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); background: #F3F4F6; padding: 4px 8px; border-radius: 4px; margin-bottom: 0.75rem; }
+        .card-title { font-family: 'Outfit', sans-serif; font-size: 1.125rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; }
+        .card-body { font-size: 0.9375rem; color: var(--text-main); margin-bottom: 1rem; text-align: justify; }
+        .card-body a { color: var(--primary-light); text-decoration: none; font-weight: 500; }
+        .card-body a:hover { text-decoration: underline; }
+
+        .sentiment { display: inline-flex; font-size: 0.8125rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; margin-bottom: 1rem; }
         .sent-pos { background: #DCFCE7; color: #166534; }
         .sent-neu { background: #F3F4F6; color: #374151; }
         .sent-neg { background: #FEE2E2; color: #991B1B; }
 
-        .card-impact { background: #F8FAFC; border-left: 4px solid var(--primary); padding: 1.25rem; border-radius: 0 8px 8px 0; margin-top: auto; }
-        .card-impact strong { display: block; font-size: 0.875rem; color: var(--primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
-        .card-impact p { font-size: 0.875rem; color: #334155; margin-bottom: 0.5rem; line-height: 1.6; }
+        .card-impact { background: #EFF6FF; border-left: 4px solid var(--primary); padding: 1rem; border-radius: 0 8px 8px 0; }
+        .card-impact strong { font-size: 0.875rem; color: var(--primary); text-transform: uppercase; margin-bottom: 0.25rem; display: block; }
+        .card-impact p { font-size: 0.875rem; color: #1E3A8A; margin: 0; }
 
-        /* PRODUCT TRACKER */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .product-card { background: #fff; border-radius: 12px; border: 1px solid var(--border); padding: 1.5rem; box-shadow: var(--shadow-sm); border-top: 4px solid var(--primary); }
-        .product-name { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--primary); }
-        .product-indication { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
-        .status-row { display: flex; justify-content: space-between; font-size: 0.8125rem; padding: 0.5rem 0; border-bottom: 1px dashed #F3F4F6; }
-        .status-key { color: var(--text-muted); }
-        .status-val { font-weight: 600; }
-        .status-val.highlight { color: var(--primary-light); }
-
-        /* TABLE */
-        .table-wrapper { background: #fff; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-md); }
-        .table-container { overflow-x: auto; }
+        /* TABLES */
         table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
-        th { background: #F9FAFB; padding: 1rem; text-align: left; font-weight: 600; color: var(--primary); border-bottom: 1px solid var(--border); text-transform: uppercase; font-size: 0.75rem; }
-        td { padding: 1.25rem 1rem; border-bottom: 1px solid #F3F4F6; vertical-align: top; color: #4B5563; }
-        tr:hover { background: #F9FAFB; }
+        th { background: #F3F4F6; padding: 1rem; text-align: left; font-weight: 600; color: var(--text-main); border-bottom: 2px solid var(--border); }
+        td { padding: 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        tr:hover { background: #F8FAFC; }
 
-        /* FOOTER */
-        footer { background: #111827; color: #F3F4F6; padding: 4rem 5%; margin-top: 4rem; }
-        .footer-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; }
-        .footer-brand h3 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
-        .footer-brand p { font-size: 0.875rem; opacity: 0.7; max-width: 400px; }
-        .footer-meta { text-align: right; font-size: 0.75rem; opacity: 0.5; }
+        /* ACTIONS TABLE */
+        #action-table td:first-child { font-weight: 500; }
+        #action-table td:last-child { font-weight: 600; }
 
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .card-grid { grid-template-columns: 1fr; }
-            .dashboard-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 640px) {
-            .header-container { flex-direction: column; text-align: center; gap: 1rem; }
-            .header-meta { text-align: center; }
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .main-container { padding: 0 1rem; }
-        }
-
-        /* LANG */
+        /* LANG SWITCHING */
         .vi-text, .en-text { display: none; }
         body.lang-vi .vi-text { display: block; }
         body.lang-en .en-text { display: block; }
-        /* Override display for inline/list contexts */
-        body.lang-vi li.vi-text, body.lang-en li.en-text { display: list-item; }
         body.lang-vi span.vi-text, body.lang-en span.en-text { display: inline; }
+        body.lang-vi td.vi-text, body.lang-en td.en-text { display: table-cell; }
 
-        /* EXECUTIVE SUMMARY */
-        .exec-summary {
-            background: linear-gradient(135deg, #003B71 0%, #0056D2 100%);
-            color: #fff;
-            border-radius: 16px;
-            padding: 2rem 2.5rem 2.25rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 8px 24px rgba(0,59,113,0.25);
-        }
-        .exec-top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        .exec-badge {
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.55);
-        }
-        .exec-week {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: rgba(255,255,255,0.55);
-        }
-        .exec-headline {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.45;
-            color: #fff;
-            margin-bottom: 1.75rem;
-        }
-        .exec-body {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        .exec-col-header {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            margin-bottom: 0.875rem;
-        }
-        .exec-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-        .exec-list li {
-            font-size: 0.875rem;
-            line-height: 1.55;
-            color: rgba(255,255,255,0.88);
-            padding-left: 1.25rem;
-            position: relative;
-        }
-        .exec-list li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #00C2FF;
-            font-size: 0.75rem;
-            top: 2px;
-        }
-        .exec-actions li::before { color: #FCD34D; content: '→'; }
-        .exec-list li strong { color: #fff; }
         @media (max-width: 768px) {
-            .exec-body { grid-template-columns: 1fr; gap: 1.5rem; }
-            .exec-summary { padding: 1.5rem; }
-        }
-
-        /* BRAND MENTION */
-        .exec-brand-row .exec-col-header { display: block; }
-        .exec-brand-items { display: flex; flex-direction: column; gap: 0.5rem; }
-        .brand-no-mention { font-size: 0.875rem; color: rgba(255,255,255,0.85); line-height: 1.55; }
-        .brand-mention-item { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.8125rem; display: flex; flex-direction: column; gap: 0.25rem; }
-        .brand-mention-item a { color: #93C5FD; font-weight: 600; text-decoration: none; }
-        .brand-mention-item a:hover { text-decoration: underline; }
-
-        /* COLLAPSIBLE SECTIONS */
-        .toggle-btn {
-            margin-left: auto;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            border-radius: 6px;
-            padding: 3px 10px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            line-height: 1;
-        }
-        .toggle-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
-        .toggle-btn.collapsed { transform: rotate(180deg); }
-        .collapsible-body { overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease; }
-        .collapsible-body.is-collapsed { max-height: 0 !important; opacity: 0; pointer-events: none; }
-
-        /* GSC SECTION */
-        .gsc-meta { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; }
-        #gsc-table td { padding: 0.875rem 1rem; }
-        #gsc-table td:first-child { border-radius: 0; }
-
-        /* KPI card for GSC section anchor */
-        a.kpi-card[href="#gsc-top5"] .kpi-value { font-size: 1.75rem; }
-
-        /* ── SPACING OVERRIDES (tighter) ── */
-        .section        { margin-bottom: 2.25rem; }
-        .section-header { margin-bottom: 1rem; }
-        .card           { padding: 1.125rem; gap: 0.5rem; }
-        .card-grid      { gap: 1.125rem; }
-        .kpi-card       { padding: 1rem 1.25rem; }
-        .kpi-value      { font-size: 2rem; line-height: 1.1; }
-        .main-container { padding: 0 5% 2.5rem 5%; }
-        .card-impact    { padding: 0.875rem 1rem; margin-top: 0; }
-        .card-impact p  { margin-bottom: 0; }
-        .card-body      { font-size: 0.875rem; line-height: 1.6; }
-        .dashboard-grid { margin-bottom: 2rem; gap: 0.875rem; }
-        header          { padding: 1.25rem 5%; }
-        .exec-summary   { margin-bottom: 2rem; }
-
-        /* ── CARD EXPAND / COLLAPSE ── */
-        .card .card-body,
-        .card .card-impact { display: none; }
-        .card.is-expanded .card-body,
-        .card.is-expanded .card-impact { display: block; }
-        .card-expand-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            width: 100%;
-            background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 5px 8px;
-            cursor: pointer;
-            margin-top: 0.25rem;
-            transition: all 0.18s;
-            letter-spacing: 0.02em;
-        }
-        .card-expand-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
-        /* Inline sentiment in compact view */
-        .card .sentiment { margin-top: 0; }
-
-        /* ── MOBILE ── */
-        @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-            .kpi-card       { padding: 0.75rem 0.5rem; }
-            .kpi-value      { font-size: 1.5rem; }
-            .kpi-label      { font-size: 0.65rem; }
-            #market-intel .card-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 640px) {
-            .main-container { padding: 0 0.875rem 2rem; }
-            header          { padding: 1rem 0.875rem; }
-            .header-container { flex-direction: column; gap: 0.75rem; text-align: center; }
-            .exec-summary   { padding: 1.25rem; border-radius: 12px; }
-            .exec-headline  { font-size: 1rem; margin-bottom: 1.25rem; }
-            .exec-body      { grid-template-columns: 1fr; gap: 1.25rem; }
-            .dashboard-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-            .kpi-value      { font-size: 1.4rem; }
-            .card-grid      { grid-template-columns: 1fr; }
-            #market-intel .card-grid { grid-template-columns: 1fr; }
-            .section-header h2 { font-size: 1rem; }
-            .word-btn       { padding: 8px 14px; font-size: 0.8rem; }
-            footer          { padding: 2rem 0.875rem; }
-            .footer-container { flex-direction: column; gap: 1rem; }
-            .footer-meta    { text-align: left; }
-            .flash-bar      { padding: 8px 0.875rem; }
-            .lang-bar       { padding: 6px 0.875rem; }
-        }
-
-        /* MARKET-INTEL: 4 cols, compact cards */
-        #market-intel .card-grid {
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.25rem;
-        }
-        #market-intel .card {
-            padding: 1.25rem;
-            gap: 0.625rem;
-        }
-        #market-intel .card-title { font-size: 0.9375rem; }
-        #market-intel .card-body span {
-            display: -webkit-box !important;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            font-size: 0.8125rem;
-            line-height: 1.55;
-        }
-        #market-intel .card-impact p { font-size: 0.8125rem; }
-        @media (max-width: 1200px) {
-            #market-intel .card-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 640px) {
-            #market-intel .card-grid { grid-template-columns: 1fr; }
-        }
-
-        /* ACTION ITEMS: priority badges */
-        #action-table td:last-child { white-space: nowrap; font-weight: 600; }
-        #action-table td:nth-child(2) { color: var(--primary); font-weight: 500; white-space: nowrap; }
-        .action-highlight {
-            background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
-            border-left: 3px solid var(--primary);
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .header-container { flex-direction: column; gap: 1rem; text-align: center; }
+            .section { padding: 1.5rem 1rem; }
         }
   </style>
  </head>
  <body class="lang-vi">
-  <!-- LANGUAGE BAR -->
   <div class="lang-bar">
-   <span style="font-size:0.75rem;color:var(--text-muted);">
-    <span class="vi-text" style="display:inline;">
-     Ngôn ngữ:
-    </span>
-    <span class="en-text" style="display:none;">
-     Language:
-    </span>
-   </span>
    <div class="lang-toggle">
     <button class="lang-btn active" id="btn-vi" onclick="setLang('vi')">
      🇻🇳 Việt
@@ -373,212 +110,163 @@
   <header>
    <div class="header-container">
     <div class="logo">
-     <img alt="Davipharm Logo" src="logo.png"/>
+     <img alt="Davipharm Logo" src="logo.png" style="height: 44px;"/>
     </div>
-    <div class="header-actions">
-     <div class="header-meta">
-      <h1 class="vi-text">
-       Báo Cáo Market Intelligence
-      </h1>
-      <h1 class="en-text">
-       Market Intelligence Dashboard
-      </h1>
-     </div>
-     <a class="word-btn" download="Davipharm_MarketIntel_VI.docx" href="report_vi.docx" id="word-btn">
-      <span>
-       ⬇
-      </span>
-      <span class="vi-text">
-       Tải về Word
-      </span>
-      <span class="en-text">
-       Download Word
-      </span>
-     </a>
+    <div class="header-meta" style="text-align: center;">
+     <h1 class="vi-text">
+      Báo Cáo Market Intelligence
+     </h1>
+     <h1 class="en-text">
+      Market Intelligence Report
+     </h1>
+     <p id="exec-week" style="font-weight: 500;">
+      Tuần 11/05 – 17/05/2026
+     </p>
+     <p class="vi-text" style="font-size: 0.75rem; margin-top: 4px;">
+      Cập nhật lần cuối: 16/05/2026
+     </p>
     </div>
+    <a class="word-btn" download="Davipharm_MarketIntel_VI.docx" href="report_vi.docx" id="word-btn">
+     <span>
+      ⬇
+     </span>
+     <span class="vi-text">
+      Tải về Word
+     </span>
+     <span class="en-text">
+      Download Word
+     </span>
+    </a>
    </div>
   </header>
   <main class="main-container">
-   <!-- EXECUTIVE SUMMARY -->
-   <div class="exec-summary">
-    <div class="exec-top-row">
-     <span class="exec-badge">
-      Executive Summary
-     </span>
-     <span class="exec-week" id="exec-week">
-      Tuần 11/05 – 17/05/2026
-     </span>
-    </div>
-    <div id="exec-summary-content">
-     <div class="exec-headline vi-text">
-      Tuần 11–17/05/2026: Chính sách khám sức khỏe định kỳ miễn phí toàn dân và làn sóng nhận thức bệnh mạn tính tạo ra tailwind dài hạn mạnh nhất từ trước đến nay cho danh mục tim mạch–đái tháo đường–tiêu hóa–ung thư của Davipharm — không có rủi ro pháp lý trực tiếp trong tuần.
-     </div>
-     <div class="exec-headline en-text">
-      Week 11–17 May 2026: MoH's free annual health screening rollout and rising chronic disease awareness create the strongest long-term demand tailwind to date across Davipharm's cardiovascular, diabetes, GI, and oncology portfolios — no direct regulatory risk this week.
-     </div>
-     <div class="exec-body">
-      <div class="exec-col">
-       <div class="exec-col-header">
-        <span class="vi-text">
-         Insights tuần này
-        </span>
-        <span class="en-text">
-         Key Insights
-        </span>
-       </div>
-       <ul class="exec-list">
-        <li class="vi-text">
-         <strong>
-          Sàng lọc toàn dân (MoH):
-         </strong>
-         Chính sách khám miễn phí 1 lần/năm từ 2026 sẽ mở rộng đáng kể phễu bệnh nhân mới cho RAVASTEL, EIMLER-10, ZLATKO, PECHAUNOX, TABAREX và HATLOP — tác động lớn nhất đến volume ETC tuyến huyện.
-        </li>
-        <li class="en-text">
-         <strong>
-          National Free Screening (MoH):
-         </strong>
-         Annual free health checks from 2026 will materially expand the new patient funnel for RAVASTEL, EIMLER-10, ZLATKO, PECHAUNOX, TABAREX, and HATLOP — highest volume impact expected at district-level ETC.
-        </li>
-        <li class="vi-text">
-         <strong>
-          Tăng huyết áp bỏ sót:
-         </strong>
-         25–30% người Việt mắc THA chưa được kiểm soát và xu hướng trẻ hóa củng cố vị thế PECHAUNOX (FDC) như lựa chọn ưu tiên trước chu kỳ thầu tiếp theo.
-        </li>
-        <li class="en-text">
-         <strong>
-          Hypertension Underdiagnosis:
-         </strong>
-         25–30% uncontrolled adult hypertension prevalence and younger-onset trend reinforce PECHAUNOX (FDC) positioning ahead of the next tender cycle.
-        </li>
-        <li class="vi-text">
-         <strong>
-          Ung thư tiêu hóa + HP:
-         </strong>
-         Nội soi siêu phóng đại mở rộng và nhận thức HP/ung thư dạ dày tăng đồng thời thúc đẩy nhu cầu trung hạn cho cả HYYR/LARRIVEY (ung thư) lẫn JIRACEK/MARTAZ (PPI), đặc biệt tại bệnh viện tuyến trung ương.
-        </li>
-        <li class="en-text">
-         <strong>
-          GI Cancer + H. pylori:
-         </strong>
-         Expanding ultra-magnification endoscopy and rising HP/gastric cancer awareness simultaneously drive mid-term demand for HYYR/LARRIVEY (oncology) and JIRACEK/MARTAZ (PPI) at central hospitals.
-        </li>
-       </ul>
-      </div>
-      <div class="exec-col">
-       <div class="exec-col-header">
-        <span class="vi-text">
-         Hành động ưu tiên
-        </span>
-        <span class="en-text">
-         Priority Actions
-        </span>
-       </div>
-       &lt;ul class="exec-list exec
-      </div>
-     </div>
-    </div>
-   </div>
-   <!-- DASHBOARD -->
+   <!-- I. SUMMARY DASHBOARD -->
    <div class="section" id="overview">
-    <div class="section-header">
-     <h2>
-      Dashboard
-     </h2>
+    <div class="section-title">
+     <span class="vi-text">
+      I. Summary Dashboard
+     </span>
+     <span class="en-text">
+      I. Summary Dashboard
+     </span>
     </div>
     <div class="dashboard-grid">
-     <a class="kpi-card" href="#reg-policy">
+     <div class="kpi-card">
       <div class="kpi-value" id="count-reg">
        0
       </div>
-      <div class="kpi-label">
-       <span class="vi-text">
-        Chính sách &amp; Pháp lý
-       </span>
-       <span class="en-text">
-        Regulatory &amp; Policy
-       </span>
+      <div class="kpi-label vi-text">
+       Chính sách &amp; Pháp lý
       </div>
-     </a>
-     <a class="kpi-card" href="#market-intel">
-      <div class="kpi-value" id="count-market">
-       10
+      <div class="kpi-label en-text">
+       Regulatory &amp; Policy
       </div>
-      <div class="kpi-label">
-       <span class="vi-text">
-        Tin ngành Dược
-       </span>
-       <span class="en-text">
-        Pharma Industry News
-       </span>
+      <div class="kpi-priority prio-high vi-text">
+       Ưu tiên cao
       </div>
-     </a>
-     <a class="kpi-card" href="#competitors">
+      <div class="kpi-priority prio-high en-text">
+       High Priority
+      </div>
+     </div>
+     <div class="kpi-card">
+      <div class="kpi-value">
+       5
+      </div>
+      <div class="kpi-label vi-text">
+       Cập nhật sản phẩm
+      </div>
+      <div class="kpi-label en-text">
+       Product Updates
+      </div>
+      <div class="kpi-priority prio-med vi-text">
+       Trung bình
+      </div>
+      <div class="kpi-priority prio-med en-text">
+       Medium
+      </div>
+     </div>
+     <div class="kpi-card">
       <div class="kpi-value" id="count-comp">
        0
       </div>
-      <div class="kpi-label">
-       <span class="vi-text">
-        Đối thủ cạnh tranh
-       </span>
-       <span class="en-text">
-        Competitor Intelligence
-       </span>
+      <div class="kpi-label vi-text">
+       Hoạt động đối thủ
       </div>
-     </a>
-     <a class="kpi-card" href="#dav-portfolio">
+      <div class="kpi-label en-text">
+       Competitor Activities
+      </div>
+      <div class="kpi-priority prio-med vi-text">
+       Trung bình
+      </div>
+      <div class="kpi-priority prio-med en-text">
+       Medium
+      </div>
+     </div>
+     <div class="kpi-card">
+      <div class="kpi-value" id="count-market">
+       0
+      </div>
+      <div class="kpi-label vi-text">
+       Y khoa &amp; Khoa học
+      </div>
+      <div class="kpi-label en-text">
+       Medical &amp; Science
+      </div>
+      <div class="kpi-priority prio-med vi-text">
+       Trung bình
+      </div>
+      <div class="kpi-priority prio-med en-text">
+       Medium
+      </div>
+     </div>
+     <div class="kpi-card">
       <div class="kpi-value">
-       5
+       0
       </div>
-      <div class="kpi-label">
-       <span class="vi-text">
-        Sản phẩm theo dõi
-       </span>
-       <span class="en-text">
-        Tracked Products
-       </span>
+      <div class="kpi-label vi-text">
+       Đề cập thương hiệu
       </div>
-     </a>
-     <a class="kpi-card" href="#action-items">
-      <div class="kpi-value">
-       7
+      <div class="kpi-label en-text">
+       Brand Mentions
       </div>
-      <div class="kpi-label">
-       <span class="vi-text">
-        Hành động ưu tiên
-       </span>
-       <span class="en-text">
-        Priority Actions
-       </span>
+      <div class="kpi-priority prio-normal vi-text">
+       Bình thường
       </div>
-     </a>
-     <a class="kpi-card" href="#gsc-top5">
-      <div class="kpi-value">
-       5
+      <div class="kpi-priority prio-normal en-text">
+       Normal
       </div>
-      <div class="kpi-label">
-       <span class="vi-text">
-        Tìm kiếm hàng đầu
-       </span>
-       <span class="en-text">
-        Top Searches
-       </span>
-      </div>
-     </a>
+     </div>
     </div>
    </div>
-   <!-- REGULATORY -->
+   <!-- II. BRAND MENTIONS -->
+   <div class="section" id="brand-mentions">
+    <div class="section-title">
+     <span class="vi-text">
+      II. Brand Mentions (0 Mentions)
+     </span>
+     <span class="en-text">
+      II. Brand Mentions (0 Mentions)
+     </span>
+    </div>
+    <div class="card-grid">
+     <p class="vi-text" style="color: var(--text-muted); font-size: 0.9375rem;">
+      Không có đề cập nào về Davipharm hoặc Adamed được phát hiện trong 7 ngày qua. Trạng thái bình thường — không phát hiện khủng hoảng truyền thông.
+     </p>
+     <p class="en-text" style="color: var(--text-muted); font-size: 0.9375rem;">
+      No mentions of Davipharm or Adamed detected in the past 7 days. Normal status — no media crisis detected.
+     </p>
+    </div>
+   </div>
+   <!-- III. REGULATORY & POLICY -->
    <div class="section" id="reg-policy">
-    <div class="section-header">
-     <h2>
-      <span class="vi-text">
-       Chính sách &amp; Pháp lý
-      </span>
-      <span class="en-text">
-       Regulatory &amp; Policy
-      </span>
-     </h2>
-     <span class="section-count" id="badge-reg">
+    <div class="section-title">
+     <span class="vi-text">
+      III. Vietnam Regulatory &amp; Policy Updates
+     </span>
+     <span class="en-text">
+      III. Vietnam Regulatory &amp; Policy Updates
+     </span>
+     <span class="vi-text" id="badge-reg" style="font-size: 0.875rem; font-weight: normal; color: var(--text-muted);">
       <span class="vi-text">
        0 văn bản
       </span>
@@ -586,500 +274,619 @@
        0 policies
       </span>
      </span>
-     <button class="toggle-btn" onclick="toggleSection('reg-policy')" title="Thu gọn / Mở rộng">
-      ▲
-     </button>
+     <span class="en-text" style="font-size: 0.875rem; font-weight: normal; color: var(--text-muted);">
+      0 policies
+     </span>
     </div>
-    <div class="collapsible-body">
-     <div class="card-grid">
-      <div style="padding:1.5rem;text-align:center;color:var(--text-muted);font-size:0.875rem;border:1px dashed var(--border);border-radius:8px;">
-       <span class="vi-text">
-        ✅ Không có văn bản pháp quy hoặc kết quả đấu thầu mới trong 7 ngày qua.
-       </span>
-       <span class="en-text">
-        ✅ No new regulatory documents or tender results in the past 7 days.
-       </span>
-      </div>
+    <div class="card-grid">
+     <div style="padding:1.5rem;text-align:center;color:var(--text-muted);font-size:0.875rem;border:1px dashed var(--border);border-radius:8px;">
+      <span class="vi-text">
+       ✅ Không có văn bản pháp quy hoặc kết quả đấu thầu mới trong 7 ngày qua.
+      </span>
+      <span class="en-text">
+       ✅ No new regulatory documents or tender results in the past 7 days.
+      </span>
      </div>
     </div>
    </div>
-   <!-- MARKET INTEL -->
+   <!-- IV. KEY PHARMA INDUSTRY NEWS -->
    <div class="section" id="market-intel">
-    <div class="section-header">
-     <h2>
+    <div class="section-title">
+     <span class="vi-text">
+      IV. Key Pharma Industry News — Past 7 Days
+     </span>
+     <span class="en-text">
+      IV. Key Pharma Industry News — Past 7 Days
+     </span>
+     <span class="vi-text" id="badge-market" style="font-size: 0.875rem; font-weight: normal; color: var(--text-muted);">
       <span class="vi-text">
-       Tin ngành Dược
+       0 tin
       </span>
       <span class="en-text">
-       Pharma Industry News
-      </span>
-     </h2>
-     <span class="section-count" id="badge-market">
-      <span class="vi-text">
-       10 tin
-      </span>
-      <span class="en-text">
-       10 items
+       0 items
       </span>
      </span>
-     <button class="toggle-btn" onclick="toggleSection('market-intel')" title="Thu gọn / Mở rộng">
-      ▲
-     </button>
+     <span class="en-text" style="font-size: 0.875rem; font-weight: normal; color: var(--text-muted);">
+      0 items
+     </span>
     </div>
-    <div class="collapsible-body">
-     <div class="card-grid">
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Nhận thức về ung thư dạ dày &amp; HP tăng cao — Tín hiệu cho nhóm thuốc tiêu hóa (Esomeprazole, Rabeprazole)
-       </div>
-       <div class="card-title en-text">
-        Rising Public Awareness of Gastric Cancer &amp; H. pylori — Opportunity Signal for GI Portfolio (Esomeprazole, Rabeprazole)
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Bài tư vấn y tế trên Dân Trí (Bệnh viện Bạch Mai) nhấn mạnh vai trò của vi khuẩn HP trong chuỗi tiến triển viêm dạ dày → ung thư, đồng thời khuyến nghị nội soi sớm và kiểm soát bệnh lý tiêu hóa mạn tính — phản ánh xu hướng gia tăng nhu cầu điều trị PPI dài hạn tại Việt Nam. Đây là tín hiệu thị trường thuận lợi cho JIRACEK (Esomeprazole) và MARTAZ (Rabeprazole) trong phân khúc bệnh nhân có bệnh lý dạ dày mạn tính tại kênh ETC và OPD.
-         <a href="https://dantri.com.vn/suc-khoe/dau-hieu-canh-bao-ung-thu-da-day-khi-di-ve-sinh-20260513111151027.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         A medical advisory article from Bach Mai Hospital (via Dan Tri) highlights H. pylori's role in the gastritis-to-cancer progression cascade and recommends early endoscopy and chronic GI management — reflecting growing long-term PPI demand in Vietnam. This represents a positive market signal for JIRACEK (Esomeprazole) and MARTAZ (Rabeprazole) in chronic gastric patient segments across ETC and OPD channels.
-         <a href="https://dantri.com.vn/suc-khoe/dau-hieu-canh-bao-ung-thu-da-day-khi-di-ve-sinh-20260513111151027.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-pos">
-        <span class="vi-text">
-         📈 Nhận thức HP &amp; ung thư dạ dày tăng thúc đẩy nhu cầu PPI dài hạn — cơ hội tăng trưởng kê đơn cho JIRACEK và MARTAZ tại bệnh viện tuyến trung ương và tỉnh.
-        </span>
-        <span class="en-text">
-         📈 Growing HP/gastric cancer awareness drives long-term PPI prescription demand — a growth opportunity for JIRACEK and MARTAZ across central and provincial hospital tenders.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Medical Team phối hợp với Sales ETC chuẩn bị tài liệu detailing nhấn mạnh vai trò PPI trong phác đồ diệt HP (phối hợp kháng sinh + PPI) và dự phòng tái phát loét; ưu tiên tiếp cận các khoa Tiêu hóa–Gan mật tại bệnh viện tuyến trung ương (Bạch Mai, Chợ Rẫy, Huế) trong Q2–Q3/2026 để định vị JIRACEK và MARTAZ trước chu kỳ thầu tiếp theo.
-        </p>
-        <p class="en-text">
-         Medical Team and ETC Sales to prepare detailing materials emphasizing PPI's role in H. pylori eradication regimens (PPI + antibiotic combinations) and ulcer relapse prevention; prioritize engagement with GI-Hepatology departments at key central hospitals (Bach Mai, Cho Ray, Hue) in Q2–Q3/2026 to position JIRACEK and MARTAZ ahead of the next tender cycle.
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Xác ve sầu (thuyền thoái) bị tạm giữ tại Lạng Sơn — Tín hiệu thị trường dược liệu cổ truyền
-       </div>
-       <div class="card-title en-text">
-        Cicada Shell Seizure at Lang Son — Traditional Medicine Raw Material Market Signal
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Quản lý thị trường Lạng Sơn tạm giữ 80kg xác ve sầu khô do không có giấy tờ nguồn gốc, phản ánh nhu cầu nguyên liệu y học cổ truyền đang tăng mạnh với giá thu mua 1,2–1,7 triệu đồng/kg. Bài viết thuộc phân khúc dược liệu cổ truyền/YHCT, không liên quan trực tiếp đến danh mục generic tân dược của Davipharm.
-         <a href="https://dantri.com.vn/suc-khoe/loai-xac-ve-sau-bi-tam-giu-o-lang-son-dung-de-lam-gi-20260513101333667.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         Lang Son market authorities seized 80kg of dried cicada shells lacking documentation, reflecting surging demand for traditional medicine raw materials at VND 1.2–1.7M/kg. This article covers the TCM herbal segment and has no direct relevance to Davipharm's generic pharmaceutical portfolio.
-         <a href="https://dantri.com.vn/suc-khoe/loai-xac-ve-sau-bi-tam-giu-o-lang-son-dung-de-lam-gi-20260513101333667.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-neu">
-        <span class="vi-text">
-         ⚪ Không có tác động trực tiếp đến Davipharm — bài nằm ngoài vùng cạnh tranh của danh mục generic tân dược hiện tại.
-        </span>
-        <span class="en-text">
-         ⚪ No direct impact on Davipharm — article falls entirely outside the company's current synthetic generic product competitive space.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Không cần hành động. Market Intelligence team lưu hồ sơ như tham chiếu nền về xu hướng tiêu dùng YHCT tại Việt Nam; không ưu tiên theo dõi thêm.
-        </p>
-        <p class="en-text">
-         No action required. Market Intelligence team to file as background reference on TCM consumer trends in Vietnam; no further monitoring priority warranted.
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Ngộ độc Lidocaine sau hút mỡ tại phòng khám TPHCM — áp lực siết chặt quản lý cơ sở thẩm mỹ "chui"
-       </div>
-       <div class="card-title en-text">
-        Lidocaine Toxicity Post-Liposuction Highlights Crackdown Risk on Unlicensed Aesthetic Clinics
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Một phụ nữ 53 tuổi hôn mê nặng sau hút mỡ tại phòng khám TPHCM do ngộ độc Lidocaine, sự việc được báo cáo lên Sở Y tế; hội thảo an toàn thẩm mỹ ngày 12/5 ghi nhận 25.000–35.000 ca biến chứng/năm và kêu gọi tăng chế tài với cơ sở vi phạm. Đây không phải sản phẩm Davipharm gây ra sự cố, nhưng làn sóng thanh tra sắp tới có thể thắt chặt điều kiện kê đơn/sử dụng các thuốc gây tê-giảm đau tại cơ sở ngoại trú — phân khúc liên quan đến MAGRAX (Etoricoxib) và METILONE-4 (Methylprednisolone) trong phác đồ hậu phẫu thuật thẩm mỹ.
-         <a href="https://dantri.com.vn/suc-khoe/nguoi-phu-nu-o-tphcm-ngo-doc-thuoc-te-nguy-kich-sau-hut-mo-tai-phong-kham-20260513092336620.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         A 53-year-old woman fell into a deep coma after Lidocaine toxicity during liposuction at an unlicensed HCMC clinic, with the case escalated to the city's Department of Health; a May 12 safety forum cited 25,000–35,000 aesthetic complication cases annually and urged stricter enforcement. While no Davipharm product was implicated, an anticipated regulatory crackdown on outpatient aesthetic procedures could tighten prescribing conditions for post-surgical analgesics — a segment where MAGRAX (Etoricoxib) and METILONE-4 (Methylprednisolone) are deployed.
-         <a href="https://dantri.com.vn/suc-khoe/nguoi-phu-nu-o-tphcm-ngo-doc-thuoc-te-nguy-kich-sau-hut-mo-tai-phong-kham-20260513092336620.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-neu">
-        <span class="vi-text">
-         ⚠️ Tác động gián tiếp, mức độ thấp: xu hướng siết quản lý phòng khám thẩm mỹ tư nhân có thể làm giảm lượng kê đơn MAGRAX/METILONE-4 tại kênh OPD thẩm mỹ nếu nhiều cơ sở bị đình chỉ hoạt động.
-        </span>
-        <span class="en-text">
-         ⚠️ Low-level indirect exposure: tightening oversight of private aesthetic clinics may reduce OPD prescriptions of MAGRAX/METILONE-4 if facilities face suspension following enforcement actions.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Team Medical Affairs theo dõi diễn biến chính sách từ Sở Y tế TPHCM và Bộ Y tế liên quan đến quản lý cơ sở thẩm mỹ trong Q2/2026; nếu có nghị định/thông tư siết điều kiện hoạt động phòng khám, Sales team cần đánh giá lại dự báo doanh thu MAGRAX và METILONE-4 tại kênh phòng kh
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Piperin trong hạt tiêu: tác dụng hỗ trợ tim mạch, chuyển hóa mỡ và lưu ý tương tác thuốc
-       </div>
-       <div class="card-title en-text">
-        Piperine in Black Pepper: Cardiovascular &amp; Lipid Metabolism Benefits — Drug Interaction Caution Noted
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Bài viết khoa học phổ thông ghi nhận piperin trong hạt tiêu có khả năng cải thiện lipid máu (giảm LDL, tăng HDL) và hỗ trợ chuyển hóa năng lượng, song cảnh báo piperin có thể ảnh hưởng chuyển hóa thuốc qua gan và quá trình đông máu — đặc biệt quan trọng với bệnh nhân dùng thuốc chống đông hoặc thuốc tim mạch dài hạn. Thông tin này không tác động trực tiếp đến hoạt động đấu thầu của Davipharm, nhưng phản ánh xu hướng người dùng quan tâm đến giải pháp hỗ trợ tim mạch–lipid tự nhiên song song với dược phẩm.
-         <a href="https://dantri.com.vn/suc-khoe/hat-tieu-co-the-ho-tro-giam-mo-nhung-nhom-nguoi-nao-can-luu-y-20260513064920643.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         A health-science article highlights piperine's potential to improve lipid profiles (reduce LDL, raise HDL) and support energy metabolism, while warning of drug metabolism interference — relevant to patients on anticoagulants or chronic cardiovascular medications. This has no direct tender impact for Davipharm, but signals consumer interest in natural cardiovascular-lipid adjuncts alongside pharmaceuticals.
-         <a href="https://dantri.com.vn/suc-khoe/hat-tieu-co-the-ho-tro-giam-mo-nhung-nhom-nguoi-nao-can-luu-y-20260513064920643.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-neu">
-        <span class="vi-text">
-         ➖ Tác động trực tiếp đến Davipharm không đáng kể; tuy nhiên cảnh báo tương tác piperin–thuốc tim mạch có thể được khai thác trong nội dung y tế hỗ trợ bán hàng cho RAVASTEL (Rosuvastatin) và ZABALES (Clopidogrel).
-        </span>
-        <span class="en-text">
-         ➖ No direct business impact on Davipharm; however, the piperine–cardiovascular drug interaction warning could be leveraged in medical education content supporting RAVASTEL (Rosuvastatin) and ZABALES (Clopidogrel).
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Team Medical Affairs có thể tích hợp thông tin tương tác piperin vào tài liệu đào tạo trình dược viên cho nhóm tim mạch (RAVASTEL, ZABALES, PECHAUNOX) nhằm củng cố lập luận về tầm quan trọng của thuốc kê đơn kiểm soát lipid so với giải pháp tự nhiên; thực hiện trong vòng 1 tháng như nội dung bổ trợ định kỳ.
-        </p>
-        <p class="en-text">
-         Medical Affairs team may integrate piperine interaction data into rep training materials for the cardiovascular portfolio (RAVASTEL, ZABALES, PECHAUNOX) to reinforce the clinical necessity of prescription lipid management over natural alternatives; implement within 1 month as routine supplementary content.
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Bộ Y tế ban hành hướng dẫn khám sức khỏe định kỳ miễn phí toàn dân từ 2026 — cơ hội sàng lọc bệnh mạn tính
-       </div>
-       <div class="card-title en-text">
-        MoH Launches Annual Free Health Check Framework — Potential Screening Uptick for Chronic Disease Portfolio
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Bộ Y tế ban hành hướng dẫn khám sức khỏe định kỳ miễn phí ít nhất 1 lần/năm cho toàn dân từ 18 tuổi, bao gồm xét nghiệm đường máu, sinh hóa tim mạch và chụp X-quang — gói cơ bản đủ để sàng lọc tiểu đường và tim mạch ở quy mô dân số. Chính sách này kỳ vọng gia tăng đáng kể số ca phát hiện mới cao huyết áp, rối loạn lipid máu và đái tháo đường — các chỉ định điều trị trực tiếp của RAVASTEL (Rosuvastatin), EIMLER-10 (Empagliflozin), ZLATKO (Sitagliptin), PECHAUNOX, TABAREX, HATLOP.
-         <a href="https://dantri.com.vn/suc-khoe/nguoi-dan-duoc-kiem-tra-nhung-gi-khi-kham-suc-khoe-dinh-ky-mien-phi-20260512192655903.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         Vietnam's MoH has issued clinical guidelines for free annual health screenings for all citizens aged 18+, including blood glucose, biochemistry, and chest X-ray — sufficient to detect diabetes and cardiovascular risk at population scale. This policy is expected to significantly expand the diagnosed patient pool for RAVASTEL (Rosuvastatin), EIMLER-10 (Empagliflozin), ZLATKO (Sitagliptin), PECHAUNOX, TABAREX, and HATLOP.
-         <a href="https://dantri.com.vn/suc-khoe/nguoi-dan-duoc-kiem-tra-nhung-gi-khi-kham-suc-khoe-dinh-ky-mien-phi-20260512192655903.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-pos">
-        <span class="vi-text">
-         🟢 Sàng lọc đại trà sẽ mở rộng phễu bệnh nhân mới cho nhóm tim mạch và đái tháo đường — tác động thuận chiều lên nhu cầu dài hạn với RAVASTEL, EIMLER-10, ZLATKO, PECHAUNOX trong kênh ETC.
-        </span>
-        <span class="en-text">
-         🟢 Mass screening will expand the new patient funnel for cardiovascular and diabetes drugs — a long-term demand tailwind for RAVASTEL, EIMLER-10, ZLATKO, and PECHAUNOX across ETC channels.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Team Marketing &amp; Medical Affairs cần theo dõi lộ trình ban hành Nghị định hướng dẫn Luật Phòng bệnh (dự kiến 2026) để xác định thời điểm chính sách có hiệu lực thực tế; đồng thời chuẩn bị tài liệu y khoa hỗ trợ kê đơn sau sàng lọc cho RAVASTEL, EIMLER-10 và ZLATKO, ưu tiên tuyến huyện — nơi sẽ tiếp nhận lượng lớn ca chẩn đoán mới.
-        </p>
-        <p class="en-text">
-         Marketing &amp; Medical Affairs teams should monitor the pending Decree under the Prevention Law (expected 2026) to confirm policy activation timelines; meanwhile, prepare post-screening prescribing support materials for RAVASTEL, EIMLER-10
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        90% người dân Việt có vấn đề răng miệng — Thị trường nha khoa mở rộng, không liên quan danh mục Davipharm
-       </div>
-       <div class="card-title en-text">
-        90% of Vietnamese Face Oral Health Issues — Dental Market Expansion, Outside Davipharm Portfolio
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Hội nghị Nha khoa Châu Á–Thái Bình Dương lần thứ 47 tại Hà Nội công bố 90% người dân Việt có vấn đề răng miệng, Bộ Y tế định hướng đẩy mạnh dự phòng và điều trị chuyên sâu trong lĩnh vực nha khoa. Davipharm hiện không có sản phẩm nào trong danh mục răng–hàm–mặt, nên sự kiện này không tạo tác động trực tiếp đến doanh thu hay hoạt động đấu thầu.
-         <a href="https://dantri.com.vn/suc-khoe/90-nguoi-dan-viet-gap-van-de-ve-rang-mieng-20260512221241166.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         The 47th Asia-Pacific Dental Conference in Hanoi reported that 90% of Vietnamese suffer from oral health issues, with the Ministry of Health prioritizing preventive and specialist dental care. Davipharm carries no oral health products, so this development has no direct revenue or tender impact.
-         <a href="https://dantri.com.vn/suc-khoe/90-nguoi-dan-viet-gap-van-de-ve-rang-mieng-20260512221241166.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-neu">
-        <span class="vi-text">
-         ⚪ Không liên quan đến danh mục chiến lược của Davipharm — theo dõi thụ động, không cần hành động ưu tiên.
-        </span>
-        <span class="en-text">
-         ⚪ No relevance to Davipharm's strategic portfolio — passive monitoring only, no priority action required.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Không có hành động ngắn hạn cần thiết; Business Development có thể ghi nhận xu hướng mở rộng thị trường nha khoa như tín hiệu dài hạn nếu công ty cân nhắc mở rộng danh mục OTC chăm sóc miệng trong tương lai.
-        </p>
-        <p class="en-text">
-         No immediate action required; Business Development may note the dental market expansion as a long-term signal should Davipharm consider entering the oral care OTC segment in future portfolio planning.
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-12">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Bộ Y tế đề xuất đãi ngộ đặc thù cho y tế tuyến đảo — Tín hiệu củng cố y tế cơ sở vùng xa
-       </div>
-       <div class="card-title en-text">
-        MoH Proposes Special Incentives for Island Healthcare Workers — Signal of Primary Care Strengthening in Remote Areas
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Thứ trưởng Bộ Y tế Trần Văn Thuấn công bố kế hoạch tham mưu Chính phủ hoàn thiện khung pháp lý đãi ngộ đặc thù cho y tế hải đảo sau chuyến khảo sát Trường Sa (4–10/5/2026), đồng thời hỗ trợ 3,3 tỷ đồng thiết bị y tế và cơ số thuốc cho 7 đảo. Tin tức này phản ánh định hướng tăng cường năng lực y tế cơ sở vùng xa, không tác động trực tiếp đến danh mục ETC hay đấu thầu của Davipharm.
-         <a href="https://dantri.com.vn/suc-khoe/bo-y-te-de-xuat-dai-ngo-dac-thu-cho-luc-luong-y-te-cong-tac-o-hai-dao-20260512184519253.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         Deputy Minister of Health Tran Van Thuan announced plans to advise the Government on a legal framework for special incentives for island-based healthcare workers, following a Truong Sa inspection visit (May 4–10, 2026), with VND 3.3 billion in medical equipment and drug kits donated to 7 islands. This news reflects a policy direction to strengthen primary care in remote areas but has no direct bearing on Davipharm's ETC tender portfolio.
-         <a href="https://dantri.com.vn/suc-khoe/bo-y-te-de-xuat-dai-ngo-dac-thu-cho-luc-luong-y-te-cong-tac-o-hai-dao-20260512184519253.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-neu">
-        <span class="vi-text">
-         ➖ Bài không liên quan trực tiếp đến sản phẩm hay kênh phân phối của Davipharm; không phát sinh cơ hội hay rủi ro tức thời.
-        </span>
-        <span class="en-text">
-         ➖ No direct relevance to Davipharm's product portfolio or distribution channels; no immediate opportunity or risk identified.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Không cần hành động ưu tiên. Team Government Affairs có thể theo dõi động thái hoàn thiện khung pháp lý đãi ngộ y tế đảo — nếu dẫn đến mở rộng danh mục thuốc cấp phát tuyến cơ sở (bao gồm tim mạch, đái tháo đường), cân nhắc đăng ký sản phẩm như RAVASTEL, ZLATKO vào các gói cung ứng thuốc quốc phòng/đặc thù trong tương lai.
-        </p>
-        <p class="en-text">
-         No priority action required. Government Affairs team may monitor the forthcoming legal framework for island healthcare incentives — if it leads to expanded primary care drug lists (including cardiovascular/diabetes), consider registering products such as RAVASTEL and ZLATKO into future defense/special procurement packages.
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-12">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Tăng huyết áp bỏ sót ở hàng triệu người Việt — Cơ hội mở rộng thị trường thuốc tim mạch (Perindopril+Amlodipin, Valsartan, Irbesartan)
-       </div>
-       <div class="card-title en-text">
-        Hypertension Underdiagnosis in Millions of Vietnamese — Market Expansion Opportunity for Davipharm's Cardiovascular Portfolio
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Chuyên gia Hội Tim mạch học Việt Nam cảnh báo 25–30% người trưởng thành Việt Nam mắc tăng huyết áp nhưng tỷ lệ chẩn đoán và kiểm soát đạt mục tiêu vẫn thấp, xu hướng bệnh ngày càng trẻ hóa và nhu cầu thuốc phối hợp liều cố định tăng cao. Đây là tín hiệu tăng trưởng dài hạn trực tiếp cho nhóm sản phẩm PECHAUNOX (Perindopril+Amlodipin), TABAREX (Valsartan) và HATLOP (Irbesartan) của Davipharm tại cả kênh ETC lẫn OTC.
-         <a href="https://dantri.com.vn/suc-khoe/can-benh-de-phat-hien-nhung-van-bi-bo-sot-o-hang-trieu-nguoi-viet-20260512153415878.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         Vietnam's cardiology experts warn that 25–30% of Vietnamese adults have hypertension yet diagnosis and control rates remain critically low, with disease onset trending younger and fixed-dose combination therapy gaining prominence. This signals sustained long-term demand growth for Davipharm's PECHAUNOX (Perindopril+Amlodipine), TABAREX (Valsartan), and HATLOP (Irbesartan) across both ETC and OTC channels.
-         <a href="https://dantri.com.vn/suc-khoe/can-benh-de-phat-hien-nhung-van-bi-bo-sot-o-hang-trieu-nguoi-viet-20260512153415878.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-pos">
-        <span class="vi-text">
-         📈 Cơ hội tăng trưởng rõ ràng: pool bệnh nhân tăng huyết áp chưa được điều trị còn rất lớn, thuốc phối hợp liều cố định (PECHAUNOX) được chuyên gia khuyến nghị là hướng điều trị ưu tiên — trực tiếp hỗ trợ positioning và tăng volume đấu thầu ETC chu kỳ tới.
-        </span>
-        <span class="en-text">
-         📈 Clear growth opportunity: a large untreated hypertension patient pool and expert endorsement of fixed-dose combinations directly support PECHAUNOX's positioning and ETC tender volume in the upcoming procurement cycle.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Team Marketing Tim mạch phối hợp cùng Medical Affairs triển khai ngay tài liệu định vị PECHAUNOX như lựa chọn phối hợp liều cố định ưu tiên (Perindopril+Amlodipin), tận dụng thông điệp "tuân thủ điều trị — ít viên hơn, hiệu quả hơn" xung quanh Ngày Tăng huyết áp thế giới 17/5; đồng thời Sales ETC ưu tiên đẩy TABAREX và HATLOP vào danh mục quản lý bệnh mạn tính tại các bệnh viện tuyến tỉnh trước chu kỳ đấu thầu tiếp theo.
-        </p>
-        <p class="en-text">
-         The Cardiovascular Marketing team, in coordination with Medical Affairs, should immediately
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-12">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Bệnh cơ xương khớp trẻ hóa nhanh — xu hướng Y học tái tạo thay thế thuốc giảm đau dài hạn
-       </div>
-       <div class="card-title en-text">
-        Musculoskeletal Disease Affecting Younger Demographics — Regenerative Medicine Trend Challenging Long-Term Analgesic Use
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Tọa đàm do Dân Trí &amp; BV Hồng Ngọc tổ chức ghi nhận xu hướng thoái hóa khớp trẻ hóa rõ rệt (người ngoài 30 tuổi), kèm cảnh báo nguy cơ từ thói quen tự mua thuốc chống viêm/giảm đau kéo dài không kê đơn. Xu hướng Y học tái tạo được đẩy mạnh như giải pháp thay thế, có thể tác động đến nhu cầu sử dụng Etoricoxib (MAGRAX) trong phác đồ quản lý đau mạn tính cơ xương khớp.
-         <a href="https://dantri.com.vn/suc-khoe/van-nan-xuong-khop-gia-truoc-tuoi-va-giai-phap-tu-y-hoc-tai-tao-20260508180317105.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         A webinar co-hosted by Dân Trí and Hồng Ngọc Hospital highlights a clear trend of musculoskeletal degeneration in adults over 30, alongside warnings on self-medication with uncontrolled NSAIDs/analgesics. Growing promotion of regenerative medicine as an alternative may temper long-term demand for Etoricoxib (MAGRAX) in chronic musculoskeletal pain management.
-         <a href="https://dantri.com.vn/suc-khoe/van-nan-xuong-khop-gia-truoc-tuoi-va-giai-phap-tu-y-hoc-tai-tao-20260508180317105.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-neu">
-        <span class="vi-text">
-         ⚖️ Tín hiệu trung tính: tệp bệnh nhân xương khớp mở rộng là cơ hội tăng trưởng cho MAGRAX, nhưng áp lực từ Y học tái tạo và cảnh báo dùng thuốc dài hạn có thể kiềm chế tăng trưởng kênh OTC/ETC.
-        </span>
-        <span class="en-text">
-         ⚖️ Neutral signal: expanding musculoskeletal patient base is a growth opportunity for MAGRAX, but regenerative medicine momentum and anti-prolonged-NSAID messaging may constrain OTC/ETC volume growth.
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Marketing &amp; Medical Affairs cần cập nhật positioning cho MAGRAX (Etoricoxib) theo hướng "quản lý đau giai đoạn cấp/bán cấp" — bổ sung dữ liệu an toàn tim mạch và GI so với NSAIDs thế hệ cũ để biện hộ cho kê đơn hợp lý trong bối cảnh Y học tái tạo lên ngôi; xem xét tài liệu detail cho bác sĩ chuyên khoa cơ xương khớp trong vòng Q3/2026.
-        </p>
-        <p class="en-text">
-         Marketing &amp; Medical Affairs should reposition MAGRAX (Etoricoxib) as a "short-to-medium-term acute/subacute pain bridge" solution — leveraging CV and GI safety data vs. older NSAIDs to justify rational prescribing alongside regenerative interventions; develop rheumatology/orthopaedic detailing materials by Q3 2026.
-        </p>
-       </div>
-      </div>
-      <div class="card" data-cat="market-intel" data-pub-date="2026-05-13">
-       <span class="card-tag">
-        Dân Trí – Sức khỏe
-       </span>
-       <div class="card-title vi-text">
-        Xu hướng nội soi siêu phóng đại phát hiện sớm ung thư tiêu hóa: Tín hiệu tăng nhu cầu điều trị
-       </div>
-       <div class="card-title en-text">
-        Ultra-Magnification Endoscopy Trend for Early GI Cancer Detection: Rising Downstream Treatment Demand
-       </div>
-       <div class="card-body">
-        <span class="vi-text">
-         Công nghệ nội soi Endocyto 520x (Olympus) triển khai tại Thu Cúc TCI cho phép phát hiện ung thư tiêu hóa ở cấp độ tế bào, báo hiệu tỷ lệ phát hiện sớm ung thư đường tiêu hóa tại Việt Nam sẽ tăng đáng kể trong các năm tới. Việc chẩn đoán sớm hơn sẽ kéo theo gia tăng số bệnh nhân bước vào giai đoạn điều trị bằng thuốc kê đơn, trực tiếp mở rộng thị trường ETC cho các sản phẩm ung thư của Davipharm.
-         <a href="https://dantri.com.vn/suc-khoe/phat-hien-som-ung-thu-tieu-hoa-chuyen-gia-nhan-manh-xu-huong-tiep-can-tu-cap-do-te-bao-20260513084722416.htm" target="_blank">
-          [Nguồn]
-         </a>
-        </span>
-        <span class="en-text">
-         Olympus Endocyto 520x technology, now deployed at Thu Cúc TCI, enables cellular-level detection of GI cancers, signaling a significant increase in early-stage diagnoses across Vietnam in coming years. Earlier diagnosis translates to a larger patient population entering pharmacological treatment, directly expanding the ETC market for Davipharm's oncology portfolio.
-         <a href="https://dantri.com.vn/suc-khoe/phat-hien-som-ung-thu-tieu-hoa-chuyen-gia-nhan-manh-xu-huong-tiep-can-tu-cap-do-te-bao-20260513084722416.htm" target="_blank">
-          [Source]
-         </a>
-        </span>
-       </div>
-       <div class="sentiment sent-pos">
-        <span class="vi-text">
-         📈 Cơ hội trung hạn: gia tăng bệnh nhân ung thư tiêu hóa được chẩn đoán sớm sẽ thúc đẩy nhu cầu điều trị, tạo điều kiện mở rộng thị phần ETC cho HYYR (Erlotinib) và LARRIVEY (Bicalutamide) trong các gói thầu bệnh viện.
-        </span>
-        <span class="en-text">
-         📈 Mid-term opportunity: increased early-stage GI cancer diagnoses will drive prescription volumes, supporting ETC tender share growth for HYYR (Erlotinib) and LARRIVEY (Bicalutamide).
-        </span>
-       </div>
-       <div class="card-impact">
-        <strong>
-         Davipharm Strategy
-        </strong>
-        <p class="vi-text">
-         Team Marketing ETC phối hợp với Medical Affairs theo dõi sự mở rộng của công nghệ nội soi siêu phóng đại sang các bệnh viện tuyến tỉnh trong 12 tháng tới, chuẩn bị tài liệu MSL và đề xuất đưa HYYR, LARRIVEY vào danh mục thuốc ung thư tiêu hóa tại các cơ sở y tế có triển khai nội soi tiên tiến; ưu tiên các bệnh viện trong hệ thống TCI và bệnh viện ung bướu tỉnh.
-        </p>
-        <p class="en-text">
-         ETC Marketing and Medical Affairs teams should track the rollout of ultra-magnification endoscopy to provincial hospitals over the next 12 months, prepare MSL materials, and proactively position HYYR and LARRIVEY in oncology formularies at facilities adopting advanced endoscopy — prioritizing TCI-network hospitals and provincial cancer centers.
-        </p>
-       </div>
-      </div>
-     </div>
+    <div class="card-grid">
     </div>
    </div>
-   <!-- COMPETITORS -->
+   <!-- V. DAVIPHARM PRODUCT TRACKER -->
+   <div class="section" id="dav-portfolio">
+    <div class="section-title">
+     <span class="vi-text">
+      V. Davipharm Product Tracker
+     </span>
+     <span class="en-text">
+      V. Davipharm Product Tracker
+     </span>
+    </div>
+    <div style="overflow-x: auto;">
+     <table>
+      <thead>
+       <tr>
+        <th>
+         Sản phẩm / Product
+        </th>
+        <th>
+         Chỉ định / Indication
+        </th>
+        <th>
+         Tin tức 7 ngày / 7-day Intel
+        </th>
+        <th>
+         Thị trường / Market
+        </th>
+        <th>
+         Cạnh tranh / Competitor
+        </th>
+        <th>
+         Cơ hội / Opportunity
+        </th>
+        <th>
+         Ghi chú / Recommend
+        </th>
+       </tr>
+      </thead>
+      <tbody id="product-tracking-grid">
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         EIMLER-10
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Empagliflozin 10mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Đái tháo đường Typ 2 / Suy tim
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cơ hội cao
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Ưu tiên thầu Nhóm 1 – đấu thầu TT 2026
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         ZLATKO-50
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Sitagliptin 50mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Đái tháo đường Typ 2
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cạnh tranh
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Theo dõi DPP-4 generic cạnh tranh
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         JANUS-60
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Dapoxetine 60mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Nam khoa – Xuất tinh sớm
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Kiểm tra listing Long Châu / Pharmacity
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         TADALAFIL 20MG
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Tadalafil 20mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Nam khoa – Rối loạn cương dương
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cạnh tranh
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Theo dõi giá Sun Pharma, Cipla generic
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         DRYCHES
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Dutasteride 0.5mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tiết niệu – Phì đại tuyến tiền liệt
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cơ hội
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         BPH – thị trường còn ít cạnh tranh
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         PECHAUNOX 4/10
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Perindopril + Amlodipin
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tim mạch – Tăng HA / Mạch vành
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Combo cạnh tranh – theo dõi generic Amlodipine
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         RAVASTEL-20
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Rosuvastatin 20mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tim mạch – Rối loạn lipid máu
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cạnh tranh
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Statin – cạnh tranh cao với Atorvastatin generic
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         TABAREX-160
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Valsartan 160mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tim mạch – Tăng huyết áp
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Duy trì kênh OTC &amp; ETC tuyến tỉnh
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         HATLOP-150
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Irbesartan 150mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tim mạch – Tăng HA / ĐTĐ
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Duy trì thầu bệnh viện tuyến tỉnh
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         ZABALES
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Clopidogrel 75mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tim mạch – Chống kết tập tiểu cầu
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cạnh tranh
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Cạnh tranh cao – cần bảo vệ giá thầu
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         MAGRAX
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Etoricoxib 90mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Giảm đau – Xương khớp / Viêm
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         COX-2 – theo dõi xu hướng điều trị Gout
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         ZENTOGOUT-40
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Febuxostat 40mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Gout – Hạ acid uric mạn tính
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cơ hội
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Thay thế Allopurinol – đang tăng trưởng
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         JIRACEK
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Esomeprazole 40mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tiêu hóa – Loét dạ dày / PPI
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cạnh tranh
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         PPI – thị trường cạnh tranh, bảo vệ ETC
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         SERNAL-4
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Risperidone 4mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Tâm thần phân liệt
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Duy trì kênh ETC bệnh viện chuyên khoa
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         LAFAXOR
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Venlafaxine
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Trầm cảm / Lo âu
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Kênh phòng khám tư nhân – tiềm năng tăng
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         HYYR
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Erlotinib
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Ung thư phổi không tế bào nhỏ
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Cơ hội cao
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Thuốc đặc trị – ưu tiên thầu bệnh viện ung bướu
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         LARRIVEY
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Bicalutamide
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Ung thư tuyến tiền liệt
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Theo dõi phác đồ bệnh viện – biên lợi nhuận cao
+        </td>
+       </tr>
+       <tr>
+        <td style="font-weight: 600; color: var(--primary);">
+         METILONE-4
+        </td>
+        <td>
+         <span style="font-weight: 500;">
+          Methylprednisolone 4mg
+         </span>
+         <br/>
+         <span style="font-size: 0.75rem; color: var(--text-muted);">
+          Kháng viêm / Hormon corticoid
+         </span>
+        </td>
+        <td>
+         None detected
+        </td>
+        <td>
+         Stable
+        </td>
+        <td>
+         Ổn định
+        </td>
+        <td>
+         Monitor
+        </td>
+        <td>
+         Duy trì kênh ETC – theo dõi thầu TT Corticoid
+        </td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <!-- VI. COMPETITOR ACTIVITIES -->
    <div class="section" id="competitors">
-    <div class="section-header">
-     <h2>
-      <span class="vi-text">
-       Đối thủ cạnh tranh
-      </span>
-      <span class="en-text">
-       Competitor Intelligence
-      </span>
-     </h2>
-     <span class="section-count" id="badge-comp">
+    <div class="section-title">
+     <span class="vi-text">
+      VI. Competitor Activities
+     </span>
+     <span class="en-text">
+      VI. Competitor Activities
+     </span>
+     <span class="vi-text" id="badge-comp" style="font-size: 0.875rem; font-weight: normal; color: var(--text-muted);">
       <span class="vi-text">
        0 tín hiệu
       </span>
@@ -1087,1652 +894,115 @@
        0 signals
       </span>
      </span>
-     <button class="toggle-btn" onclick="toggleSection('competitors')" title="Thu gọn / Mở rộng">
-      ▲
-     </button>
-    </div>
-    <div class="collapsible-body">
-     <div class="card-grid">
-      <div style="padding:1.5rem;text-align:center;color:var(--text-muted);font-size:0.875rem;border:1px dashed var(--border);border-radius:8px;">
-       <span class="vi-text">
-        ✅ Không có tín hiệu đáng chú ý từ đối thủ cạnh tranh trong 7 ngày qua.
-       </span>
-       <span class="en-text">
-        ✅ No notable competitor signals in the past 7 days.
-       </span>
-      </div>
-     </div>
-    </div>
-   </div>
-   <!-- PRODUCT TRACKER -->
-   <div class="section" id="dav-portfolio">
-    <div class="section-header">
-     <h2>
-      <span class="vi-text">
-       Theo dõi danh mục sản phẩm
-      </span>
-      <span class="en-text">
-       Product Portfolio
-      </span>
-     </h2>
-     <button class="toggle-btn" onclick="toggleSection('dav-portfolio')" title="Thu gọn / Mở rộng">
-      ▲
-     </button>
-    </div>
-    <div class="collapsible-body">
-     <div class="product-grid" id="product-tracking-grid">
-      <div class="product-card">
-       <div class="product-name">
-        EIMLER-10
-       </div>
-       <div class="product-indication">
-        Empagliflozin 10mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Đái tháo đường Typ 2 / Suy tim
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         597,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cơ hội cao
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Ưu tiên thầu Nhóm 1 – đấu thầu TT 2026
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        ZLATKO-50
-       </div>
-       <div class="product-indication">
-        Sitagliptin 50mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Đái tháo đường Typ 2
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         217,500đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cạnh tranh
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Theo dõi DPP-4 generic cạnh tranh
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        JANUS-60
-       </div>
-       <div class="product-indication">
-        Dapoxetine 60mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Nam khoa – Xuất tinh sớm
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         720,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Kiểm tra listing Long Châu / Pharmacity
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        TADALAFIL 20MG
-       </div>
-       <div class="product-indication">
-        Tadalafil 20mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Nam khoa – Rối loạn cương dương
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         42,000đ/viên
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cạnh tranh
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Theo dõi giá Sun Pharma, Cipla generic
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        DRYCHES
-       </div>
-       <div class="product-indication">
-        Dutasteride 0.5mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tiết niệu – Phì đại tuyến tiền liệt
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         378,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cơ hội
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         BPH – thị trường còn ít cạnh tranh
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        PECHAUNOX 4/10
-       </div>
-       <div class="product-indication">
-        Perindopril + Amlodipin
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tim mạch – Tăng HA / Mạch vành
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         182,070đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Combo cạnh tranh – theo dõi generic Amlodipine
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        RAVASTEL-20
-       </div>
-       <div class="product-indication">
-        Rosuvastatin 20mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tim mạch – Rối loạn lipid máu
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         47,250đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cạnh tranh
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Statin – cạnh tranh cao với Atorvastatin generic
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        TABAREX-160
-       </div>
-       <div class="product-indication">
-        Valsartan 160mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tim mạch – Tăng huyết áp
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         163,800đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Duy trì kênh OTC &amp; ETC tuyến tỉnh
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        HATLOP-150
-       </div>
-       <div class="product-indication">
-        Irbesartan 150mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tim mạch – Tăng HA / ĐTĐ
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         210,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Duy trì thầu bệnh viện tuyến tỉnh
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        ZABALES
-       </div>
-       <div class="product-indication">
-        Clopidogrel 75mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tim mạch – Chống kết tập tiểu cầu
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         31,920đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cạnh tranh
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Cạnh tranh cao – cần bảo vệ giá thầu
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        MAGRAX
-       </div>
-       <div class="product-indication">
-        Etoricoxib 90mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Giảm đau – Xương khớp / Viêm
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         215,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         COX-2 – theo dõi xu hướng điều trị Gout
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        ZENTOGOUT-40
-       </div>
-       <div class="product-indication">
-        Febuxostat 40mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Gout – Hạ acid uric mạn tính
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         240,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cơ hội
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Thay thế Allopurinol – đang tăng trưởng
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        JIRACEK
-       </div>
-       <div class="product-indication">
-        Esomeprazole 40mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tiêu hóa – Loét dạ dày / PPI
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         89,600đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cạnh tranh
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         PPI – thị trường cạnh tranh, bảo vệ ETC
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        SERNAL-4
-       </div>
-       <div class="product-indication">
-        Risperidone 4mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Tâm thần phân liệt
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         315,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Duy trì kênh ETC bệnh viện chuyên khoa
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        LAFAXOR
-       </div>
-       <div class="product-indication">
-        Venlafaxine
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Trầm cảm / Lo âu
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         159,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Kênh phòng khám tư nhân – tiềm năng tăng
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        HYYR
-       </div>
-       <div class="product-indication">
-        Erlotinib
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Ung thư phổi không tế bào nhỏ
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         1,500,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Cơ hội cao
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Thuốc đặc trị – ưu tiên thầu bệnh viện ung bướu
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        LARRIVEY
-       </div>
-       <div class="product-indication">
-        Bicalutamide
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Ung thư tuyến tiền liệt
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         823,200đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Theo dõi phác đồ bệnh viện – biên lợi nhuận cao
-        </span>
-       </div>
-      </div>
-      <div class="product-card">
-       <div class="product-name">
-        METILONE-4
-       </div>
-       <div class="product-indication">
-        Methylprednisolone 4mg
-       </div>
-       <div class="product-indication" style="font-size:0.7rem;margin-top:-0.4rem;opacity:0.65;">
-        Kháng viêm / Hormon corticoid
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Giá bán:
-        </span>
-        <span class="status-val">
-         74,000đ/hộp
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Trạng thái:
-        </span>
-        <span class="status-val highlight">
-         Ổn định
-        </span>
-       </div>
-       <div class="status-row">
-        <span class="status-key">
-         Ghi chú:
-        </span>
-        <span class="status-val">
-         Duy trì kênh ETC – theo dõi thầu TT Corticoid
-        </span>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-   <!-- ACTION ITEMS -->
-   <div class="section" id="gsc-top5">
-    <div class="section-header">
-     <h2>
-      <span class="vi-text">
-       Top 5 sản phẩm tìm kiếm nhiều nhất
-      </span>
-      <span class="en-text">
-       Top 5 Most Searched Products
-      </span>
-     </h2>
-     <span class="section-count">
-      <span class="vi-text">
-       30 ngày · GSC
-      </span>
-      <span class="en-text">
-       30 days · GSC
-      </span>
+     <span class="en-text" style="font-size: 0.875rem; font-weight: normal; color: var(--text-muted);">
+      0 signals
      </span>
-     <button class="toggle-btn" onclick="toggleSection('gsc-top5')" title="Thu gọn / Mở rộng">
-      ▲
-     </button>
     </div>
-    <div class="gsc-body collapsible-body">
-     <div class="gsc-meta vi-text">
-      Dữ liệu Google Search Console · davipharm.info · 11/05/2026
-     </div>
-     <div class="gsc-meta en-text">
-      Google Search Console data · davipharm.info · 11/05/2026
-     </div>
-     <div class="table-wrapper" style="margin-top:1rem;">
-      <div class="table-container">
-       <table id="gsc-table">
-        <thead>
-         <tr>
-          <th style="width:2rem;">
-           <span class="vi-text">
-            #
-           </span>
-           <span class="en-text">
-            #
-           </span>
-          </th>
-          <th>
-           <span class="vi-text">
-            Sản phẩm
-           </span>
-           <span class="en-text">
-            Product
-           </span>
-          </th>
-          <th>
-           <span class="vi-text">
-            Clicks (30 ngày)
-           </span>
-           <span class="en-text">
-            Clicks (30 days)
-           </span>
-          </th>
-          <th>
-           <span class="vi-text">
-            Lượt hiển thị
-           </span>
-           <span class="en-text">
-            Impressions
-           </span>
-          </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td style="font-weight:700;color:var(--primary);text-align:center;width:2rem;">
-           1
-          </td>
-          <td>
-           <a href="https://davipharm.info/wp-content/uploads/OZZY-40_05.pdf" style="font-weight:600;color:var(--text-main);text-decoration:none;" target="_blank">
-            OZZY-40
-           </a>
-           <div style="font-size:0.7rem;color:#9CA3AF;margin-top:2px;">
-            <span class="vi-text">
-             Sản phẩm - Ozzy 40
-            </span>
-            <span class="en-text">
-             Product - Ozzy 40
-            </span>
-           </div>
-          </td>
-          <td>
-           <div style="display:flex;align-items:center;gap:0.5rem;">
-            <div style="flex:1;background:#F3F4F6;border-radius:4px;height:6px;min-width:60px;">
-             <div style="width:100%;background:var(--primary);border-radius:4px;height:6px;">
-             </div>
-            </div>
-            <span style="font-weight:700;color:var(--primary);font-size:0.875rem;white-space:nowrap;">
-             29
-            </span>
-           </div>
-          </td>
-          <td style="color:var(--text-muted);font-size:0.8125rem;">
-           9,507
-          </td>
-         </tr>
-         <tr>
-          <td style="font-weight:700;color:var(--primary);text-align:center;width:2rem;">
-           2
-          </td>
-          <td>
-           <a href="https://davipharm.info/wp-content/uploads/COXNIS-cropped.pdf" style="font-weight:600;color:var(--text-main);text-decoration:none;" target="_blank">
-            COXNIS
-           </a>
-           <div style="font-size:0.7rem;color:#9CA3AF;margin-top:2px;">
-            <span class="vi-text">
-             Sản phẩm - Coxnis
-            </span>
-            <span class="en-text">
-             Product - Coxnis
-            </span>
-           </div>
-          </td>
-          <td>
-           <div style="display:flex;align-items:center;gap:0.5rem;">
-            <div style="flex:1;background:#F3F4F6;border-radius:4px;height:6px;min-width:60px;">
-             <div style="width:93%;background:var(--primary);border-radius:4px;height:6px;">
-             </div>
-            </div>
-            <span style="font-weight:700;color:var(--primary);font-size:0.875rem;white-space:nowrap;">
-             27
-            </span>
-           </div>
-          </td>
-          <td style="color:var(--text-muted);font-size:0.8125rem;">
-           7,206
-          </td>
-         </tr>
-         <tr>
-          <td style="font-weight:700;color:var(--primary);text-align:center;width:2rem;">
-           3
-          </td>
-          <td>
-           <a href="https://davipharm.info/product/casilas-20/" style="font-weight:600;color:var(--text-main);text-decoration:none;" target="_blank">
-            CASILAS-20
-           </a>
-           <div style="font-size:0.7rem;color:#9CA3AF;margin-top:2px;">
-            <span class="vi-text">
-             Trang sản phẩm
-            </span>
-            <span class="en-text">
-             Product page
-            </span>
-           </div>
-          </td>
-          <td>
-           <div style="display:flex;align-items:center;gap:0.5rem;">
-            <div style="flex:1;background:#F3F4F6;border-radius:4px;height:6px;min-width:60px;">
-             <div style="width:89%;background:var(--primary);border-radius:4px;height:6px;">
-             </div>
-            </div>
-            <span style="font-weight:700;color:var(--primary);font-size:0.875rem;white-space:nowrap;">
-             26
-            </span>
-           </div>
-          </td>
-          <td style="color:var(--text-muted);font-size:0.8125rem;">
-           2,048
-          </td>
-         </tr>
-         <tr>
-          <td style="font-weight:700;color:var(--primary);text-align:center;width:2rem;">
-           4
-          </td>
-          <td>
-           <a href="https://davipharm.info/wp-content/uploads/CISSE-cropped.pdf" style="font-weight:600;color:var(--text-main);text-decoration:none;" target="_blank">
-            CISSE
-           </a>
-           <div style="font-size:0.7rem;color:#9CA3AF;margin-top:2px;">
-            <span class="vi-text">
-             Sản phẩm - Cisse
-            </span>
-            <span class="en-text">
-             Product - Cisse
-            </span>
-           </div>
-          </td>
-          <td>
-           <div style="display:flex;align-items:center;gap:0.5rem;">
-            <div style="flex:1;background:#F3F4F6;border-radius:4px;height:6px;min-width:60px;">
-             <div style="width:86%;background:var(--primary);border-radius:4px;height:6px;">
-             </div>
-            </div>
-            <span style="font-weight:700;color:var(--primary);font-size:0.875rem;white-space:nowrap;">
-             25
-            </span>
-           </div>
-          </td>
-          <td style="color:var(--text-muted);font-size:0.8125rem;">
-           1,605
-          </td>
-         </tr>
-         <tr>
-          <td style="font-weight:700;color:var(--primary);text-align:center;width:2rem;">
-           5
-          </td>
-          <td>
-           <a href="https://davipharm.info/wp-content/uploads/NERAZZU-50-0199.T1.pdf" style="font-weight:600;color:var(--text-main);text-decoration:none;" target="_blank">
-            NERAZZU-50
-           </a>
-           <div style="font-size:0.7rem;color:#9CA3AF;margin-top:2px;">
-            <span class="vi-text">
-             Sản phẩm - Nerazzu 50
-            </span>
-            <span class="en-text">
-             Product - Nerazzu 50
-            </span>
-           </div>
-          </td>
-          <td>
-           <div style="display:flex;align-items:center;gap:0.5rem;">
-            <div style="flex:1;background:#F3F4F6;border-radius:4px;height:6px;min-width:60px;">
-             <div style="width:86%;background:var(--primary);border-radius:4px;height:6px;">
-             </div>
-            </div>
-            <span style="font-weight:700;color:var(--primary);font-size:0.875rem;white-space:nowrap;">
-             25
-            </span>
-           </div>
-          </td>
-          <td style="color:var(--text-muted);font-size:0.8125rem;">
-           7,485
-          </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
+    <div class="card-grid">
+     <div style="padding:1.5rem;text-align:center;color:var(--text-muted);font-size:0.875rem;border:1px dashed var(--border);border-radius:8px;">
+      <span class="vi-text">
+       ✅ Không có tín hiệu đáng chú ý từ đối thủ cạnh tranh trong 7 ngày qua.
+      </span>
+      <span class="en-text">
+       ✅ No notable competitor signals in the past 7 days.
+      </span>
      </div>
     </div>
    </div>
-   <div class="section" id="action-items">
-    <div class="section-header">
-     <h2>
-      <span class="vi-text">
-       Khuyến nghị hành động
-      </span>
-      <span class="en-text">
-       Action Recommendations
-      </span>
-     </h2>
-     <button class="toggle-btn" onclick="toggleSection('action-items')" title="Thu gọn / Mở rộng">
-      ▲
-     </button>
+   <!-- VII. MEDICAL & RESEARCH UPDATES -->
+   <div class="section" id="medical-research">
+    <div class="section-title">
+     <span class="vi-text">
+      VII. Medical &amp; Research Updates
+     </span>
+     <span class="en-text">
+      VII. Medical &amp; Research Updates
+     </span>
     </div>
-    <div class="collapsible-body">
-     <div class="table-wrapper">
-      <div class="table-container">
-       <table id="action-table">
-        <thead>
-         <tr>
-          <th>
-           <span class="vi-text">
-            Hành động chiến lược
-           </span>
-           <span class="en-text">
-            Strategic Action
-           </span>
-          </th>
-          <th>
-           <span class="vi-text">
-            Team
-           </span>
-           <span class="en-text">
-            Team
-           </span>
-          </th>
-          <th>
-           <span class="vi-text">
-            Nguồn
-           </span>
-           <span class="en-text">
-            Source
-           </span>
-          </th>
-          <th>
-           <span class="vi-text">
-            Ưu tiên
-           </span>
-           <span class="en-text">
-            Priority
-           </span>
-          </th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr>
-          <td>
-           <span class="vi-text">
-            Chuẩn bị tài liệu kê đơn RAVASTEL, EIMLER-10, ZLATKO cho bệnh nhân sau sàng lọc định kỳ miễn phí — ưu tiên tuyến huyện trước chu kỳ thầu
-           </span>
-           <span class="en-text">
-            Prepare post-screening prescribing support for RAVASTEL, EIMLER-10, ZLATKO targeting district hospitals ahead of tender cycle
-           </span>
-          </td>
-          <td>
-           Marketing / Medical Affairs
-          </td>
-          <td>
-           <span class="vi-text">
-            Khám sức khỏe định kỳ miễn phí toàn dân — mở rộng phễu bệnh nhân mạn tính
-           </span>
-           <span class="en-text">
-            MoH Free Annual Screening — Chronic Disease Patient Funnel Expansion
-           </span>
-          </td>
-          <td>
-           🔴 Cao
-          </td>
-         </tr>
-         <tr>
-          <td>
-           <span class="vi-text">
-            Triển khai detailing PECHAUNOX (Perindopril+Amlodipin) nhân Ngày Tăng huyết áp 17/5 — thông điệp FDC tuân thủ điều trị tại bệnh viện tỉnh
-           </span>
-           <span class="en-text">
-            Launch PECHAUNOX FDC detailing around World Hypertension Day 17/5 at provincial hospitals
-           </span>
-          </td>
-          <td>
-           Sales / Marketing
-          </td>
-          <td>
-           <span class="vi-text">
-            Tăng huyết áp bỏ sót hàng triệu người Việt — cơ hội FDC và đấu thầu ETC
-           </span>
-           <span class="en-text">
-            Hypertension Underdiagnosis — FDC Positioning &amp; ETC Tender Opportunity
-           </span>
-          </td>
-          <td>
-           🔴 Cao
-          </td>
-         </tr>
-         <tr>
-          <td>
-           <span class="vi-text">
-            Detailing JIRACEK, MARTAZ tại khoa Tiêu hóa Bạch Mai, Chợ Rẫy — nhấn mạnh vai trò PPI trong phác đồ diệt HP trước thầu Q3/2026
-           </span>
-           <span class="en-text">
-            Detail JIRACEK, MARTAZ at GI departments of Bach Mai &amp; Cho Ray ahead of Q3/2026 tender
-           </span>
-          </td>
-          <td>
-           Sales / Medical Affairs
-          </td>
-          <td>
-           <span class="vi-text">
-            Nhận thức HP &amp; ung thư dạ dày tăng — nhu cầu PPI dài hạn kênh ETC
-           </span>
-           <span class="en-text">
-            Rising HP/Gastric Cancer Awareness — Long-term PPI ETC Demand
-           </span>
-          </td>
-          <td>
-           🟡 Trung
-          </td>
-         </tr>
-        </tbody>
-       </table>
-      </div>
-     </div>
+    <div class="card-grid">
+     <p class="vi-text" style="color: var(--text-muted); font-size: 0.9375rem;">
+      Không có cập nhật y khoa &amp; nghiên cứu nổi bật trong 7 ngày qua.
+     </p>
+     <p class="en-text" style="color: var(--text-muted); font-size: 0.9375rem;">
+      No notable medical &amp; research updates in the past 7 days.
+     </p>
     </div>
+   </div>
+   <!-- VIII. RECOMMENDED ACTIONS -->
+   <div class="section" id="action-items-section">
+    <div class="section-title">
+     <span class="vi-text">
+      VIII. Recommended Actions
+     </span>
+     <span class="en-text">
+      VIII. Recommended Actions
+     </span>
+    </div>
+    <div style="overflow-x: auto;">
+     <table id="action-table">
+      <thead>
+       <tr>
+        <th>
+         <span class="vi-text">
+          Hành động ưu tiên
+         </span>
+         <span class="en-text">
+          Action
+         </span>
+        </th>
+        <th>
+         <span class="vi-text">
+          Bộ phận
+         </span>
+         <span class="en-text">
+          Propose Team
+         </span>
+        </th>
+        <th>
+         <span class="vi-text">
+          Liên quan đến
+         </span>
+         <span class="en-text">
+          Related To
+         </span>
+        </th>
+        <th>
+         <span class="vi-text">
+          Mức ưu tiên
+         </span>
+         <span class="en-text">
+          Priority
+         </span>
+        </th>
+       </tr>
+      </thead>
+      <tbody>
+      </tbody>
+     </table>
+    </div>
+   </div>
+   <!-- HIDDEN DIV FOR EXECUTIVE SUMMARY & GSC TO PREVENT PYTHON SCRIPT CRASH -->
+   <div style="display: none;">
+    <div id="exec-summary-content">
+    </div>
+    <table id="gsc-table">
+     <tbody>
+     </tbody>
+    </table>
    </div>
   </main>
-  <footer>
-   <div class="footer-container">
-    <div class="footer-brand">
-     <h3>
-      Davipharm Market Intelligence
-     </h3>
-     <p>
-      <span class="vi-text">
-       Hệ thống tự động hóa thu thập và phân tích dữ liệu thị trường ngành dược phẩm Việt Nam. Powered by Claude Sonnet 4.6.
-      </span>
-      <span class="en-text">
-       Automated market intelligence system for Vietnam's pharmaceutical industry. Powered by Claude Sonnet 4.6.
-      </span>
-     </p>
-    </div>
-    <div class="footer-meta">
-     <p>
-      Copyright © 2026 Davipharm. All rights reserved.
-     </p>
-     <p>
-      Adamed Group Member
-     </p>
-    </div>
-   </div>
-  </footer>
-  <!-- FLASH TICKER -->
-  <div class="flash-bar">
-   <div class="flash-label">
-    <span class="flash-dot">
-    </span>
-    <span class="vi-text">
-     Khẩn cấp
-    </span>
-    <span class="en-text">
-     Alerts
-    </span>
-   </div>
-   <div class="flash-ticker">
-    <div class="flash-items" id="flash-items">
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Nhận thức về ung thư dạ dày &amp; HP tăng cao — Tín hiệu cho nhóm thuốc tiêu hóa (Es
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Rising Public Awareness of Gastric Cancer &amp; H. pylori — Opportunity Signal for G
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Xác ve sầu (thuyền thoái) bị tạm giữ tại Lạng Sơn — Tín hiệu thị trường dược liệ
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Cicada Shell Seizure at Lang Son — Traditional Medicine Raw Material Market Sign
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Ngộ độc Lidocaine sau hút mỡ tại phòng khám TPHCM — áp lực siết chặt quản lý cơ
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Lidocaine Toxicity Post-Liposuction Highlights Crackdown Risk on Unlicensed Aest
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Piperin trong hạt tiêu: tác dụng hỗ trợ tim mạch, chuyển hóa mỡ và lưu ý tương t
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Piperine in Black Pepper: Cardiovascular &amp; Lipid Metabolism Benefits — Drug Inte
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Bộ Y tế ban hành hướng dẫn khám sức khỏe định kỳ miễn phí toàn dân từ 2026 — cơ
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — MoH Launches Annual Free Health Check Framework — Potential Screening Uptick for
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — 90% người dân Việt có vấn đề răng miệng — Thị trường nha khoa mở rộng, không liê
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — 90% of Vietnamese Face Oral Health Issues — Dental Market Expansion, Outside Dav
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Nhận thức về ung thư dạ dày &amp; HP tăng cao — Tín hiệu cho nhóm thuốc tiêu hóa (Es
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Rising Public Awareness of Gastric Cancer &amp; H. pylori — Opportunity Signal for G
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Xác ve sầu (thuyền thoái) bị tạm giữ tại Lạng Sơn — Tín hiệu thị trường dược liệ
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Cicada Shell Seizure at Lang Son — Traditional Medicine Raw Material Market Sign
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Ngộ độc Lidocaine sau hút mỡ tại phòng khám TPHCM — áp lực siết chặt quản lý cơ
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Lidocaine Toxicity Post-Liposuction Highlights Crackdown Risk on Unlicensed Aest
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Piperin trong hạt tiêu: tác dụng hỗ trợ tim mạch, chuyển hóa mỡ và lưu ý tương t
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — Piperine in Black Pepper: Cardiovascular &amp; Lipid Metabolism Benefits — Drug Inte
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — Bộ Y tế ban hành hướng dẫn khám sức khỏe định kỳ miễn phí toàn dân từ 2026 — cơ
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — MoH Launches Annual Free Health Check Framework — Potential Screening Uptick for
-     </div>
-     <div class="flash-item vi-text">
-      <strong>
-       Ngành Dược
-      </strong>
-      — 90% người dân Việt có vấn đề răng miệng — Thị trường nha khoa mở rộng, không liê
-     </div>
-     <div class="flash-item en-text">
-      <strong>
-       Market
-      </strong>
-      — 90% of Vietnamese Face Oral Health Issues — Dental Market Expansion, Outside Dav
-     </div>
-    </div>
-   </div>
-  </div>
   <script>
-   /* ── Language toggle ── */
-    function setLang(lang) {
-      document.body.className = 'lang-' + lang;
-      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-      const btn = document.getElementById('btn-' + lang);
-      if (btn) btn.classList.add('active');
-      // Explicitly handle inline elements (CSS can't distinguish span vs div reliably)
-      document.querySelectorAll('.vi-text, .en-text').forEach(el => {
-        const show = el.classList.contains(lang + '-text');
-        const tag  = el.tagName.toLowerCase();
-        const isInline = ['span','a','strong','em','b','i'].includes(tag);
-        el.style.display = show ? (isInline ? 'inline' : 'block') : 'none';
-      });
-      localStorage.setItem('dav_lang', lang);
-      // Sync Word download link to current language
-      const wb = document.getElementById('word-btn');
-      if (wb) {
-        wb.href     = `report_${lang}.docx`;
-        wb.download = `Davipharm_MarketIntel_${lang.toUpperCase()}.docx`;
-      }
-    }
-
-    /* ── Card expand / collapse ── */
-    function toggleCard(btn) {
-      const card = btn.closest('.card');
-      const expanded = card.classList.toggle('is-expanded');
-      const vi = btn.querySelector('.vi-text');
-      const en = btn.querySelector('.en-text');
-      if (vi) vi.textContent = expanded ? 'Thu gọn ▲' : 'Xem phân tích ▾';
-      if (en) en.textContent = expanded ? 'Collapse ▲'  : 'See analysis ▾';
-    }
-
-    /* ── Collapsible sections ── */
-    function toggleSection(sectionId) {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
-      const body = section.querySelector('.collapsible-body, .card-grid, .product-grid, .table-wrapper, .gsc-body');
-      const btn  = section.querySelector('.toggle-btn');
-      if (!body) return;
-      const isCollapsed = body.classList.contains('is-collapsed');
-      if (isCollapsed) {
-        body.style.maxHeight = body.scrollHeight + 'px';
-        body.classList.remove('is-collapsed');
-        if (btn) btn.classList.remove('collapsed');
-      } else {
-        body.style.maxHeight = body.scrollHeight + 'px';
-        requestAnimationFrame(() => {
-          body.style.maxHeight = '0';
-          body.classList.add('is-collapsed');
-          if (btn) btn.classList.add('collapsed');
-        });
-      }
-      // Save state
-      const states = JSON.parse(localStorage.getItem('dav_sections') || '{}');
-      states[sectionId] = isCollapsed ? 'open' : 'closed';
-      localStorage.setItem('dav_sections', JSON.stringify(states));
-    }
-
-    /* ── Init on load ── */
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1. Add expand button to every news card
-      document.querySelectorAll('#reg-policy .card, #market-intel .card, #competitors .card').forEach(card => {
-        if (card.querySelector('.card-expand-btn')) return;
-        const btn = document.createElement('button');
-        btn.className = 'card-expand-btn';
-        btn.innerHTML = '<span class="vi-text">Xem phân tích ▾</span><span class="en-text">See analysis ▾</span>';
-        btn.onclick = () => toggleCard(btn);
-        card.appendChild(btn);
-      });
-
-      // 2. Restore language (re-run setLang to force inline display fix)
-      const savedLang = localStorage.getItem('dav_lang') || 'vi';
-      setLang(savedLang);
-
-      // 3. Restore section collapsed states
-      const states = JSON.parse(localStorage.getItem('dav_sections') || '{}');
-      Object.entries(states).forEach(([id, state]) => {
-        if (state === 'closed') {
-          const section = document.getElementById(id);
-          if (!section) return;
-          const body = section.querySelector('.collapsible-body, .gsc-body');
-          const btn  = section.querySelector('.toggle-btn');
-          if (body) { body.style.maxHeight = '0'; body.classList.add('is-collapsed'); }
-          if (btn)  { btn.classList.add('collapsed'); }
+   function setLang(lang) {
+            document.body.className = 'lang-' + lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            
+            const btn = document.getElementById('word-btn');
+            if (btn) {
+                btn.href = 'report_' + lang + '.docx';
+                btn.download = 'Davipharm_MarketIntel_' + lang.toUpperCase() + '.docx';
+            }
         }
-      });
-    });
-
-    /* ── Word Download ── */
-    async function downloadWord(btn) {
-      const lang = localStorage.getItem('dav_lang') || 'vi';
-      const L    = lang === 'vi';
-      if (btn) { btn.disabled = true; btn.innerHTML = '<span>⏳</span><span>' + (L ? 'Đang tạo...' : 'Generating...') + '</span>'; }
-
-      if (!window.docx) {
-        await new Promise((res, rej) => {
-          const s = document.createElement('script');
-          s.src = 'https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js';
-          s.onload = res; s.onerror = () => rej(new Error('CDN load failed'));
-          document.head.appendChild(s);
-        });
-      }
-
-      try   { await _buildWordDoc(L); }
-      catch (e) {
-        console.error('Word error:', e);
-        alert(L ? 'Lỗi tạo file: ' + e.message : 'Error: ' + e.message);
-      } finally {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '<span>⬇</span><span class="vi-text">Tải về Word</span><span class="en-text">Download Word</span>';
-          setLang(lang);
-        }
-      }
-    }
-
-    async function _buildWordDoc(L) {
-      const D = window.docx;
-      const {
-        Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
-        AlignmentType, BorderStyle, WidthType, ShadingType, convertInchesToTwip
-      } = D;
-
-      const C = {
-        primary:'003B71', accent:'0056D2', muted:'6B7280',
-        pos:'166534', neg:'991B1B', neu:'374151',
-        bgBlue:'EFF6FF', bgGreen:'F0FDF4', bgGray:'F8FAFC',
-      };
-
-      /* ── Helpers ── */
-      const ve = el => {
-        if (!el) return '';
-        const t = el.querySelector(L ? '.vi-text' : '.en-text') || el;
-        return t.textContent.trim().replace(/\[Nguồn\]|\[Source\]/g,'').replace(/\s+/g,' ').trim();
-      };
-
-      const run  = (text, opts={}) => new TextRun({
-        text: String(text||''), font:'Calibri',
-        size:   opts.size   || 20,
-        bold:   opts.bold   || false,
-        italics:opts.italic || false,
-        color:  opts.color  || '111827',
-      });
-
-      const spacer = (n=1) => new Paragraph({
-        children:[new TextRun({text:'', font:'Calibri'})],
-        spacing:{before:n*80, after:0},
-      });
-
-      const h2 = text => new Paragraph({
-        children:[run(text,{size:28, bold:true, color:C.primary})],
-        spacing:{before:400, after:180},
-        border:{bottom:{color:C.primary, size:8, style:BorderStyle.SINGLE}},
-      });
-
-      const h3 = (text, color=C.primary) => new Paragraph({
-        children:[run(text,{size:22, bold:true, color})],
-        spacing:{before:200, after:80},
-      });
-
-      const para = (text, opts={}) => new Paragraph({
-        children:[run(text, opts)],
-        spacing:{before: opts.spaceBefore||60, after: opts.spaceAfter||60},
-        indent: opts.indent ? {left:convertInchesToTwip(opts.indent)} : undefined,
-      });
-
-      const paraHighlight = (text, opts={}) => new Paragraph({
-        children:[run(text, opts)],
-        spacing:{before:60, after:60},
-        shading:{type:ShadingType.SOLID, fill:opts.fill||C.bgBlue, color:'auto'},
-        indent:{left:convertInchesToTwip(0.12)},
-        border:{left:{color:opts.borderColor||C.accent, size:16, style:BorderStyle.SINGLE}},
-      });
-
-      const paraStrategy = (label, text) => new Paragraph({
-        children:[
-          run(label,{size:19, bold:true, color:C.primary}),
-          run(text, {size:19, color:'334155'}),
-        ],
-        spacing:{before:40, after:80},
-        indent:{left:convertInchesToTwip(0.12)},
-        border:{left:{color:C.primary, size:10, style:BorderStyle.SINGLE}},
-        shading:{type:ShadingType.SOLID, fill:C.bgGray, color:'auto'},
-      });
-
-      const bul = (text, color='111827') => new Paragraph({
-        children:[run(text,{size:20, color})],
-        bullet:{level:0},
-        spacing:{before:40, after:40},
-      });
-
-      /* ── Table helpers ── */
-      const tc = (text, opts={}) => new TableCell({
-        children:[new Paragraph({
-          children:[run(String(text||''), {size:opts.size||18, bold:!!opts.bold, color:opts.color||'111827'})],
-          alignment: opts.align || AlignmentType.LEFT,
-          spacing:{before:60, after:60},
-        })],
-        margins:{top:80, bottom:80, left:120, right:120},
-        width: opts.w ? {size:opts.w, type:WidthType.PERCENTAGE} : undefined,
-        shading: opts.fill ? {type:ShadingType.SOLID, fill:opts.fill, color:'auto'} : undefined,
-      });
-
-      const thead = cols => new TableRow({
-        children: cols.map(c => tc(c.t, {bold:true, fill:'D9E4F5', color:C.primary, size:18, w:c.w})),
-        tableHeader: true,
-      });
-
-      const trow = (cells, i) => new TableRow({
-        children: cells.map(cell => {
-          if (i % 2 === 1 && !cell.properties?.shading) {
-            // Stripe — rebuild with fill
-            return new TableCell({
-              ...cell,
-              shading:{type:ShadingType.SOLID, fill:'F9FAFB', color:'auto'},
-            });
-          }
-          return cell;
-        }),
-      });
-
-      /* ── Metadata ── */
-      const now  = new Date();
-      const pad  = n => String(n).padStart(2,'0');
-      const date = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
-      const monOffset = now.getDay()===0 ? -6 : 1-now.getDay();
-      const wS = new Date(now); wS.setDate(now.getDate()+monOffset);
-      const wE = new Date(wS); wE.setDate(wS.getDate()+6);
-      const fmt = d => `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`;
-      const weekRange = `${fmt(wS)} – ${fmt(wE)}`;
-
-      /* ── Extract data ── */
-      const execEl  = document.getElementById('exec-summary-content');
-      const headline = ve(execEl?.querySelector('.exec-headline'));
-      const insights=[], priorities=[];
-      execEl?.querySelectorAll('.exec-list:not(.exec-actions) li').forEach(li=>{
-        if(L ? li.classList.contains('en-text') : li.classList.contains('vi-text')) return;
-        const t=li.textContent.trim(); if(t) insights.push(t);
-      });
-      execEl?.querySelectorAll('.exec-list.exec-actions li').forEach(li=>{
-        if(L ? li.classList.contains('en-text') : li.classList.contains('vi-text')) return;
-        const t=li.textContent.trim(); if(t) priorities.push(t);
-      });
-      const brandTxt = ve(document.getElementById('exec-brand-content'));
-
-      const getCards = sid => Array.from(document.querySelectorAll(`#${sid} .card`)).map(card=>({
-        tag:    ve(card.querySelector('.card-tag')),
-        title:  ve(card.querySelector('.card-title')),
-        body:   ve(card.querySelector('.card-body')),
-        sent:   ve(card.querySelector('.sentiment')),
-        sentCls:card.querySelector('.sentiment')?.className||'',
-        impact: ve(card.querySelector('.card-impact p')),
-      }));
-
-      const cardSection = cards => cards.flatMap((c,i) => {
-        const sColor = c.sentCls.includes('pos')?C.pos:c.sentCls.includes('neg')?C.neg:C.neu;
-        const rows = [
-          i>0 ? spacer() : null,
-          new Paragraph({children:[run(c.tag.toUpperCase(),{size:16,bold:true,color:'4338CA'})],spacing:{before:180,after:40}}),
-          new Paragraph({children:[run(c.title,{size:23,bold:true})],spacing:{before:40,after:80}}),
-          c.body && para(c.body,{size:18,color:C.muted,italic:true,indent:0.1,spaceBefore:40,spaceAfter:60}),
-          c.sent && new Paragraph({children:[run(c.sent,{size:18,bold:true,color:sColor})],spacing:{before:40,after:80}}),
-          c.impact && paraStrategy(L?'Strategy: ':'Strategy: ', c.impact),
-        ];
-        return rows.filter(Boolean);
-      });
-
-      const prods = Array.from(document.querySelectorAll('#product-tracking-grid .product-card')).map(c=>({
-        code:   c.querySelector('[style*="9CA3AF"]')?.textContent.trim()||'',
-        name:   c.querySelector('.product-name')?.textContent.trim()||'',
-        ind:    ve(c.querySelector('.product-indication')),
-        price:  c.querySelectorAll('.status-row')[0]?.querySelector('.status-val')?.textContent.trim()||'',
-        status: ve(c.querySelectorAll('.status-row')[1]?.querySelector('.status-val')),
-        note:   ve(c.querySelectorAll('.status-row')[2]?.querySelector('.status-val')),
-      }));
-
-      const gscRows = Array.from(document.querySelectorAll('#gsc-table tbody tr')).map((row,i)=>{
-        const cells=row.querySelectorAll('td');
-        return{
-          rank:String(i+1),
-          name:cells[1]?.querySelector('a')?.textContent.trim()||'',
-          clicks:cells[2]?.querySelector('span:last-child')?.textContent.trim()||'',
-          impr:cells[3]?.textContent.trim()||'',
-        };
-      });
-
-      const actRows = Array.from(document.querySelectorAll('#action-table tbody tr')).map(row=>{
-        const cells=row.querySelectorAll('td');
-        return{action:ve(cells[0]),team:cells[1]?.textContent.trim()||'',source:ve(cells[2]),prio:cells[3]?.textContent.trim()||''};
-      });
-
-      /* ── Build document ── */
-      const doc = new Document({
-        creator:'Davipharm Market Intelligence System',
-        title: L?'Báo Cáo Market Intelligence':'Market Intelligence Report',
-        styles:{default:{document:{run:{font:'Calibri',size:20}}}},
-        sections:[{
-          properties:{page:{margin:{
-            top:convertInchesToTwip(1), bottom:convertInchesToTwip(1),
-            left:convertInchesToTwip(1.25), right:convertInchesToTwip(1.25),
-          }}},
-          children:[
-            /* COVER */
-            spacer(3),
-            new Paragraph({children:[run('DAVIPHARM',{size:72,bold:true,color:C.primary})],alignment:AlignmentType.CENTER,spacing:{before:0,after:120}}),
-            new Paragraph({children:[run(L?'Báo Cáo Market Intelligence':'Market Intelligence Report',{size:40,bold:true,color:C.accent})],alignment:AlignmentType.CENTER,spacing:{before:0,after:100}}),
-            new Paragraph({children:[run(`${L?'Tuần':'Week'}: ${weekRange}`,{size:24,color:C.muted})],alignment:AlignmentType.CENTER,spacing:{before:0,after:60}}),
-            new Paragraph({children:[run(`${L?'Cập nhật':'Updated'}: ${date}`,{size:20,color:C.muted})],alignment:AlignmentType.CENTER,spacing:{before:0,after:600}}),
-            new Paragraph({children:[run('Adamed Group · Davipharm',{size:20,color:C.muted,italic:true})],alignment:AlignmentType.CENTER}),
-
-            /* EXECUTIVE SUMMARY */
-            new Paragraph({pageBreakBefore:true,children:[new TextRun({text:'',font:'Calibri'})]}),
-            h2(L?'TÓM TẮT ĐIỀU HÀNH':'EXECUTIVE SUMMARY'),
-            spacer(),
-            paraHighlight(headline,{size:22,bold:true,color:'111827',fill:C.bgBlue,borderColor:C.accent}),
-            spacer(),
-            h3(L?'💡 Insights tuần này':'💡 Key Insights'),
-            ...insights.map(t=>bul(t)),
-            spacer(),
-            h3(L?'⚡ Hành động ưu tiên':'⚡ Priority Actions',C.accent),
-            ...priorities.map(t=>bul(t,C.accent)),
-            spacer(),
-            h3(L?'📡 Đề cập thương hiệu':'📡 Brand Mentions',C.muted),
-            para(brandTxt||(L?'Không có đề cập tiêu cực trong 7 ngày qua.':'No negative mentions in the past 7 days.'),{size:19,color:C.muted}),
-
-            /* REGULATORY */
-            new Paragraph({pageBreakBefore:true,children:[new TextRun({text:'',font:'Calibri'})]}),
-            h2(L?'CHÍNH SÁCH & PHÁP LÝ':'REGULATORY & POLICY'),
-            ...cardSection(getCards('reg-policy')),
-
-            /* MARKET INTEL */
-            new Paragraph({pageBreakBefore:true,children:[new TextRun({text:'',font:'Calibri'})]}),
-            h2(L?'TIN NGÀNH DƯỢC':'PHARMA INDUSTRY NEWS'),
-            ...cardSection(getCards('market-intel')),
-
-            /* COMPETITORS */
-            new Paragraph({pageBreakBefore:true,children:[new TextRun({text:'',font:'Calibri'})]}),
-            h2(L?'ĐỐI THỦ CẠNH TRANH':'COMPETITOR INTELLIGENCE'),
-            ...cardSection(getCards('competitors')),
-
-            /* PRODUCT PORTFOLIO */
-            new Paragraph({pageBreakBefore:true,children:[new TextRun({text:'',font:'Calibri'})]}),
-            h2(L?'THEO DÕI DANH MỤC SẢN PHẨM':'PRODUCT PORTFOLIO'),
-            spacer(),
-            new Table({
-              width:{size:100,type:WidthType.PERCENTAGE},
-              rows:[
-                thead([{t:L?'Mã SP':'Code',w:9},{t:L?'Sản phẩm':'Product',w:16},{t:L?'Hoạt chất · Chỉ định':'Active · Indication',w:30},{t:L?'Giá bán':'Price',w:15},{t:L?'Trạng thái':'Status',w:15},{t:L?'Ghi chú':'Note',w:15}]),
-                ...prods.map(pr=>new TableRow({children:[
-                  tc(pr.code,  {size:17,color:C.muted,w:9}),
-                  tc(pr.name,  {bold:true,color:C.primary,w:16}),
-                  tc(pr.ind,   {size:18,w:30}),
-                  tc(pr.price, {size:18,w:15}),
-                  tc(pr.status,{size:18,bold:true,color:C.accent,w:15}),
-                  tc(pr.note,  {size:17,color:C.muted,w:15}),
-                ]})),
-              ],
-            }),
-
-            /* GSC TOP 5 */
-            spacer(2),
-            h2(L?'TOP 5 SẢN PHẨM TÌM KIẾM NHIỀU NHẤT':'TOP 5 MOST SEARCHED PRODUCTS'),
-            para(`Google Search Console · davipharm.info · ${L?'30 ngày':'30 days'} · ${date}`,{size:17,color:C.muted,italic:true,spaceAfter:160}),
-            new Table({
-              width:{size:100,type:WidthType.PERCENTAGE},
-              rows:[
-                thead([{t:'#',w:6},{t:L?'Sản phẩm':'Product',w:44},{t:L?'Lượt click':'Clicks',w:25},{t:L?'Hiển thị':'Impressions',w:25}]),
-                ...gscRows.map(r=>new TableRow({children:[
-                  tc(r.rank,  {bold:true,color:C.primary,size:20,w:6}),
-                  tc(r.name,  {bold:true,w:44}),
-                  tc(r.clicks,{size:19,w:25}),
-                  tc(r.impr,  {size:18,color:C.muted,w:25}),
-                ]})),
-              ],
-            }),
-
-            /* ACTION ITEMS */
-            new Paragraph({pageBreakBefore:true,children:[new TextRun({text:'',font:'Calibri'})]}),
-            h2(L?'KHUYẾN NGHỊ HÀNH ĐỘNG':'ACTION RECOMMENDATIONS'),
-            spacer(),
-            new Table({
-              width:{size:100,type:WidthType.PERCENTAGE},
-              rows:[
-                thead([{t:L?'Hành động chiến lược':'Strategic Action',w:45},{t:'Team',w:15},{t:L?'Nguồn':'Source',w:20},{t:L?'Ưu tiên':'Priority',w:20}]),
-                ...actRows.map(a=>new TableRow({children:[
-                  tc(a.action,{size:18,w:45}),
-                  tc(a.team,  {size:18,bold:true,color:C.primary,w:15}),
-                  tc(a.source,{size:18,color:C.muted,w:20}),
-                  tc(a.prio,  {size:18,bold:true,w:20}),
-                ]})),
-              ],
-            }),
-
-            /* FOOTER */
-            spacer(2),
-            new Paragraph({
-              children:[run(L?`Báo cáo tự động · Davipharm Market Intelligence · Powered by Claude Sonnet 4.6 · ${date}`:`Auto-generated · Davipharm Market Intelligence · Powered by Claude Sonnet 4.6 · ${date}`,{size:16,color:'AAAAAA',italic:true})],
-              alignment:AlignmentType.CENTER,
-            }),
-          ],
-        }],
-      });
-
-      const tag  = new Date().toISOString().slice(0,10).replace(/-/g,'');
-      const blob = await Packer.toBlob(doc);
-      const fileName = `Davipharm_MarketIntel_${tag}.docx`;
-      // Works on https:// (GitHub Pages) and local file://
-      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        // IE/Edge legacy
-        window.navigator.msSaveOrOpenBlob(blob, fileName);
-      } else {
-        const url = URL.createObjectURL(blob);
-        const a   = document.createElement('a');
-        a.style.display = 'none';
-        a.href     = url;
-        a.download = fileName;
-        document.body.appendChild(a);
-        a.dispatchEvent(new MouseEvent('click', {bubbles:true, cancelable:true, view:window}));
-        document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(url), 5000);
-      }
-    }
   </script>
  </body>
 </html>
